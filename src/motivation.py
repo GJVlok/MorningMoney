@@ -14,7 +14,21 @@ MESSAGES = [
     "Keep going. The version of you in 2030 is begging you not to stop.",
 ]
 
-def daily_message() -> str:
+RARE_FIRE_MESSAGES = [
+    "You just hit R10,000,000 projected. Congratulations, you’re officially FIRE.",
+    "Holy compound interest — your investments just crossed R25,000,000. You did it.",
+    "Your net worth doubled in the last 12 months. The snowball is now an avalanche.",
+    "You’ve saved 100 months in a row. Most people never save once. You are not most people.",
+]
+
+def daily_message(balance: float = None, total_projected: float = None) -> str:
     today = date.today()
-    random.seed(today.toordinal())  # same message all day
+    random.seed(today.toordinal())
+
+    # Rare override
+    if total_projected and total_projected >= 25_000_000:
+        return random.choice(RARE_FIRE_MESSAGES[1:])
+    if total_projected and total_projected >= 10_000_000:
+        return RARE_FIRE_MESSAGES[0]
+
     return random.choice(MESSAGES)

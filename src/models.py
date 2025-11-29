@@ -1,7 +1,8 @@
+# src/models.py
 from .database import SessionLocal, Transaction, Investment
 from datetime import date
 from typing import List
-from sqlalchemy import select, func
+from sqlalchemy import select, func, text
 
 def add_transaction(date: date, category: str, amount: float, description: str = "", account: str = "Cash"):
     with SessionLocal() as db:
@@ -18,7 +19,6 @@ def get_balance() -> float:
         total = db.scalar(select(func.coalesce(func.sum(Transaction.amount), 0)))
         return float(total)
 
-# Investments
 def add_or_update_investment(name: str, current_value: float, monthly: float = 0, return_rate: float = 10.0, target_year: int = 2050, notes: str = ""):
     with SessionLocal() as db:
         inv = db.query(Investment).filter(Investment.name == name).first()
@@ -38,13 +38,36 @@ def get_investments():
     with SessionLocal() as db:
         return db.query(Investment).all()
 
-def calculate_future_value(investment: Investment) -> float:
+def calculate_future_value(investment: Investment, extra_monthly: float = 0) -> float:
     from math import pow
-    years = investment.target_year - date.today().year
-    if years <= 0:
-        return investment.current_value
+    today = date.today()
+    target = date(investment.target_year, 12, 31)
+    months = max(0, (target.year - today.year) * 12 + (target.month - today.month))
     monthly_rate = investment.expected_annual_return / 100 / 12
-    months = years * 12
-    fv_contributions = investment.monthly_contribution * ((pow(1 + monthly_rate, months) - 1) / monthly_rate)
+    total_monthly = investment.monthly_contribution + extra_monthly
+    if monthly_rate == 0:
+        return investment.current_value + total_monthly * months
     fv_current = investment.current_value * pow(1 + monthly_rate, months)
-    return fv_current + fv_contributions
+    fv_contributions = total_monthly * ((pow(1 + monthly_rate, months) - 1) / monthly_rate)
+    return round(fv_current + fv_contributions, 2)
+
+def get_total_projected_wealth(target_year: int = None) -> float:
+    total = 0
+    for inv in get_investments():
+        if target_year is None or inv.target_year == target_year:
+            total += calculate_future_value(inv)
+    return total
+
+def get_monthly_summary() -> List[dict]:
+    with SessionLocal() as db:
+        result = db.execute(text("""
+            SELECT 
+                strftime('%Y-%m', date) as month,
+                SUM(CASE WHEN amount > 0 THEN amount ELSE 0 END) as income,
+                SUM(CASE WHEN amount < 0 THEN -amount ELSE 0 END) as expenses
+            FROM transactions 
+            GROUP BY strftime('%Y-%m', date)
+            ORDER BY month DESC
+            LIMIT 24
+        """))
+        return [{"month": r[0], "income": float(r[1] or 0), "expenses": float(r[2] or 0)} for r in result.fetchall()]
