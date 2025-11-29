@@ -200,7 +200,9 @@ class InvestmentsTab(ft.Column):
                 return_rate=float(rate or 11),
                 target_year=int(year or 2050),
             )
-            self.page.show_snack_bar(ft.SnackBar(ft.Text("Saved!")))
+            self.page.snack_bar = ft.SnackBar(ft.Text("Saved!"))
+            self.page.snack_bar.open = True
+            self.page.update()
             await self.refresh()
         except Exception as exc:
             print("Save failed:", exc)

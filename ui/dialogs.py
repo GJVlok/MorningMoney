@@ -24,11 +24,11 @@ def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refresh_all
                 db.commit()
 
             dlg.open = False
-            page.show_snack_bar(ft.SnackBar(ft.Text("Transaction updated!"), bgcolor="green"))
+            page.snack_bar("Transaction updated!", bgcolor="green")
             page.update()
             refresh_all()
         except Exception:
-            page.show_snack_bar(ft.SnackBar(ft.Text("Invalid input"), bgcolor="red"))
+            page.snack_bar("Invalid input", bgcolor="red")
 
     amount_field = ft.TextField(value=str(abs(transaction.amount)), label="Amount")
     category = ft.Dropdown(
@@ -65,7 +65,7 @@ def delete_transaction(page: ft.Page, transaction: Transaction, refresh_all):
         with SessionLocal() as db:
             db.delete(transaction)
             db.commit()
-        page.show_snack_bar(ft.SnackBar(ft.Text("Deleted!"), bgcolor="orange"))
+        page.snack_bar("Deleted!", bgcolor="orange")
         page.update()
         refresh_all()
 
@@ -100,11 +100,12 @@ def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
                 target_year=int(year.value or 2050),
             )
             dlg.open = False
-            page.show_snack_bar(ft.SnackBar(ft.Text("Investment updated!"), bgcolor="green"))
+            page.snack_bar("Investment updated!", bgcolor="green")
             page.update()
             refresh_all()
         except:
-            page.show_snack_bar(ft.SnackBar(ft.Text("Invalid input"), bgcolor="red"))
+            page.snack_bar("Invalid input", bgcolor="red")
+            page.update()
 
     dlg = ft.AlertDialog(
         title=ft.Text("Edit Investment"),
@@ -125,7 +126,7 @@ def delete_investment(page: ft.Page, inv: Investment, refresh_all):
         with SessionLocal() as db:
             db.delete(inv)
             db.commit()
-        page.show_snack_bar(ft.SnackBar(ft.Text("Deleted!"), bgcolor="orange"))
+        page.snack_bar("Deleted!", bgcolor="orange")
         page.update()
         refresh_all()
 

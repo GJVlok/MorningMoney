@@ -1,7 +1,11 @@
-# main.py  ← The clean version you always wanted
+# main.py
 import flet as ft
 import asyncio
 from datetime import date
+
+# ++++++++ Added Page Helper +++++++++++++ #
+from controls.common import daily_fire_container, splash, init_page_extensions
+# ++++++++++++++++++++++++++++++++++++++++ #
 
 # ── Core data layer ─────────────────────────────────────
 from src.models import (
@@ -16,7 +20,7 @@ from src.models import (
 from src.database import Transaction, Investment
 
 # ── UI pieces (we will move these soon too) ─────────────
-from ui.tabs import NewEntryTab, DiaryTab, InvestmentsTab          # ← create this folder next
+from ui.tabs import NewEntryTab, DiaryTab, InvestmentsTab
 from ui.dialogs import (
     edit_transaction_dialog, delete_transaction,
     edit_investment_dialog, delete_investment,
@@ -36,6 +40,14 @@ async def main(page: ft.Page):
     page.theme_mode = "dark"
     page.padding = 20 if page.platform in ("windows", "macos", "linux") else 10
     page.long_press_duration = 500
+
+    # ++++++++++++ Added Stable Page Helper +++++++++++++++ #
+
+    init_page_extensions(page)
+
+    # +++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+
 
     # Splash screen
     await splash(page)
