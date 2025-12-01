@@ -1,11 +1,12 @@
 # ui/tabs.py
 import flet as ft
-
+import asyncio
 from src.models import get_all_transactions, get_investments
 from ui.components.transaction_tile import transaction_tile
 from ui.components.investment_card import investment_card
 from ui.components.new_entry_form import new_entry_form
 from ui.components.investment_form import investment_form
+from ui.components.settings_dev_tools import settings_dev_tools
 
 
 class NewEntryTab(ft.Column):
@@ -60,3 +61,14 @@ class InvestmentsTab(ft.Column):
 
         self.container.controls.append(investment_form(self.page, self.refresh_all))
         self.page.update()
+
+    # Settings + Dev Tools
+    
+class SettingsTab(ft.Column):
+    def __init__(self, page: ft.Page, refresh_all):
+        super().__init__(expand=True, scroll="auto")
+        self.controls = [
+            ft.Text("Settings", size=32, weight="bold"),
+            ft.Divider(height=20, color="transparent"),
+            settings_dev_tools(page, refresh_all),
+        ]

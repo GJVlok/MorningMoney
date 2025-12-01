@@ -4,7 +4,7 @@ from src.models import get_balance
 from .common import money_text, daily_fire_container
 
 
-def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab):
+def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
     # Live balance in header
     balance_text = ft.Text(size=32, weight="bold")
 
@@ -32,6 +32,7 @@ def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab):
             ft.Tab(text="New", icon=ft.Icons.ADD_CIRCLE, content=new_entry_tab),
             ft.Tab(text="Diary", icon=ft.Icons.RECEIPT_LONG, content=diary_tab),
             ft.Tab(text="Investments", icon=ft.Icons.TRENDING_UP, content=investments_tab),
+            ft.Tab(text="Settings", icon=ft.Icons.SETTINGS, content=settings_tab),
         ],
     )
 

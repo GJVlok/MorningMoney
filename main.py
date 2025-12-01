@@ -2,7 +2,7 @@
 import flet as ft
 import asyncio
 from controls.common import splash, init_page_extensions
-from ui.tabs import NewEntryTab, DiaryTab, InvestmentsTab
+from ui.tabs import NewEntryTab, DiaryTab, InvestmentsTab, SettingsTab
 from controls.desktop import build_desktop_ui
 from controls.mobile import build_mobile_ui
 
@@ -10,9 +10,16 @@ from controls.mobile import build_mobile_ui
 async def main(page: ft.Page):
     page.title = "MorningMoney"
     page.theme_mode = "dark"
-    page.padding = 20 if page.platform in ("windows", "macos", "linux") else 10
-    page.window.width = 500
-    page.window.height = 900
+
+    # Reliable desktop detection (works even if Flet says "web")
+    def is_desktop():
+        return (
+            page.platform in ("windows", "macos", "linux") or
+            page.window.width > 800 or
+            page.window.height > 900
+        )
+
+    # Window settings
     page.window.min_width = 400
     page.window.resizable = True
     page.window.center()
@@ -20,7 +27,6 @@ async def main(page: ft.Page):
     init_page_extensions(page)
     await splash(page)
 
-    # Shared refresh
     async def refresh_all():
         await asyncio.gather(
             diary_tab.refresh(),
@@ -29,19 +35,31 @@ async def main(page: ft.Page):
         if hasattr(page, "balance_updater"):
             page.balance_updater()
 
-    # Create tabs
+    # Create all tabs
     new_entry_tab = NewEntryTab(page, refresh_all)
     diary_tab = DiaryTab(page, refresh_all)
     investments_tab = InvestmentsTab(page, refresh_all)
+    settings_tab = SettingsTab(page, refresh_all)
 
-    # Choose platform
-    if page.platform in ("android", "ios"):
-        build_mobile_ui(page, new_entry_tab, diary_tab, investments_tab)
-        page.route = "/diary"
+    # Check for forced desktop mode from settings
+    force_desktop = page.session.get("force_desktop") or False
+
+    # FINAL DECISION
+    use_desktop = force_desktop or is_desktop()
+
+    if use_desktop:
+        # Desktop layout — wide window + tabs including Settings
+        page.window.width = 1200
+        page.window.height = 800
+        page.window.center()
+        build_desktop_ui(page, new_entry_tab, diary_tab, investments_tab, settings_tab)
     else:
-        build_desktop_ui(page, new_entry_tab, diary_tab, investments_tab)
+        # Mobile layout — but now includes Settings tab!
+        build_mobile_ui(page, new_entry_tab, diary_tab, investments_tab, settings_tab)
+        page.route = "/diary"  # default view
 
     await refresh_all()
+    page.update()
 
 
 ft.app(target=main)
