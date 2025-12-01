@@ -42,21 +42,36 @@ async def main(page: ft.Page):
     settings_tab = SettingsTab(page, refresh_all)
 
     # Check for forced desktop mode from settings
+# --- LAYOUT DECISION LOGIC ---
     force_desktop = page.session.get("force_desktop") or False
+    force_mobile = page.session.get("force_mobile") or False
 
-    # FINAL DECISION
-    use_desktop = force_desktop or is_desktop()
+    def is_real_desktop():
+        return (
+            page.platform in ("windows", "macos", "linux") or
+            (page.window.width and page.window.width > 800) or
+            (page.window.height and page.window.height > 900)
+        )
 
+    # Priority: manual override > auto detection
+    if force_desktop:
+        use_desktop = True
+    elif force_mobile:
+        use_desktop = False
+    else:
+        use_desktop = is_real_desktop()
+
+    # Apply layout
     if use_desktop:
-        # Desktop layout — wide window + tabs including Settings
         page.window.width = 1200
         page.window.height = 800
         page.window.center()
         build_desktop_ui(page, new_entry_tab, diary_tab, investments_tab, settings_tab)
     else:
-        # Mobile layout — but now includes Settings tab!
+        page.window.width = 480
+        page.window.height = 900
         build_mobile_ui(page, new_entry_tab, diary_tab, investments_tab, settings_tab)
-        page.route = "/diary"  # default view
+        page.route = "/diary"
 
     await refresh_all()
     page.update()
