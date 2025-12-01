@@ -3,6 +3,7 @@ import flet as ft
 from src.database import Investment
 from src.models import calculate_future_value
 from ui.dialogs import edit_investment_dialog, delete_investment, money_text
+from controls.common import is_currently_desktop
 
 
 def _mobile_investment_menu(inv: Investment, page: ft.Page, refresh_all):
@@ -69,7 +70,7 @@ def investment_card(investment: Investment, page: ft.Page, refresh_all) -> ft.Co
     )
 
     # ── Desktop ───────────────────────────────────────────────────────
-    if page.platform in ("windows", "macos", "linux"):
+    if is_currently_desktop(page):
         return ft.Card(
             elevation=8,
             content=ft.Container(

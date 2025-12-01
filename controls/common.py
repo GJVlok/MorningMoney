@@ -28,6 +28,22 @@ def init_page_extensions(page: ft.Page):
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
+def is_currently_desktop(page: ft.Page) -> bool:
+    """Consistent way to know which layout is active — across all files"""
+    force_desktop = page.session.get("force_desktop") or False
+    force_mobile = page.session.get("force_mobile") or False
+    
+    if force_desktop:
+        return True
+    if force_mobile:
+        return False
+    
+    return (
+        page.platform in ("windows", "macos", "linux") or
+        (page.window.width and page.window.width > 800) or
+        (page.window.height and page.window.height > 900)
+    )
+
 def money_text(value: float, size=20, weight="bold"):
     color = "green" if value >= 0 else "red"
     return ft.Text(f"R{value:,.2f}", size=size, weight=weight, color=color)

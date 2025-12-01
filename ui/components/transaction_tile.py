@@ -2,6 +2,7 @@
 import flet as ft
 from src.database import Transaction
 from ui.dialogs import edit_transaction_dialog, delete_transaction, money_text
+from controls.common import is_currently_desktop
 
 
 def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):
@@ -59,7 +60,7 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft
     )
 
     # ── Desktop: hover + edit/delete icons ─────────────────────────────
-    if page.platform in ("windows", "macos", "linux"):
+    if is_currently_desktop(page):
         return ft.Container(
             content=ft.Row(
                 [
