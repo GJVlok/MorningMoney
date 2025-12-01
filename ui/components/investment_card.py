@@ -32,10 +32,11 @@ def _mobile_investment_menu(inv: Investment, page: ft.Page, refresh_all):
                         ),
                     ],
                     tight=True,
+                    spacing=10,
                 ),
                 padding=20,
-                bgcolor=ft.Colors.ON_SURFACE_VARIANT,
-                border_radius=10,
+                bgcolor=ft.colors.with_opacity(0.98, "#1e1e2e"),
+                border_radius=12,
             ),
             open=True,
             enable_drag=True,
@@ -69,7 +70,6 @@ def investment_card(investment: Investment, page: ft.Page, refresh_all) -> ft.Co
         spacing=8,
     )
 
-    # ── Desktop ───────────────────────────────────────────────────────
     if is_currently_desktop(page):
         return ft.Card(
             elevation=8,
@@ -79,9 +79,11 @@ def investment_card(investment: Investment, page: ft.Page, refresh_all) -> ft.Co
                         ft.Container(content, padding=20, expand=True),
                         ft.Column(
                             [
-                            ft.IconButton(ft.Icons.EDIT, tooltip="Edit", on_click=lambda _: edit_investment_dialog(page, investment, refresh_all)),
-                            ft.IconButton(ft.Icons.DELETE, tooltip="Delete", on_click=lambda _: delete_investment(page, investment, refresh_all)),
-                        ], spacing=4),
+                                ft.IconButton(ft.Icons.EDIT, tooltip="Edit", on_click=lambda _: edit_investment_dialog(page, investment, refresh_all)),
+                                ft.IconButton(ft.Icons.DELETE, tooltip="Delete", on_click=lambda _: delete_investment(page, investment, refresh_all)),
+                            ],
+                            spacing=4,
+                        ),
                     ],
                     alignment="spaceBetween",
                 ),
@@ -91,15 +93,15 @@ def investment_card(investment: Investment, page: ft.Page, refresh_all) -> ft.Co
             ),
         )
 
-    # ── Mobile ────────────────────────────────────────────────────────
-    card = ft.Card(
+    # Mobile / forced mobile — tap anywhere to open menu
+    return ft.Card(
         elevation=6,
         content=ft.Container(
-            content,
+            content=content,
             padding=20,
             bgcolor="#1e1e2e",
             border_radius=12,
-            on_long_press=_mobile_investment_menu(investment, page, refresh_all),
+            on_click=_mobile_investment_menu(investment, page, refresh_all),
         ),
+        margin=8,
     )
-    return card

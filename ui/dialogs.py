@@ -10,7 +10,7 @@ def money_text(value: float, size=20, weight="bold"):
 
 
 def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refresh_all):
-    def save_changes(e):
+    async def save_changes(e):
         try:
             new_amount = float(amount_field.value)
             if not switch.value:  # expense
@@ -26,7 +26,7 @@ def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refresh_all
             dlg.open = False
             page.snack_bar("Transaction updated!", bgcolor="green")
             page.update()
-            refresh_all()
+            await refresh_all()
         except Exception:
             page.snack_bar("Invalid input", bgcolor="red")
 
@@ -61,13 +61,13 @@ def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refresh_all
 
 
 def delete_transaction(page: ft.Page, transaction: Transaction, refresh_all):
-    def confirm(e):
+    async def confirm(e):
         with SessionLocal() as db:
             db.delete(transaction)
             db.commit()
         page.snack_bar("Deleted!", bgcolor="orange")
         page.update()
-        refresh_all()
+        await refresh_all()
 
     dlg = ft.AlertDialog(
         title=ft.Text("Delete Transaction?"),
@@ -90,7 +90,7 @@ def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
     rate = ft.TextField(value=str(inv.expected_annual_return), label="Return %")
     year = ft.TextField(value=str(inv.target_year), label="Target Year")
 
-    def save(e):
+    async def save(e):
         try:
             add_or_update_investment(
                 name=name_field.value or "Unnamed",
@@ -102,7 +102,7 @@ def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
             dlg.open = False
             page.snack_bar("Investment updated!", bgcolor="green")
             page.update()
-            refresh_all()
+            await refresh_all()
         except:
             page.snack_bar("Invalid input", bgcolor="red")
             page.update()
@@ -122,13 +122,13 @@ def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
 
 
 def delete_investment(page: ft.Page, inv: Investment, refresh_all):
-    def confirm(e):
+    async def confirm(e):
         with SessionLocal() as db:
             db.delete(inv)
             db.commit()
         page.snack_bar("Deleted!", bgcolor="orange")
         page.update()
-        refresh_all()
+        await refresh_all()
 
     dlg = ft.AlertDialog(
         title=ft.Text("Delete Investment?"),

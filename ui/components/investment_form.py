@@ -31,5 +31,5 @@ def investment_form(page: ft.Page, refresh_all) -> ft.Column:
         ft.Divider(height=30, color="transparent"),
         ft.Text("Add / Update Investment", weight="bold", size=20),
         name, current, monthly, rate, year,
-        ft.ElevatedButton("Save Investment", on_click=lambda e: asyncio.create_task(save(e))),
+        ft.ElevatedButton("Save Investment", on_click=save),
     ])

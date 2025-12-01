@@ -6,7 +6,6 @@ from controls.common import is_currently_desktop
 
 
 def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):
-    """Mobile-only long-press bottom sheet"""
     def handler(e):
         bs = ft.BottomSheet(
             ft.Container(
@@ -32,10 +31,11 @@ def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):
                         ),
                     ],
                     tight=True,
+                    spacing=10,
                 ),
                 padding=20,
-                bgcolor=ft.Colors.ON_SURFACE_VARIANT,
-                border_radius=10,
+                bgcolor=ft.colors.with_opacity(0.98, "#1e1e2e"),
+                border_radius=12,
             ),
             open=True,
             enable_drag=True,
@@ -48,7 +48,6 @@ def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):
 
 
 def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft.Control:
-    """Platform-aware transaction row/card. Pure widget — no business logic."""
     base = ft.ListTile(
         leading=ft.Icon(ft.Icons.RECEIPT, color="#ff0066"),
         title=ft.Text(transaction.category, weight="bold"),
@@ -59,7 +58,7 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft
         trailing=money_text(transaction.amount, size=18),
     )
 
-    # ── Desktop: hover + edit/delete icons ─────────────────────────────
+    # ── Desktop Layout ─────────────────────────────────────
     if is_currently_desktop(page):
         return ft.Container(
             content=ft.Row(
@@ -90,10 +89,31 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft
             border_radius=8,
             on_hover=lambda e: setattr(
                 e.control, "bgcolor", "#2d2d3d" if e.data == "true" else None
-            )
-            or e.control.update(),
+            ) or e.control.update(),
         )
 
-    # ── Mobile: long-press menu ───────────────────────────────────────
-    base.on_long_press = _mobile_transaction_menu(transaction, page, refresh_all)
-    return base
+    # ── Mobile Layout: Swipe + Tap (perfect with mouse too) ─────
+    return ft.Dismissible(
+        content=ft.Card(
+            elevation=4,
+            content=ft.Container(
+                content=base,
+                padding=12,
+                border_radius=10,
+                on_click=_mobile_transaction_menu(transaction, page, refresh_all),
+            ),
+            margin=8,
+            color="#1e1e2e",
+        ),
+        background=ft.Container(
+            content=ft.Row(
+                [ft.Icon(ft.Icons.DELETE_FOREVER, size=40, color="white")],
+                alignment="end",
+                expand=True,
+            ),
+            padding=30,
+            bgcolor="red",
+        ),
+        dismiss_direction=ft.DismissDirection.START_TO_END,
+        on_dismiss=lambda e: delete_transaction(page, transaction, refresh_all),
+    )
