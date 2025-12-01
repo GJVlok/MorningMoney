@@ -1,7 +1,8 @@
 # controls/desktop.py
 import flet as ft
-from .common import money_text, daily_fire_container
 from src.models import get_balance
+from .common import money_text, daily_fire_container
+
 
 def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab):
     # Live balance in header
@@ -13,22 +14,25 @@ def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab):
         balance_text.color = "green" if bal >= 0 else "red"
         page.update()
 
-    page.balance_updater = update_balance  # we'll call this from tabs
+    page.balance_updater = update_balance
 
+    # Header
     header = ft.Row([
         ft.Text("MorningMoney", size=40, weight="bold"),
-        ft.Text("", expand=True),
+        ft.Container(expand=True),
         balance_text,
     ], alignment="spaceBetween")
 
+    # Main tabs
     tabs = ft.Tabs(
         selected_index=0,
         expand=True,
+        animation_duration=300,
         tabs=[
             ft.Tab(text="New", icon=ft.Icons.ADD_CIRCLE, content=new_entry_tab),
             ft.Tab(text="Diary", icon=ft.Icons.RECEIPT_LONG, content=diary_tab),
             ft.Tab(text="Investments", icon=ft.Icons.TRENDING_UP, content=investments_tab),
-        ]
+        ],
     )
 
     page.add(
@@ -36,8 +40,8 @@ def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab):
             daily_fire_container(),
             header,
             ft.Divider(height=2),
-            tabs
-        ], expand=True)
+            tabs,
+        ], expand=True, spacing=0)
     )
 
     update_balance()  # initial
