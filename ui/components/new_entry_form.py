@@ -7,7 +7,7 @@ from src.models import add_transaction
 
 
 def new_entry_form(page: ft.Page, refresh_all) -> ft.Column:
-    """Fully self-contained Add Transaction form – used by both platforms"""
+    """Fully self-contained Add Transaction form - used by both platforms"""
     amount = ft.TextField(label="Amount (R)", keyboard_type="number", expand=True)
     category = ft.Dropdown(
         label="Category",

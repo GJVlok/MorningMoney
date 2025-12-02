@@ -63,7 +63,7 @@ def settings_dev_tools(page: ft.Page, refresh_all):
         page.window.height = 800
         page.window.center()
         page.update()
-        show_snack("Window resized to 1200×800", "green")
+        show_snack("Window resized to 1200x800", "green")
 
     return ft.Column([
         ft.Text("Developer Tools", size=26, weight="bold"),

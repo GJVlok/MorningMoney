@@ -6,8 +6,8 @@ from src.models import add_or_update_investment
 
 
 def investment_form(page: ft.Page, refresh_all) -> ft.Column:
-    """Add/Edit Investment form – used by InvestmentsTab"""
-    name = ft.TextField(label="Fund Name (e.g. RA – Discovery)", expand=True)
+    """Add/Edit Investment form - used by InvestmentsTab"""
+    name = ft.TextField(label="Fund Name (e.g. RA - Discovery)", expand=True)
     current = ft.TextField(label="Current Value", keyboard_type="number", expand=True)
     monthly = ft.TextField(label="Monthly Contribution", value="0", expand=True)
     rate = ft.TextField(label="Expected Return %", value="11", expand=True)

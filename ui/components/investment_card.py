@@ -35,7 +35,7 @@ def _mobile_investment_menu(inv: Investment, page: ft.Page, refresh_all):
                     spacing=10,
                 ),
                 padding=20,
-                bgcolor=ft.colors.with_opacity(0.98, "#1e1e2e"),
+                bgcolor=ft.Colors.with_opacity(0.98, "#1e1e2e"),
                 border_radius=12,
             ),
             open=True,

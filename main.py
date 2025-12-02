@@ -12,11 +12,11 @@ async def main(page: ft.Page):
     page.theme_mode = "dark"
 
     # Reliable desktop detection (works even if Flet says "web")
-    def is_desktop():
+    def is_real_desktop():
         return (
             page.platform in ("windows", "macos", "linux") or
-            page.window.width > 800 or
-            page.window.height > 900
+            (page.window.width and page.window.width > 800) or
+            (page.window.height and page.window.height > 900)
         )
 
     # Window settings
@@ -45,13 +45,6 @@ async def main(page: ft.Page):
 # --- LAYOUT DECISION LOGIC ---
     force_desktop = page.session.get("force_desktop") or False
     force_mobile = page.session.get("force_mobile") or False
-
-    def is_real_desktop():
-        return (
-            page.platform in ("windows", "macos", "linux") or
-            (page.window.width and page.window.width > 800) or
-            (page.window.height and page.window.height > 900)
-        )
 
     # Priority: manual override > auto detection
     if force_desktop:

@@ -20,7 +20,7 @@ def init_page_extensions(page: ft.Page):
     # convenience helper: uniform snack usage across modules
     def show_snack(message: str, bgcolor: str = "green", duration_ms: int = 4000):
         page.snack_bar = ft.SnackBar(ft.Text(message), bgcolor=bgcolor, open=True)
-        # Flet SnackBar has an 'open' property; use page.update() to show
+        # Flet SnackBar has an 'open' property; use page.update to show
         page.update()
 
     # attach helper
