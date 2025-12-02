@@ -1,9 +1,8 @@
 # ui/components/transaction_tile.py
 import flet as ft
 from src.database import Transaction
-from ui.dialogs import edit_transaction_dialog, delete_transaction, money_text
-from controls.common import is_currently_desktop
-
+from ui.dialogs import edit_transaction_dialog, delete_transaction
+from controls.common import is_currently_desktop, money_text
 
 def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):
     def handler(e):
@@ -14,20 +13,12 @@ def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):
                         ft.ListTile(
                             leading=ft.Icon(ft.Icons.EDIT, color="blue"),
                             title=ft.Text("Edit"),
-                            on_click=lambda _: (
-                                edit_transaction_dialog(page, t, refresh_all),
-                                setattr(bs, "open", False),
-                                page.update(),
-                            ),
+                            on_click=lambda _: (page.run_task(edit_transaction_dialog, page, t, refresh_all), setattr(bs, "open", False), page.update()),
                         ),
                         ft.ListTile(
                             leading=ft.Icon(ft.Icons.DELETE, color="red"),
                             title=ft.Text("Delete", color="red"),
-                            on_click=lambda _: (
-                                delete_transaction(page, t, refresh_all),
-                                setattr(bs, "open", False),
-                                page.update(),
-                            ),
+                            on_click=lambda _: (page.run_task(delete_transaction, page, t, refresh_all), setattr(bs, "open", False), page.update()),
                         ),
                     ],
                     tight=True,
@@ -43,22 +34,16 @@ def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):
         )
         page.bottom_sheet = bs
         page.update()
-
     return handler
-
 
 def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft.Control:
     base = ft.ListTile(
         leading=ft.Icon(ft.Icons.RECEIPT, color="#ff0066"),
         title=ft.Text(transaction.category, weight="bold"),
-        subtitle=ft.Text(
-            transaction.description or transaction.date.strftime("%d %b %Y"),
-            color="grey",
-        ),
-        trailing=money_text(transaction.amount, size=18),
+        subtitle=ft.Text(transaction.description or transaction.date.strftime("%d %b %Y"), color="grey"),
+        trailing=money_text(transaction.amount, size=18)
     )
 
-    # ── Desktop Layout ─────────────────────────────────────
     if is_currently_desktop(page):
         return ft.Container(
             content=ft.Row(
@@ -66,18 +51,8 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft
                     base,
                     ft.Row(
                         [
-                            ft.IconButton(
-                                ft.Icons.EDIT,
-                                icon_color="blue400",
-                                tooltip="Edit",
-                                on_click=lambda _: edit_transaction_dialog(page, transaction, refresh_all),
-                            ),
-                            ft.IconButton(
-                                ft.Icons.DELETE,
-                                icon_color="red400",
-                                tooltip="Delete",
-                                on_click=lambda _: delete_transaction(page, transaction, refresh_all),
-                            ),
+                            ft.IconButton(ft.Icons.EDIT, icon_color="blue400", tooltip="Edit", on_click=lambda e: page.run_task(edit_transaction_dialog, page, transaction, refresh_all)),
+                            ft.IconButton(ft.Icons.DELETE, icon_color="red400", tooltip="Delete", on_click=lambda e: page.run_task(delete_transaction, page, transaction, refresh_all)),
                         ],
                         spacing=4,
                     ),
@@ -87,33 +62,21 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft
             ),
             padding=ft.padding.symmetric(horizontal=12, vertical=6),
             border_radius=8,
-            on_hover=lambda e: setattr(
-                e.control, "bgcolor", "#2d2d3d" if e.data == "true" else None
-            ) or e.control.update(),
+            on_hover=lambda e: setattr(e.control, "bgcolor", "#2d2d3d" if e.data == "true" else None) or e.control.update(),
         )
 
-    # ── Mobile Layout: Swipe + Tap (perfect with mouse too) ─────
     return ft.Dismissible(
         content=ft.Card(
             elevation=4,
-            content=ft.Container(
-                content=base,
-                padding=12,
-                border_radius=10,
-                on_click=_mobile_transaction_menu(transaction, page, refresh_all),
-            ),
+            content=ft.Container(content=base, padding=12, border_radius=10, on_click=_mobile_transaction_menu(transaction, page, refresh_all)),
             margin=8,
             color="#1e1e2e",
         ),
         background=ft.Container(
-            content=ft.Row(
-                [ft.Icon(ft.Icons.DELETE_FOREVER, size=40, color="white")],
-                alignment="end",
-                expand=True,
-            ),
+            content=ft.Row([ft.Icon(ft.Icons.DELETE_FOREVER, size=40, color="white")], alignment="end", expand=True),
             padding=30,
             bgcolor="red",
         ),
         dismiss_direction=ft.DismissDirection.START_TO_END,
-        on_dismiss=lambda e: delete_transaction(page, transaction, refresh_all),
+        on_dismiss=lambda e: page.run_task(page, transaction, refresh_all),
     )

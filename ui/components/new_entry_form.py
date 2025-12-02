@@ -2,12 +2,9 @@
 import flet as ft
 import asyncio
 from datetime import date
-
-from src.models import add_transaction
-
+from src.services.transactions import add_new_transaction
 
 def new_entry_form(page: ft.Page, refresh_all) -> ft.Column:
-    """Fully self-contained Add Transaction form - used by both platforms"""
     amount = ft.TextField(label="Amount (R)", keyboard_type="number", expand=True)
     category = ft.Dropdown(
         label="Category",
@@ -26,7 +23,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Column:
     async def save(e):
         try:
             amt = float(amount.value or "0")
-            if not type_switch.value:  # expense
+            if not type_switch.value:
                 amt = -abs(amt)
         except ValueError:
             message.value = "Invalid amount!"
@@ -34,19 +31,14 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Column:
             page.update()
             return
 
-        add_transaction(
-            date=date.today(),
-            category=category.value or "Uncategorized",
-            amount=amt,
-            description=notes.value or "",
-        )
-
-        # Reset form
-        amount.value = notes.value = ""
+        add_new_transaction(date=date.today(), category=category.value or "Uncategorized", amount=amt, description=notes.value or "")
+        amount.value = ""
+        notes.value = ""
         message.value = "Saved!"
         message.color = "green"
         page.update()
-        await refresh_all()
+        if refresh_all:
+            await refresh_all()
 
     return ft.Column([
         ft.Text("Add Transaction", size=28, weight="bold"),
@@ -54,6 +46,6 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Column:
         category,
         ft.Row([type_switch, ft.Text("Income          Expense")]),
         notes,
-        ft.ElevatedButton("Save Transaction", on_click=save),
+        ft.ElevatedButton("Save Transaction", on_click=lambda e: page.run_task(save, e)),
         message,
     ], scroll="auto")
