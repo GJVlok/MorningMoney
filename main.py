@@ -13,14 +13,7 @@ async def main(page: ft.Page):
     # Initialize helpers on page
     init_page_extensions(page)
 
-    # Create tab instances (refresh_all will be attached next)
-    new_entry_tab = NewEntryTab(page, None)
-    diary_tab = DiaryTab(page, None)
-    investments_tab = InvestmentsTab(page, None)
-    settings_tab = SettingsTab(page, None)
-
     async def refresh_all():
-        # canonical refresh sequence (explicit)
         if hasattr(new_entry_tab, "refresh"):
             await new_entry_tab.refresh()
         if hasattr(diary_tab, "refresh"):
@@ -30,6 +23,12 @@ async def main(page: ft.Page):
         if hasattr(settings_tab, "refresh"):
             await settings_tab.refresh()
         await page.safe_update()
+
+    # Create tab instances
+    new_entry_tab = NewEntryTab(page, refresh_all)
+    diary_tab = DiaryTab(page, refresh_all)
+    investments_tab = InvestmentsTab(page, refresh_all)
+    settings_tab = SettingsTab(page, refresh_all)
 
     # attach refresh_all to tabs so components can call it
     for t in (new_entry_tab, diary_tab, investments_tab, settings_tab):
