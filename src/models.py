@@ -58,6 +58,29 @@ def get_total_projected_wealth(target_year: int = None) -> float:
             total += calculate_future_value(inv)
     return total
 
+def get_transactions_with_running_balance() -> List[dict]:
+    """
+    Returns all transactions ordered by date DESC,
+    with an extra 'running_balance' field showing balance after each transaction.
+    """
+    with SessionLocal() as db:
+        # Get all transactions ordered from OLDEST to NEWEST (for correct cumulative sum)
+        transactions = db.query(Transaction).order_by(Transaction.date.asc(), Transaction.id.asc()).all()
+        
+        running_balance = 0
+        result = []
+        
+        for t in transactions:
+            running_balance += t.amount
+            result.append({
+                "transaction": t,
+                "running_balance": round(running_balance, 2)
+            })
+        
+        # Reverse so newest appears first (like current Diary tab)
+        result.reverse()
+        return result
+
 def get_monthly_summary() -> List[dict]:
     with SessionLocal() as db:
         result = db.execute(text("""

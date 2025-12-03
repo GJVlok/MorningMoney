@@ -7,6 +7,7 @@ from ui.components.investment_card import investment_card
 from ui.components.new_entry_form import new_entry_form
 from ui.components.investment_form import investment_form
 from ui.components.settings_dev_tools import settings_dev_tools
+from src.models import get_transactions_with_running_balance
 
 class NewEntryTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
@@ -37,10 +38,15 @@ class DiaryTab(ft.Column):
         ]
 
     async def refresh(self):
-        transactions = get_all_transactions()[:100]
+        data = get_transactions_with_running_balance()
         self.list.controls.clear()
-        for t in transactions:
-            self.list.controls.append(transaction_tile(t, self.page, self.refresh_all))
+        
+        for item in data[:100]:  # Still limit to last 100
+            t = item["transaction"]
+            running_balance = item["running_balance"]
+            tile = transaction_tile(t, self.page, self.refresh_all, running_balance)
+            self.list.controls.append(tile)
+        
         await self.page.safe_update()
 
 class InvestmentsTab(ft.Column):

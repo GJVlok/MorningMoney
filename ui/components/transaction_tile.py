@@ -36,12 +36,27 @@ def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):
         page.update()
     return handler
 
-def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft.Control:
+def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all, running_balance: float = None) -> ft.Control:
+    # Build the trailing: amount + running balance below
+    trailing_content = ft.Column(
+        [
+            money_text(transaction.amount, size=18, weight="bold"),
+            ft.Text(
+                f"Balance: R{running_balance:,.2f}" if running_balance is not None else "",
+                size=12,
+                color="grey",
+                italic=True,
+            )
+        ],
+        spacing=2,
+        horizontal_alignment="end",
+    )
+
     base = ft.ListTile(
         leading=ft.Icon(ft.Icons.RECEIPT, color="#ff0066"),
         title=ft.Text(transaction.category, weight="bold"),
         subtitle=ft.Text(transaction.description or transaction.date.strftime("%d %b %Y"), color="grey"),
-        trailing=money_text(transaction.amount, size=18)
+        trailing=trailing_content  # ← Now shows amount + balance
     )
 
     if is_currently_desktop(page):
@@ -59,9 +74,10 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all) -> ft
                 ],
                 alignment="spaceBetween",
                 expand=True,
+                vertical_alignment="center",
             ),
-            padding=ft.padding.symmetric(horizontal=12, vertical=6),
-            border_radius=8,
+            padding=ft.padding.symmetric(horizontal=16, vertical=10),
+            border_radius=12,
             on_hover=lambda e: setattr(e.control, "bgcolor", "#2d2d3d" if e.data == "true" else None) or e.control.update(),
         )
 
