@@ -1,7 +1,7 @@
 # ui/components/investment_form.py
 import flet as ft
 import asyncio
-from src.services.investments import add_or_update
+from src.services import svc_add_or_update_investment
 
 def investment_form(page: ft.Page, refresh_all) -> ft.Column:
     name = ft.TextField(label="Fund Name (e.g. RA - Discovery)", expand=True)
@@ -12,7 +12,7 @@ def investment_form(page: ft.Page, refresh_all) -> ft.Column:
 
     async def save(e):
         try:
-            add_or_update(
+            svc_add_or_update_investment(
                 name=name.value or "Unnamed",
                 current_value=float(current.value or 0),
                 monthly=float(monthly.value or 0),

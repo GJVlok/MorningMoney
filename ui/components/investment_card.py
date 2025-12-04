@@ -2,7 +2,7 @@
 import flet as ft
 import asyncio
 from src.database import Investment
-from src.services.investments import calculate_future_value_for
+from src.services import svc_calculate_future_value
 from ui.dialogs import edit_investment_dialog, delete_investment
 from controls.common import is_currently_desktop, money_text
 
@@ -31,7 +31,7 @@ def _mobile_investment_menu(inv: Investment, page: ft.Page, refresh_all):
     return handler
 
 def investment_card(investment: Investment, page: ft.Page, refresh_all) -> ft.Control:
-    fv = calculate_future_value_for(investment)
+    fv = svc_calculate_future_value(investment)
 
     content = ft.Column(
         [

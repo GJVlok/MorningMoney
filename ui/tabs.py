@@ -1,7 +1,6 @@
 # ui/tabs.py
 import flet as ft
-from src.services.transactions import get_all_transactions
-from src.services.investments import get_investments
+from src.services import svc_get_all_transactions, svc_get_investments, svc_get_transactions_with_running_balance
 from ui.components.transaction_tile import transaction_tile
 from ui.components.investment_card import investment_card
 from ui.components.new_entry_form import new_entry_form
@@ -38,7 +37,7 @@ class DiaryTab(ft.Column):
         ]
 
     async def refresh(self):
-        data = get_transactions_with_running_balance()
+        data = svc_get_transactions_with_running_balance()
         self.list.controls.clear()
         
         for item in data[:100]:  # Still limit to last 100
@@ -62,7 +61,7 @@ class InvestmentsTab(ft.Column):
 
     async def refresh(self):
         self.container.controls.clear()
-        investments = get_investments()
+        investments = svc_get_investments()
         if not investments:
             self.container.controls.append(ft.Text("No investments yet!", italic=True, color="grey"))
         for inv in investments:

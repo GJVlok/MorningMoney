@@ -1,8 +1,7 @@
 # controls/common.py
 import flet as ft
 import asyncio
-from src.services.investments import get_total_projected_wealth
-from src.services.transactions import get_balance
+from src.services import svc_get_balance, svc_get_total_projected_wealth
 from src.motivation import daily_message
 
 def init_page_extensions(page: ft.Page):
@@ -61,7 +60,7 @@ def daily_fire_container():
         border_radius=12,
         content=ft.Column([
             ft.Text("Daily Fire", size=18, weight="bold", color="white"),
-            ft.Text(daily_message(get_balance(), get_total_projected_wealth()),
+            ft.Text(daily_message(svc_get_balance(), svc_get_total_projected_wealth()),
                     size=16, color="white", italic=True),
         ])
     )

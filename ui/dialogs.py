@@ -3,8 +3,8 @@ import flet as ft
 import asyncio
 from src.database import SessionLocal, Transaction, Investment
 from controls.common import money_text
-from src.services.investments import add_or_update, get_investments, calculate_future_value_for
-from src.services.transactions import get_all_transactions
+from src.services import (svc_add_transaction, svc_add_or_update_investment, svc_delete_transaction, 
+                          svc_delete_investment, svc_update_transaction)
 
 async def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refresh_all):
     async def save_changes(e):
@@ -15,9 +15,7 @@ async def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refre
             transaction.category = category.value
             transaction.amount = new_amount
             transaction.description = notes.value or ""
-            with SessionLocal() as db:
-                db.merge(transaction)
-                db.commit()
+            svc_update_transaction(transaction)
             dialog.open = False
             await page.show_snack("Transaction updated!", "green")
             if refresh_all:
@@ -52,9 +50,7 @@ async def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refre
 
 async def delete_transaction(page: ft.Page, transaction: Transaction, refresh_all):
     async def confirm(e):
-        with SessionLocal() as db:
-            db.delete(transaction)
-            db.commit()
+        svc_delete_transaction(transaction.id)
         await page.show_snack("Deleted!", "orange")
         if refresh_all:
             await refresh_all()
@@ -82,7 +78,7 @@ async def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
 
     async def save(e):
         try:
-            add_or_update(
+            svc_add_or_update_investment(
                 name=name_field.value or "Unnamed",
                 current_value=float(current.value or 0),
                 monthly=float(monthly.value or 0),
@@ -111,9 +107,7 @@ async def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
 
 async def delete_investment(page: ft.Page, inv: Investment, refresh_all):
     async def confirm(e):
-        with SessionLocal() as db:
-            db.delete(inv)
-            db.commit()
+        svc_delete_investment(inv.id)
         await page.show_snack("Deleted!", "orange")
         if refresh_all:
             await refresh_all()

@@ -2,7 +2,7 @@
 import flet as ft
 import asyncio
 from datetime import date
-from src.services.transactions import add_new_transaction
+from src.services import svc_add_transaction
 
 def new_entry_form(page: ft.Page, refresh_all) -> ft.Column:
     amount = ft.TextField(label="Amount (R)", keyboard_type="number", expand=True)
@@ -31,7 +31,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Column:
             page.update()
             return
 
-        add_new_transaction(date=date.today(), category=category.value or "Uncategorized", amount=amt, description=notes.value or "")
+        svc_add_transaction(date=date.today(), category=category.value or "Uncategorized", amount=amt, description=notes.value or "")
         amount.value = ""
         notes.value = ""
         message.value = "Saved!"
