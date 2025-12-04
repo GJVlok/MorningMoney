@@ -2,7 +2,7 @@
 import flet as ft
 import asyncio
 from src.database import Investment
-from src.services import svc_calculate_future_value
+from src.services.core import svc_calculate_future_value
 from ui.dialogs import edit_investment_dialog, delete_investment
 from controls.common import is_currently_desktop, money_text
 

@@ -1,6 +1,6 @@
 # ui/tabs.py
 import flet as ft
-from src.services import svc_get_all_transactions, svc_get_investments, svc_get_transactions_with_running_balance
+from src.services.core import svc_get_all_transactions, svc_get_investments, svc_get_transactions_with_running_balance
 from ui.components.transaction_tile import transaction_tile
 from ui.components.investment_card import investment_card
 from ui.components.new_entry_form import new_entry_form

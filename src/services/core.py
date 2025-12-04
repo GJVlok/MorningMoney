@@ -1,10 +1,19 @@
-# src/services.py
+# src/core.py ------> old services.py
 from typing import List, Optional
-from .models import (add_transaction, get_all_transactions, get_balance, add_or_update_investment,
-get_investments, calculate_future_value, get_total_projected_wealth, get_monthly_summary,
-get_transactions_with_running_balance, Transaction, Investment
+from ..models import (
+    add_transaction, 
+    get_all_transactions, 
+    get_balance, 
+    add_or_update_investment,
+    get_investments, 
+    calculate_future_value, 
+    get_total_projected_wealth, 
+    get_monthly_summary,
+    get_transactions_with_running_balance, 
+    Transaction, 
+    Investment
 )
-from .database import SessionLocal # NEW: For deletes/edits, since models don't have them yet
+from ..database import SessionLocal # NEW: For deletes/edits, since models don't have them yet
 
 # NOTE: these functions are sync at DB level. They are thin wrappers so UI code calls them.
 # If you later switch to async DB drivers, update here.

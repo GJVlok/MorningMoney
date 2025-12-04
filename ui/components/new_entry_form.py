@@ -2,7 +2,7 @@
 import flet as ft
 import asyncio
 from datetime import date
-from src.services import svc_add_transaction
+from src.services.core import svc_add_transaction
 
 def new_entry_form(page: ft.Page, refresh_all) -> ft.Column:
     amount = ft.TextField(label="Amount (R)", keyboard_type="number", expand=True)

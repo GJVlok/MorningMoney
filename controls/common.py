@@ -1,7 +1,7 @@
 # controls/common.py
 import flet as ft
 import asyncio
-from src.services import svc_get_balance, svc_get_total_projected_wealth
+from src.services.core import svc_get_balance, svc_get_total_projected_wealth
 from src.motivation import daily_message
 
 def init_page_extensions(page: ft.Page):

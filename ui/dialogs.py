@@ -3,7 +3,7 @@ import flet as ft
 import asyncio
 from src.database import SessionLocal, Transaction, Investment
 from controls.common import money_text
-from src.services import (svc_add_transaction, svc_add_or_update_investment, svc_delete_transaction, 
+from src.services.core import (svc_add_transaction, svc_add_or_update_investment, svc_delete_transaction, 
                           svc_delete_investment, svc_update_transaction)
 
 async def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refresh_all):

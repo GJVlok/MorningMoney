@@ -1,8 +1,8 @@
 # src/services/ui_state.py
-from .transactions import get_balance
-from .investments import get_total_projected_wealth
+from src.services.core import svc_get_balance
+from src.services.core import svc_get_total_projected_wealth
 
 def daily_message_inputs():
-    balance = get_balance()
-    projected_wealth = get_total_projected_wealth()
+    balance = svc_get_balance()
+    projected_wealth = svc_get_total_projected_wealth()
     return balance, projected_wealth

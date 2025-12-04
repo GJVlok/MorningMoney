@@ -1,7 +1,7 @@
 # ui/components/investment_form.py
 import flet as ft
 import asyncio
-from src.services import svc_add_or_update_investment
+from src.services.core import svc_add_or_update_investment
 
 def investment_form(page: ft.Page, refresh_all) -> ft.Column:
     name = ft.TextField(label="Fund Name (e.g. RA - Discovery)", expand=True)
