@@ -5,6 +5,7 @@ from controls.common import init_page_extensions
 from ui.tabs import NewEntryTab, DiaryTab, InvestmentsTab, SettingsTab
 from controls.desktop import build_desktop_ui
 from controls.mobile import build_mobile_ui
+from controls.web import build_web_ui
 
 async def main(page: ft.Page):
     page.title = "MorningMoney"
@@ -50,13 +51,22 @@ async def main(page: ft.Page):
     elif force_mobile:
         use_desktop = False
     else:
-        use_desktop = is_real_desktop()
+        if page.platform == "web":
+            use_desktop = True # For now, treat web as desktop; could add browser width check later
+        else:
+            use_desktop = is_real_desktop()
 
     if use_desktop:
-        page.window.width = 1200
-        page.window.height = 800
-        page.window.center()
-        build_desktop_ui(page, new_entry_tab, diary_tab, investments_tab, settings_tab)
+        if page.platform == "web":
+            page.window.width = 1200 # Optional: Suggest wide view, but browsers may ignore
+            page.window.height = 800
+            build_web_ui(page, new_entry_tab, diary_tab, investments_tab, settings_tab)
+        else:
+            page.window.width = 1200
+            page.window.height = 800
+            page.window.center()
+            build_desktop_ui(page, new_entry_tab, diary_tab, investments_tab, settings_tab)
+
     else:
         page.window.width = 480
         page.window.height = 900
