@@ -54,20 +54,21 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all, runni
 
     base = ft.ListTile(
         leading=ft.Icon(ft.Icons.RECEIPT, color="#ff0066"),
-        title=ft.Text(transaction.category, weight="bold"),
-        subtitle=ft.Text(transaction.description or transaction.date.strftime("%d %b %Y"), color="grey"),
-        trailing=trailing_content  # ← Now shows amount + balance
+        title=ft.Text(transaction.category, weight="bold", no_wrap=False),
+        subtitle=ft.Text(transaction.description or transaction.date.strftime("%d %b %Y"), color="grey", no_wrap=False),
+        trailing=trailing_content,  # ← Now shows amount + balance
+        dense=False,
     )
 
     if is_currently_desktop(page):
         return ft.Container(
             content=ft.Row(
                 [
-                    base,
+                    ft.Container(base, expand=True),
                     ft.Row(
                         [
-                            ft.IconButton(ft.Icons.EDIT, icon_color="blue400", tooltip="Edit", on_click=lambda e: page.run_task(edit_transaction_dialog, page, transaction, refresh_all)),
-                            ft.IconButton(ft.Icons.DELETE, icon_color="red400", tooltip="Delete", on_click=lambda e: page.run_task(delete_transaction, page, transaction, refresh_all)),
+                            ft.IconButton(ft.Icons.EDIT, icon_color="blue400", tooltip="Edit", on_click=lambda _: page.run_task(edit_transaction_dialog, page, transaction, refresh_all)),
+                            ft.IconButton(ft.Icons.DELETE, icon_color="red400", tooltip="Delete", on_click=lambda _: page.run_task(delete_transaction, page, transaction, refresh_all)),
                         ],
                         spacing=4,
                     ),
@@ -84,7 +85,7 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all, runni
     return ft.Dismissible(
         content=ft.Card(
             elevation=4,
-            content=ft.Container(content=base, padding=12, border_radius=10, on_click=_mobile_transaction_menu(transaction, page, refresh_all)),
+            content=ft.Container(content=base, padding=12, border_radius=10, expand=True, on_click=_mobile_transaction_menu(transaction, page, refresh_all)),
             margin=8,
             color="#1e1e2e",
         ),
@@ -94,5 +95,5 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all, runni
             bgcolor="red",
         ),
         dismiss_direction=ft.DismissDirection.START_TO_END,
-        on_dismiss=lambda e: page.run_task(page, transaction, refresh_all),
+        on_dismiss=lambda _: page.run_task(page, transaction, refresh_all),
     )

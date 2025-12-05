@@ -9,7 +9,7 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
     def update_balance():
         bal = svc_get_balance()
         balance_text.value = f"R{bal:,.2f}"
-        balance_text.color = "green" if bal >= 0 else "red"
+        balance_text.color = "#07ff07" if bal >= 0 else "red"
         page.update()
 
     page.balance_updater = update_balance

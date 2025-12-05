@@ -48,7 +48,7 @@ def is_currently_desktop(page: ft.Page) -> bool:
 def money_text(value, size=20, weight="bold"):
     try:
         value = float(value or 0)
-        color = "green" if value >= 0 else "red"
+        color = "#07ff07" if value >= 0 else "red"
         return ft.Text(f"R{value:,.2f}", size=size, weight=weight, color=color)
     except (TypeError, ValueError):
         return ft.Text("R0.00", color="orange", italic=True)
@@ -56,10 +56,10 @@ def money_text(value, size=20, weight="bold"):
 def daily_fire_container():
     return ft.Container(
         padding=20,
-        bgcolor="#ff0066",
+        bgcolor="#061035",
         border_radius=12,
         content=ft.Column([
-            ft.Text("Daily Fire", size=18, weight="bold", color="white"),
+            ft.Text("Daily Fire", size=18, weight="bold", color="#07ff07"),
             ft.Text(daily_message(svc_get_balance(), svc_get_total_projected_wealth()),
                     size=16, color="white", italic=True),
         ])
