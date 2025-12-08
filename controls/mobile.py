@@ -39,7 +39,7 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
         on_change=lambda e: page.go(["/new", "/diary", "/investments", "/settings"][e.control.selected_index]),
     )
 
-    content_stack = ft.Stack(expand=True)
+    content_stack = ft.Column(expand=True, scroll=ft.ScrollMode.AUTO)#ft.Stack(expand=True)
 
     def route_change(route):
         content_stack.controls.clear()
