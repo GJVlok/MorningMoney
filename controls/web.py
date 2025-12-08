@@ -1,18 +1,16 @@
 # controls/web.py
 import flet as ft
 from src.services.core import svc_get_balance
-from controls.common import money_text, daily_fire_container
+from controls.common import money_text
+from ui.blocks.daily_fire.daily_fire_web import daily_fire_web
 
 def build_web_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
-    # For now, mirror desktop UI (tabs for wide screens). In future, add responsiveness:
-    # e.g., if page.window.width < 800, use mobile layout instead.
-    
     balance_text = ft.Text(size=32, weight="bold")
 
     def update_balance():
         bal = svc_get_balance()
         balance_text.value = f"R{bal:,.2f}"
-        balance_text.color = "green" if bal >= 0 else "red"
+        balance_text.color = "#07ff07" if bal >= 0 else "red"
         page.update()
 
     page.balance_updater = update_balance
@@ -37,7 +35,7 @@ def build_web_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, setti
 
     page.add(
         ft.Column([
-            daily_fire_container(),
+            daily_fire_web(),
             header,
             ft.Divider(height=2),
             tabs,

@@ -1,18 +1,23 @@
-# controls/mobile.py
+# ui/platform/mobile_ui.py
 import flet as ft
-from src.services.core import svc_get_balance
-from controls.common import money_text
 from ui.blocks.daily_fire.daily_fire_mobile import daily_fire_mobile
+from ui.sections.mobile.new_tab_mobile import NewEntryTabMobile
+from ui.sections.mobile.diary_tab_mobile import DiaryTabMobile
+from src.services.core import svc_get_balance
 
-def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
-    balance_text = ft.Text(size=36, weight="bold", text_align="center")
+def build_mobile_ui(page: ft.Page):
+    # platform-specific tabs
+    new_tab = NewEntryTabMobile(page, refresh_all=lambda: page.run_async(page.refresh_all if hasattr(page, "refresh_all") else None))
+    diary_tab = DiaryTabMobile(page, refresh_all=lambda: page.run_async(page.refresh_all if hasattr(page, "refresh_all") else None))
+    investments_tab = ft.Column([ft.Text("Investments (mobile)")], expand=True)
+    settings_tab = ft.Column([ft.Text("Settings (mobile)")], expand=True)
 
+    balance_text = ft.Text(size=28, weight="bold", text_align="center")
     def update_balance():
         bal = svc_get_balance()
         balance_text.value = f"R{bal:,.2f}"
         balance_text.color = "#07ff07" if bal >= 0 else "red"
         page.update()
-
     page.balance_updater = update_balance
 
     bottom_nav = ft.BottomAppBar(
@@ -26,21 +31,18 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
         ], alignment="spaceAround")
     )
 
-    main_row = ft.Row(expand=True)
+    # content stack is a single column in mobile
     content_stack = ft.Column(expand=True, scroll=ft.ScrollMode.AUTO)
-    rail = None
-
-    main_row.controls = [ft.Container(content_stack, expand=True)]
 
     def route_change(route):
         content_stack.controls.clear()
-        if route == "/new":
-            content_stack.controls.append(new_entry_tab)
-        elif route == "/diary":
+        if page.route == "/new":
+            content_stack.controls.append(new_tab)
+        elif page.route == "/diary":
             content_stack.controls.append(diary_tab)
-        elif route == "/investments":
+        elif page.route == "/investments":
             content_stack.controls.append(investments_tab)
-        elif route == "/settings":
+        else:
             content_stack.controls.append(settings_tab)
         page.update()
 
@@ -48,9 +50,9 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
 
     page.add(
         ft.Column([
-            daily_fire_mobile(),
-            ft.Container(balance_text, padding=20),
-            main_row
+            daily_fire_mobile(page),
+            ft.Container(balance_text, padding=12),
+            content_stack
         ], expand=True)
     )
 
