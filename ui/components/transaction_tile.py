@@ -52,11 +52,23 @@ def transaction_tile(transaction: Transaction, page: ft.Page, refresh_all, runni
         horizontal_alignment="end",
     )
 
+    title_area = ft.Column(
+        [
+            ft.Text(transaction.category, weight="bold", no_wrap=False),
+            ft.Text(
+                transaction.description or transaction.date.strftime("%d %b %Y"),
+                color="grey",
+                no_wrap=False
+            )
+        ],
+        spacing=2,
+        expand=1       # ← THIS FIXES THE VERTICAL WRAP
+    )
+
     base = ft.ListTile(
         leading=ft.Icon(ft.Icons.RECEIPT, color="#ff0066"),
-        title=ft.Text(transaction.category, weight="bold", no_wrap=False),
-        subtitle=ft.Text(transaction.description or transaction.date.strftime("%d %b %Y"), color="grey", no_wrap=False),
-        trailing=trailing_content,  # ← Now shows amount + balance
+        title=title_area,
+        trailing=ft.Container(trailing_content, expand=0, width=120),  # ← Limit width so it doesn’t crush title
         dense=False,
     )
 

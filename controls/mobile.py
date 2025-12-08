@@ -1,7 +1,7 @@
 # controls/mobile.py
 import flet as ft
 from src.services.core import svc_get_balance
-from controls.common import money_text, daily_fire_container
+from controls.common import money_text, daily_fire_container, is_currently_desktop
 
 def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
     balance_text = ft.Text(size=36, weight="bold", text_align="center")
@@ -25,26 +25,43 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
         ], alignment="spaceAround")
     )
 
-    rail = ft.NavigationRail(
-        selected_index=0,
-        label_type=ft.NavigationRailLabelType.ALL,
-        min_width=100,
-        bgcolor="#1e1e2e",
-        destinations=[
-            ft.NavigationRailDestination(icon=ft.Icons.ADD, selected_icon=ft.Icons.ADD_CIRCLE, label="New"),
-            ft.NavigationRailDestination(icon=ft.Icons.RECEIPT_LONG, selected_icon=ft.Icons.RECEIPT, label="Diary"),
-            ft.NavigationRailDestination(icon=ft.Icons.TRENDING_UP, selected_icon=ft.Icons.SSID_CHART, label="Investments"),
-            ft.NavigationRailDestination(icon=ft.Icons.SETTINGS, selected_icon=ft.Icons.SETTINGS, label="Settings"),
-        ],
-        on_change=lambda e: page.go(["/new", "/diary", "/investments", "/settings"][e.control.selected_index]),
-    )
-
+    main_row = ft.Row(expand=True)
     content_stack = ft.Column(expand=True, scroll=ft.ScrollMode.AUTO)#ft.Stack(expand=True)
+    rail = None
+
+    if is_currently_desktop(page):
+        rail = ft.NavigationRail(
+            selected_index=0,
+            label_type=ft.NavigationRailLabelType.ALL,
+            min_width=100,
+            bgcolor="#1e1e2e",
+            destinations=[
+                ft.NavigationRailDestination(icon=ft.Icons.ADD, selected_icon=ft.Icons.ADD_CIRCLE, label="New"),
+                ft.NavigationRailDestination(icon=ft.Icons.RECEIPT_LONG, selected_icon=ft.Icons.RECEIPT, label="Diary"),
+                ft.NavigationRailDestination(icon=ft.Icons.TRENDING_UP, selected_icon=ft.Icons.SSID_CHART, label="Investments"),
+                ft.NavigationRailDestination(icon=ft.Icons.SETTINGS, selected_icon=ft.Icons.SETTINGS, label="Settings"),
+            ],
+            on_change=lambda e: page.go(["/new", "/diary", "/investments", "/settings"][e.control.selected_index]),
+        )
+
+        main_row.controls = [
+            rail,
+            ft.VerticalDivider(width=1),
+            ft.Container(content_stack, expand=True),
+        ]
+
+    else:
+        # MOBILE = NO RAIL
+        main_row.controls = [
+            ft.Container(content_stack, expand=True)
+        ]
 
     def route_change(route):
         content_stack.controls.clear()
-        route_to_index = {"/new": 0, "/diary": 1, "/investments": 2, "/settings": 3}
-        rail.selected_index = route_to_index.get(page.route, 1)
+        if rail:
+            # Only on Desktop
+            route_to_index = {"/new": 0, "/diary": 1, "/investments": 2, "/settings": 3}
+            rail.selected_index = route_to_index.get(page.route, 1)
         if page.route == "/new":
             content_stack.controls.append(new_entry_tab)
         elif page.route == "/diary":
@@ -61,11 +78,7 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
         ft.Column([
             daily_fire_container(),
             ft.Container(balance_text, padding=20),
-            ft.Row([
-                rail,
-                ft.VerticalDivider(width=1),
-                ft.Container(content_stack, expand=True),
-            ], expand=True),
+            main_row
         ], expand=True)
     )
 
