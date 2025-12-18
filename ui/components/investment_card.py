@@ -1,7 +1,7 @@
 # ui/components/investment_card.py
 import flet as ft
 from src.database import Investment
-from ui.dialogs import edit_investment_dialog, delete_investment
+from controls.dialogs import edit_investment_dialog, delete_investment
 from src.services.core import svc_calculate_future_value
 
 def _mobile_investment_menu(inv: Investment, page: ft.Page, refresh_all):

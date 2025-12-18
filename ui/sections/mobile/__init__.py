@@ -1,0 +1,1 @@
+# ui/sections/mobile/__init__.py

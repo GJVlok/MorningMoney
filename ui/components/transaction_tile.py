@@ -1,7 +1,7 @@
 # ui/components/transaction_tile.py
 import flet as ft
 from src.database import Transaction
-from ui.dialogs import edit_transaction_dialog, delete_transaction
+from controls.dialogs import edit_transaction_dialog, delete_transaction
 from controls.common import money_text
 
 def _mobile_transaction_menu(t: Transaction, page: ft.Page, refresh_all):

@@ -1,4 +1,4 @@
-# ui/dialogs.py
+# controls/dialogs.py
 import flet as ft
 import asyncio
 from src.database import SessionLocal, Transaction, Investment

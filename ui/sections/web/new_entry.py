@@ -1,3 +1,4 @@
+# ui/sections/web/new_entry.py
 import flet as ft
 from ui.components.new_entry_form import new_entry_form
 
@@ -6,13 +7,13 @@ class NewEntryTab(ft.Column):
         super().__init__(expand=True)
         self.page = page
         self.refresh_all = refresh_all
-        self.controls = []
-        self._initialize_form()
+        self._build()
 
-    def _initialize_form(self):
-        self.controls.append(new_entry_form(self.page, self.refresh_all, variant="web"))
+    def _build(self):
+        self.controls = [
+            new_entry_form(self.page, self.refresh_all, variant="web")
+        ]
 
     async def refresh(self):
-        self.controls.clear()
-        self._initialize_form()
+        self._build()
         await self.page.safe_update()

@@ -1,4 +1,4 @@
-# src/core.py ------> old services.py
+# src/services/core.py ------> old services.py
 from typing import List, Optional
 from ..models import (
     add_transaction, 
