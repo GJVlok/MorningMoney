@@ -35,8 +35,8 @@ async def main(page: ft.Page):
         t.refresh_all = refresh_all
 
     # Detect platform and decide layout
-    force_desktop = page.session.get("force_desktop", False)
-    force_mobile = page.session.get("force_mobile", False)
+    force_desktop = page.session.get("force_desktop") or False
+    force_mobile = page.session.get("force_mobile") or False
 
     def is_real_desktop():
         return (

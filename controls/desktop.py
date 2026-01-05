@@ -2,7 +2,7 @@
 import flet as ft
 from src.services.core import svc_get_balance
 from controls.common import money_text
-from ui.blocks.daily_fire.daily_fire_desktop import daily_fire_desktop  # platform-specific
+from ui.daily_fire.daily_fire_popup import daily_fire_desktop  # platform-specific
 
 def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
     balance_text = ft.Text(size=32, weight="bold")
@@ -35,7 +35,7 @@ def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, s
 
     page.add(
         ft.Column([
-            daily_fire_desktop(),
+            daily_fire_desktop(page),
             header,
             ft.Divider(height=2),
             tabs,
