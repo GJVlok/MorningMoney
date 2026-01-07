@@ -29,11 +29,11 @@ class InvestmentsTab(ft.Column):
 
         for inv in investments:
             self.container.controls.append(
-                investment_card(inv, self.page, self.refresh_all, variant="web")
+                investment_card(inv, self.page, self.refresh_all)
             )
 
         self.container.controls.append(
-            investment_form(self.page, self.refresh_all, variant="web")
+            investment_form(self.page, self.refresh_all)
         )
 
         await self.page.safe_update()

@@ -11,7 +11,7 @@ class NewEntryTab(ft.Column):
 
     def _build(self):
         self.controls = [
-            new_entry_form(self.page, self.refresh_all, variant="mobile")
+            new_entry_form(self.page, self.refresh_all)
         ]
 
     async def refresh(self):
