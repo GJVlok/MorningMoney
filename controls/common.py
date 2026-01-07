@@ -32,19 +32,6 @@ def init_page_extensions(page: ft.Page):
     page.safe_update = safe_update
     page.show_snack = show_snack
 
-def is_currently_desktop(page: ft.Page) -> bool:
-    force_desktop = page.session.get("force_desktop") or False
-    force_mobile = page.session.get("force_mobile") or False
-    if force_desktop:
-        return True
-    if force_mobile:
-        return False
-    return (
-        page.platform in ("windows", "macos", "linux") or
-        (getattr(page, "window", None) and getattr(page.window, "width", 0) > 800) or
-        (getattr(page, "window", None) and getattr(page.window, "height", 0) > 900)
-    )
-
 def money_text(value, size=20, weight="bold"):
     try:
         value = float(value or 0)
@@ -52,15 +39,3 @@ def money_text(value, size=20, weight="bold"):
         return ft.Text(f"R{value:,.2f}", size=size, weight=weight, color=color)
     except (TypeError, ValueError):
         return ft.Text("R0.00", color="orange", italic=True)
-
-def daily_fire_container():
-    return ft.Container(
-        padding=20,
-        bgcolor="#061035",
-        border_radius=12,
-        content=ft.Column([
-            ft.Text("Daily Fire", size=18, weight="bold", color="#07ff07"),
-            ft.Text(daily_message(svc_get_balance(), svc_get_total_projected_wealth()),
-                    size=16, color="white", italic=True),
-        ])
-    )
