@@ -4,7 +4,6 @@ from src.database import Transaction
 from controls.dialogs import edit_transaction_dialog, delete_transaction
 from ui.components.transaction_tile import transaction_tile
 
-
 def _mobile_transaction_menu(
     transaction: Transaction,
     page: ft.Page,

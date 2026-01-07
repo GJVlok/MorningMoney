@@ -25,7 +25,6 @@ class DiaryTab(ft.Column):
                     self.page,
                     self.refresh_all,
                     item["running_balance"],
-                    variant="web",
                 )
             )
         await self.page.safe_update()
