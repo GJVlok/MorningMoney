@@ -67,6 +67,8 @@ async def main(page: ft.Page):
     # ---- refresh coordinator ----
 
     async def refresh_all():
+        if hasattr(page, "balance_updater"):
+            page.balance_updater()
         for t in tabs:
             if hasattr(t, "refresh"):
                 await t.refresh()
