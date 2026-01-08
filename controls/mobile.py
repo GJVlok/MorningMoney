@@ -1,7 +1,6 @@
 # controls/mobile.py
 import flet as ft
 from src.services.core import svc_get_balance
-from controls.common import money_text
 from ui.daily_fire.daily_fire_popup import daily_fire_mobile
 
 def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
