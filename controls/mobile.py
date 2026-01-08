@@ -31,7 +31,8 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
 
     main_row.controls = [ft.Container(content_stack, expand=True)]
 
-    def route_change(route):
+    def route_change(e):
+        route = e.route
         content_stack.controls.clear()
         if route == "/new":
             content_stack.controls.append(new_entry_tab)
@@ -54,4 +55,5 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
     )
 
     page.bottom_appbar = bottom_nav
+    page.go(page.route or "/new")
     update_balance()
