@@ -8,6 +8,36 @@ from controls.mobile import build_mobile_ui
 from controls.web import build_web_ui
 
 
+CLIENT_ID = "82937931108-q9ugkk302g2a011k5pds3ka4i9molnjn.apps.googleusercontent.com"
+CLIENT_SECRET = "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"
+
+async def show_login_screen(page: ft.Page):
+    page.clean()
+
+    page.add(
+        ft.Column(
+            [
+                ft.Text("Welcome to MorningMoney", size=32, weight="bold", text_align="center"),
+                ft.Text("Track your finances. Build your future.", size=16, color="grey", text_align="center"),
+                ft.Container(height=40),
+                ft.ElevatedButton(
+                    icon=ft.icons.GOOGLE,
+                    bgcolor="#4285F4",
+                    color="white",
+                    width=300,
+                    height=50,
+                    on_click=lambda e: page.login(provider=ft.OAuthProvider.GOOGLE),
+                ),
+                ft.Container(height=20),
+                ft.Text("Secure • Private • Yours", size=12, color="grey", text_align="center"),
+            ],
+            alignment="center",
+            horizontal_alignment="center",
+            expand=True,
+        )
+    )
+
+
 async def main(page: ft.Page):
     page.title = "MorningMoney"
     page.theme_mode = "dark"
