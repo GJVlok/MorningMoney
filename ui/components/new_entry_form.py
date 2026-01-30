@@ -49,10 +49,13 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             value = float(amount.value or 0)
             if not is_income.value:
                 value = -abs(value)
-        except ValueError:
-            feedback.value = "Please enter a valid amount."
-            feedback.color = "red"
-            await page.safe_update()
+            svc_add_transaction(date=date.today(), category=category.value or "Uncategorized", amount=value, description=notes.value or "")
+            # ... reset form ...
+            await page.show_snack("Transaction saved.", "green")
+        except ValueError as ve:
+            await page.show_snack(f"Invalid amount: {str(ve)}", "red") # Teach: Specific feedback builds user trust
+        except Exception as ex:
+            await page.show_snack("Unexpected error-try again!", "orange") # Positivity: Frame errors as temporary
             return
 
         svc_add_transaction(
