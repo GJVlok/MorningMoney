@@ -51,7 +51,7 @@ async def show_login_screen(page: ft.Page):
                 page.session.set("saved_password", p)
                 page.session.set("logged_in", True)
                 page.session.set("username", u)
-                build_main_ui(page)
+                await build_main_ui(page)
                 await page.show_snack(f"Account created! Welcome, {u}!", "green")
             else:
                 error_text.value = "Please enter username and password"
@@ -178,6 +178,6 @@ async def main(page: ft.Page):
     if page.session.get("logged_in"):
         build_main_ui(page)
     else:
-        show_login_screen(page)
+        await show_login_screen(page)
 
 ft.app(target=main)
