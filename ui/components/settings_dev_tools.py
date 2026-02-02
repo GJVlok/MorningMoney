@@ -6,7 +6,7 @@ from src.services.settings import (
     get_force_desktop,
     get_force_mobile,
 )
-
+from main import show_login_screen
 
 def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
     force_desktop = get_force_desktop(page.session)
@@ -54,7 +54,7 @@ def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
         switch_mobile.value = False
         page.run_task(page.show_snack, "Auto-detect restored! Restart app.", "orange")
 
-    def apply_desktop_size(e):
+    async def apply_desktop_size(e):
         page.window.width = 1200
         page.window.height = 800
         page.window.center()
@@ -84,6 +84,15 @@ def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
                 on_click=apply_desktop_size,
             ),
             ft.Divider(height=20),
+            ft.ElevatedButton(
+                "Logout",
+                icon=ft.Icons.LOGOUT,
+                bgcolor="white",
+                on_click=lambda e: (
+                    page.session.set("logged_in", False),
+                    page.run_task(show_login_screen, page)
+                ),
+            ),
             ft.Text(
                 "Changes require app restart.\nUse during development only!",
                 size=12,
