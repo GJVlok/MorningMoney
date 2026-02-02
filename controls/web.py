@@ -1,7 +1,6 @@
 # controls/web.py
 import flet as ft
 from src.services.core import svc_get_balance
-from ui.daily_fire.daily_fire_popup import daily_fire_web
 
 def build_web_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
     balance_text = ft.Text(size=32, weight="bold")
@@ -34,7 +33,6 @@ def build_web_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, setti
 
     page.add(
         ft.Column([
-            daily_fire_web(page),
             header,
             ft.Divider(height=2),
             tabs,

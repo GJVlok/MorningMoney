@@ -1,7 +1,6 @@
 # controls/mobile.py
 import flet as ft
 from src.services.core import svc_get_balance
-from ui.daily_fire.daily_fire_popup import daily_fire_mobile
 
 def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
     balance_text = ft.Text(size=36, weight="bold", text_align="center")
@@ -48,7 +47,6 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
 
     page.add(
         ft.Column([
-            daily_fire_mobile(page),
             ft.Container(balance_text, padding=20),
             main_row
         ], expand=True)

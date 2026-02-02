@@ -4,11 +4,23 @@ import asyncio
 
 from controls.common import init_page_extensions
 from controls.desktop import build_desktop_ui
-from controls.mobile import build_mobile_ui
-from controls.web import build_web_ui
 
 async def show_login_screen(page: ft.Page):
+    from ui.daily_fire.daily_fire_popup import _get_daily_fire_text
+
     page.clean()
+
+    daily_fire_container = ft.Container(
+        padding=20,
+        bgcolor="#061035",
+        border_radius=12,
+        content=ft.Column(
+            controls=[
+                ft.Text("Daily Fire", size=18, weight="bold", color="07ff07"),
+                ft.Text(_get_daily_fire_text(), size=16, color="white", italic=True),
+            ]
+        ),
+    )
 
     username_field = ft.TextField(
         label="Username",
@@ -67,6 +79,7 @@ async def show_login_screen(page: ft.Page):
         ft.Container(
             content=ft.Column(
                 [
+                    daily_fire_container,
                     ft.Text("MorningMoney", size=36, weight="bold"),
                     ft.Text("Your personal finance companion", size=16, color="grey"),
                     ft.Container(height=40),
@@ -151,7 +164,6 @@ async def build_main_ui(page: ft.Page):
     if platform_name == "web":
         page.window.width = 1200
         page.window.height = 800
-        build_web_ui(page, *tabs)
     elif platform_name == "desktop":
         page.window.width = 1200
         page.window.height = 800
@@ -160,7 +172,6 @@ async def build_main_ui(page: ft.Page):
     else:  # mobile
         page.window.width = 480
         page.window.height = 900
-        build_mobile_ui(page, *tabs)
         page.route = "/diary"
 
     page.run_task(refresh_all)
