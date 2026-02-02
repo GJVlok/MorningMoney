@@ -7,7 +7,7 @@ from controls.desktop import build_desktop_ui
 from controls.mobile import build_mobile_ui
 from controls.web import build_web_ui
 
-def show_login_screen(page: ft.Page):
+async def show_login_screen(page: ft.Page):
     page.clean()
 
     username_field = ft.TextField(
@@ -26,7 +26,7 @@ def show_login_screen(page: ft.Page):
 
     error_text = ft.Text(color="red", size=14)
 
-    def try_login(e):
+    async def try_login(e):
         u = username_field.value.strip()
         p = password_field.value.strip()
 
@@ -40,7 +40,7 @@ def show_login_screen(page: ft.Page):
                 page.session.set("logged_in", True)
                 page.session.set("username", u)
                 build_main_ui(page)
-                page.show_snack(f"Welcome back, {u}!", "green")
+                await page.show_snack(f"Welcome back, {u}!", "green")
             else:
                 error_text.value = "Incorrect username or password"
                 error_text.update()
@@ -52,7 +52,7 @@ def show_login_screen(page: ft.Page):
                 page.session.set("logged_in", True)
                 page.session.set("username", u)
                 build_main_ui(page)
-                page.show_snack(f"Account created! Welcome, {u}!", "green")
+                await page.show_snack(f"Account created! Welcome, {u}!", "green")
             else:
                 error_text.value = "Please enter username and password"
                 error_text.update()
@@ -85,7 +85,7 @@ def show_login_screen(page: ft.Page):
         )
     )
 
-def build_main_ui(page: ft.Page):
+async def build_main_ui(page: ft.Page):
     page.clean()
 
     # ---- platform detection ---- (move your existing detection code here)
@@ -166,7 +166,7 @@ def build_main_ui(page: ft.Page):
     page.run_task(refresh_all)
 
     # Optional: show username in header later
-    page.show_snack(f"Welcome, {page.session.get('username') or 'friend'}!", "green")
+    await page.show_snack(f"Welcome, {page.session.get('username') or 'friend'}!", "green")
 
 async def main(page: ft.Page):
     page.title = "MorningMoney"
