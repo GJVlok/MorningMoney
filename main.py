@@ -5,99 +5,6 @@ import asyncio
 from controls.common import init_page_extensions
 from controls.desktop import build_desktop_ui
 
-async def show_login_screen(page: ft.Page):
-    from ui.daily_fire.daily_fire_popup import _get_daily_fire_text
-
-    page.clean()
-
-    daily_fire_container = ft.Container(
-        padding=20,
-        bgcolor="#061035",
-        border_radius=12,
-        content=ft.Column(
-            controls=[
-                ft.Text("Daily Fire", size=18, weight="bold", color="07ff07"),
-                ft.Text(_get_daily_fire_text(), size=16, color="white", italic=True),
-            ]
-        ),
-    )
-
-    username_field = ft.TextField(
-        label="Username",
-        value=page.session.get("username") or "",
-        autofocus=True,
-        width=300
-    )
-
-    password_field = ft.TextField(
-        label="Password",
-        password=True,
-        can_reveal_password=True,
-        width=300
-    )
-
-    error_text = ft.Text(color="red", size=14)
-
-    async def try_login(e):
-        u = username_field.value.strip()
-        p = password_field.value.strip()
-
-        # Very basic check — in real life we'd compare to stored value
-        stored_u = page.session.get("saved_username")
-        stored_p = page.session.get("saved_password")
-
-        if stored_u and stored_p:
-            # already registered → check credentials
-            if u == stored_u and p == stored_p:
-                page.session.set("logged_in", True)
-                page.session.set("username", u)
-                build_main_ui(page)
-                await page.show_snack(f"Welcome back, {u}!", "green")
-            else:
-                error_text.value = "Incorrect username or password"
-                error_text.update()
-        else:
-            # First time → register
-            if u and p:
-                page.session.set("saved_username", u)
-                page.session.set("saved_password", p)
-                page.session.set("logged_in", True)
-                page.session.set("username", u)
-                await build_main_ui(page)
-                await page.show_snack(f"Account created! Welcome, {u}!", "green")
-            else:
-                error_text.value = "Please enter username and password"
-                error_text.update()
-
-    login_button = ft.ElevatedButton(
-        "Login / Create Account",
-        on_click=try_login,
-        width=300
-    )
-
-    page.add(
-        ft.Container(
-            content=ft.Column(
-                [
-                    daily_fire_container,
-                    ft.Text("MorningMoney", size=36, weight="bold"),
-                    ft.Text("Your personal finance companion", size=16, color="grey"),
-                    ft.Container(height=40),
-                    username_field,
-                    password_field,
-                    error_text,
-                    ft.Container(height=20),
-                    login_button,
-                ],
-                horizontal_alignment="center",
-                alignment="center",
-                spacing=16
-            ),
-            expand=True,
-            alignment=ft.alignment.center
-        )
-    )
-
 async def build_main_ui(page: ft.Page):
     page.clean()
 
@@ -176,8 +83,8 @@ async def build_main_ui(page: ft.Page):
 
     page.run_task(refresh_all)
 
-    # Optional: show username in header later
-    await page.show_snack(f"Welcome, {page.session.get('username') or 'friend'}!", "green")
+    # # Optional: show username in header later
+    # await page.show_snack(f"Welcome, {page.session.get('username') or 'friend'}!", "green")
 
 async def main(page: ft.Page):
     page.title = "MorningMoney"
@@ -185,10 +92,7 @@ async def main(page: ft.Page):
 
     init_page_extensions(page)
 
-    # Simple check: already logged in?
-    if page.session.get("logged_in"):
-        build_main_ui(page)
-    else:
-        await show_login_screen(page)
+    await build_main_ui(page)
 
-ft.app(target=main)
+if __name__ == "__main__":
+    ft.app(target=main)
