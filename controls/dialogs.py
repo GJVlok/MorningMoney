@@ -28,7 +28,12 @@ async def edit_transaction_dialog(page: ft.Page, transaction, refresh_all):
             transaction.amount = new_amount
             transaction.description = notes.value or ""
 
-            svc_update_transaction(transaction)
+            svc_update_transaction(
+                transaction.id,
+                category=category.value,
+                amount=new_amount,
+                description=notes.value or "",
+            )
 
             dialog.open = False
             await page.show_snack("Transaction updated!", "green")

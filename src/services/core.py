@@ -37,10 +37,15 @@ def svc_add_transaction(date, category, amount, description=""):
     )
 
 
-def svc_update_transaction(transaction: Transaction):
+def svc_update_transaction(transaction_id: int, **fields):
     with SessionLocal() as db:
-        db.merge(transaction)
+        t = db.get(Transaction, transaction_id)
+        if not t:
+            return False
+        for k, v in fields.items():
+            setattr(t, k, v)
         db.commit()
+        return True
 
 
 def svc_delete_transaction(transaction_id: int):
