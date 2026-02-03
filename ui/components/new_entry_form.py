@@ -10,7 +10,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         keyboard_type=ft.KeyboardType.NUMBER,
         autofocus=True,
         expand=True,
-        border_color="#07ff07",
+        border_color="#afdaaf",
         focused_border_color="white",
     )
 
@@ -53,7 +53,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         options=[ft.dropdown.Option(c) for c in EXPENSE_CATEGORIES],  # Starts with expenses
         expand=True,
         icon=ft.Icons.CATEGORY,
-        border_color="#07ff07",
+        border_color="#afdaaf",
     )
 
     # Handler to update dropdown when type changes
@@ -63,11 +63,11 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         if selected_type == "income":
             category_dropdown.options = [ft.dropdown.Option(c) for c in INCOME_CATEGORIES]
             category_dropdown.value = INCOME_CATEGORIES[0]
-            category_dropdown.border_color = "#07ff07"  # Green for income
+            category_dropdown.border_color = "#afdaaf"  # Green for income
         else:
             category_dropdown.options = [ft.dropdown.Option(c) for c in EXPENSE_CATEGORIES]
             category_dropdown.value = EXPENSE_CATEGORIES[0]
-            category_dropdown.border_color = "#ff5252"  # Red-ish for expense
+            category_dropdown.border_color = "#ffd2d2"  # Red-ish for expense
         
         page.update()
 
@@ -83,30 +83,38 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     async def submit():
         try:
             value = float(amount.value or 0)
+
             if "expense" in type_selector.selected:
                 value = -abs(value)
+
             category = category_dropdown.value or "Uncategorized"
-            svc_add_transaction(date=date.today(), category=category, amount=value, description=notes.value or "")
-            # Reset form
+
+            # SINGLE write
+            svc_add_transaction(
+                date=date.today(),
+                category=category,
+                amount=value,
+                description=notes.value or "",
+            )
+
+            # Reset form AFTER success
             amount.value = ""
             notes.value = ""
             type_selector.selected = {"expense"}
             update_category_dropdown(None) # Reset to expense options
+
             await page.show_snack("Transaction saved.", "green")
-        except ValueError as ve:
+
+            await page.safe_update()
+
+            if refresh_all:
+                await refresh_all
+            
+        except ValueError:
             await page.show_snack("Invalid input!", "red")
 
-        svc_add_transaction(
-            date=date.today(),
-            category=category_dropdown.value or "Uncategorized",
-            amount=value,
-            description=notes.value or "",
-        )
-
-        await page.safe_update()
-
-        if refresh_all:
-            await refresh_all()
+        except Exception as e:
+            await page.show_snack("Something went wrong.", "red")
 
     return ft.Column(
         controls=[
@@ -117,7 +125,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             ft.ElevatedButton(
                 "Save Transaction",
                 icon=ft.Icons.SAVE,
-                bgcolor="#07ff07",
+                bgcolor="#afdaaf",
                 color="black",
                 on_click=lambda _: page.run_task(submit),
             ),
