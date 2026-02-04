@@ -4,6 +4,7 @@ import flet as ft
 from ui.sections.mobile.new_entry import NewEntryTab
 from ui.sections.mobile.diary import DiaryTab
 from ui.sections.mobile.investments import InvestmentsTab
+from ui.sections.mobile.graphs import GraphsTab
 from ui.sections.mobile.settings import SettingsTab
 
 from controls.mobile import build_mobile_ui
@@ -13,9 +14,10 @@ def build_mobile(page: ft.Page):
     new_entry = NewEntryTab(page, None)
     diary = DiaryTab(page, None)
     investments = InvestmentsTab(page, None)
+    graphs = GraphsTab(page, None)
     settings = SettingsTab(page, None)
 
-    tabs = [new_entry, diary, investments, settings]
+    tabs = [new_entry, diary, investments, graphs, settings]
 
     async def refresh_all():
         for t in tabs:
@@ -31,6 +33,7 @@ def build_mobile(page: ft.Page):
         new_entry,
         diary,
         investments,
+        graphs,
         settings,
     )
 

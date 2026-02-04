@@ -2,7 +2,7 @@
 import flet as ft
 from src.services.core import svc_get_balance
 
-def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
+def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, graphs_tab, settings_tab):
     balance_text = ft.Text(size=36, weight="bold", text_align="center")
 
     def update_balance():
@@ -20,6 +20,7 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
             ft.IconButton(ft.Icons.ADD, tooltip="New", on_click=lambda _: page.go("/new")),
             ft.IconButton(ft.Icons.RECEIPT_LONG, tooltip="Diary", on_click=lambda _: page.go("/diary")),
             ft.IconButton(ft.Icons.TRENDING_UP, tooltip="Investments", on_click=lambda _: page.go("/investments")),
+            ft.IconButton(ft.Icons.TRENDING_UP_SHARP, tooltip="Graphs", on_click=lambda _: page.go("/graphs")),
             ft.IconButton(ft.Icons.SETTINGS, tooltip="Settings", on_click=lambda _: page.go("/settings")),
         ], alignment="spaceAround")
     )
@@ -39,6 +40,8 @@ def build_mobile_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, se
             content_stack.controls.append(diary_tab)
         elif route == "/investments":
             content_stack.controls.append(investments_tab)
+        elif route == "/graphs":
+            content_stack.controls.append(graphs_tab)
         elif route == "/settings":
             content_stack.controls.append(settings_tab)
         page.update()

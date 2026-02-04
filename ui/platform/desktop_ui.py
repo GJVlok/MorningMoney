@@ -4,6 +4,7 @@ import flet as ft
 from ui.sections.desktop.new_entry import NewEntryTab
 from ui.sections.desktop.diary import DiaryTab
 from ui.sections.desktop.investments import InvestmentsTab
+from ui.sections.desktop.graphs import GraphsTab
 from ui.sections.desktop.settings import SettingsTab
 
 from controls.desktop import build_desktop_ui
@@ -14,9 +15,10 @@ def build_desktop(page: ft.Page):
     new_entry = NewEntryTab(page, None)
     diary = DiaryTab(page, None)
     investments = InvestmentsTab(page, None)
+    graphs = GraphsTab(page, None)
     settings = SettingsTab(page, None)
 
-    tabs = [new_entry, diary, investments, settings]
+    tabs = [new_entry, diary, investments, graphs, settings]
 
     async def refresh_all():
         for t in tabs:
@@ -32,6 +34,7 @@ def build_desktop(page: ft.Page):
         new_entry,
         diary,
         investments,
+        graphs,
         settings,
     )
 

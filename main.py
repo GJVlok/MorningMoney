@@ -32,18 +32,21 @@ async def build_main_ui(page: ft.Page):
             from ui.sections.web.new_entry import NewEntryTab
             from ui.sections.web.diary import DiaryTab
             from ui.sections.web.investments import InvestmentsTab
+            from ui.sections.web.graphs import GraphsTab
             from ui.sections.web.settings import SettingsTab
             platform_name = "web"
         else:
             from ui.sections.desktop.new_entry import NewEntryTab
             from ui.sections.desktop.diary import DiaryTab
             from ui.sections.desktop.investments import InvestmentsTab
+            from ui.sections.desktop.graphs import GraphsTab
             from ui.sections.desktop.settings import SettingsTab
             platform_name = "desktop"
     else:
         from ui.sections.mobile.new_entry import NewEntryTab
         from ui.sections.mobile.diary import DiaryTab
         from ui.sections.mobile.investments import InvestmentsTab
+        from ui.sections.mobile.graphs import GraphsTab
         from ui.sections.mobile.settings import SettingsTab
         platform_name = "mobile"
 
@@ -51,9 +54,10 @@ async def build_main_ui(page: ft.Page):
     new_entry_tab = NewEntryTab(page, None)
     diary_tab = DiaryTab(page, None)
     investments_tab = InvestmentsTab(page, None)
+    graphs_tab = GraphsTab(page, None)
     settings_tab = SettingsTab(page, None)
 
-    tabs = [new_entry_tab, diary_tab, investments_tab, settings_tab]
+    tabs = [new_entry_tab, diary_tab, investments_tab, graphs_tab, settings_tab]
 
     # ---- refresh coordinator ----
     async def refresh_all():

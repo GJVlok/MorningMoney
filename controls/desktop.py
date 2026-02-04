@@ -2,13 +2,13 @@
 import flet as ft
 from src.services.core import svc_get_balance
 
-def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, settings_tab):
+def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, graphs_tab, settings_tab):
     balance_text = ft.Text(size=32, weight="bold")
 
     def update_balance():
         bal = svc_get_balance()
         balance_text.value = f"R{bal:,.2f}"
-        balance_text.color = "#07ff07" if bal >= 0 else "red"
+        balance_text.color = "#94d494" if bal >= 0 else "red"
         page.update()
 
     page.balance_updater = update_balance
@@ -28,6 +28,7 @@ def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, s
             ft.Tab(text="New", icon=ft.Icons.ADD_CIRCLE, content=new_entry_tab),
             ft.Tab(text="Diary", icon=ft.Icons.RECEIPT_LONG, content=diary_tab),
             ft.Tab(text="Investments", icon=ft.Icons.TRENDING_UP, content=investments_tab),
+            ft.Tab(text="Graphs", icon=ft.Icons.TRENDING_UP_SHARP, content=settings_tab),
             ft.Tab(text="Settings", icon=ft.Icons.SETTINGS, content=settings_tab),
         ],
     )
