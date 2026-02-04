@@ -58,6 +58,32 @@ def get_total_projected_wealth(target_year: int = None) -> float:
             total += calculate_future_value(inv)
     return total
 
+def get_transactions_with_running_balance_date_to_date(from_date: date = None, to_date: date = None) -> List[dict]:
+    """
+    Returns transaction for user set dates
+
+    """
+    with SessionLocal() as db:
+        query = db.query(Transaction).order_by(Transaction.date.asc(), Transaction.id.asc())
+        if from_date:
+            query = query.filter(Transaction.date >= from_date)
+        if to_date:
+            query = query.filter(Transaction.date <= to_date)
+        transactions = query.all()
+
+        running_balance = 0
+        result = []
+
+        for t in transactions:
+            running_balance += t.amount
+            result.append({
+                "transaction": t,
+                "running_balance": round(running_balance, 2)
+            })
+
+        result.reverse()
+        return result
+
 def get_transactions_with_running_balance() -> List[dict]:
     """
     Returns all transactions ordered by date DESC,

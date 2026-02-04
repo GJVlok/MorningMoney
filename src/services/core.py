@@ -10,6 +10,7 @@ from ..models import (
     get_total_projected_wealth,
     get_monthly_summary,
     get_transactions_with_running_balance,
+    get_transactions_with_running_balance_date_to_date,
     Transaction,
     Investment,
 )
@@ -19,6 +20,10 @@ from ..database import SessionLocal
 # -------------------------
 # Transactions
 # -------------------------
+
+def svc_get_transactions_with_running_balance_date_to_date(from_date=None, to_date=None) -> List[dict]:
+    return get_transactions_with_running_balance_date_to_date()
+
 
 def svc_get_transactions_with_running_balance() -> List[dict]:
     return get_transactions_with_running_balance()

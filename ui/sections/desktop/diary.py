@@ -12,10 +12,14 @@ class DiaryTab(ft.Column):
         self.refresh_all = refresh_all
         self.list = ft.Column(expand=True, scroll="auto")
         self.summary_table = monthly_summary_table()
+        self.from_date = ft.TextField(label="From Date (YYYY-MM-DD)", value="")
+        self.to_date = ft.TextField(label="To Date (YYYY-MM-DD)", value="")
+        self.filter_btn = ft.ElevatedButton("Filter", on_click=lambda _: self.page.run_task(self.refresh))
 
         self.controls = [
             ft.Text("Recent Transactions", size=28, weight="bold"),
             ft.Divider(),
+            ft.Row([self.from_date, self.to_date, self.filter_btn]),
             self.list,
             ft.Text("Monthly Summaries", size=28, weight="bold"),
             self.summary_table,
@@ -35,6 +39,12 @@ class DiaryTab(ft.Column):
         # This prevents the UI from freezing during the database/API call
         data = await asyncio.to_thread(svc_get_transactions_with_running_balance)
         data = data[:100]
+
+        # Date to date picker function
+        from_d = date.fromisoformat(self.from_date.value) if self.from_date.value else None
+        to_d = date.fromisoformat(self.to_date.value) if self.to_date.value else None
+        items = svc_get_transactions_with_running_balance(from_d, to_d)
+        
         # 3 Build the new List
         if not data:
             new_controls = [ft.Text("No transactions found.", size=16, italic=True)]
