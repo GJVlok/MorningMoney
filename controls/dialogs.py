@@ -28,6 +28,10 @@ async def edit_transaction_dialog(page: ft.Page, transaction, refresh_all):
             transaction.amount = new_amount
             transaction.description = notes.value or ""
 
+            if new_amount == 0:
+                await page.show_snack("Amount cannot be zero", "red")
+                return
+
             svc_update_transaction(
                 transaction.id,
                 category=category.value,
