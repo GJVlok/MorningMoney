@@ -1,7 +1,10 @@
 # ui/sections/web/diary.py
 import flet as ft
 import asyncio
-from src.services.core import svc_get_transactions_with_running_balance
+from src.services.core import (
+    svc_get_transactions_with_running_balance,
+    svc_get_transactions_with_running_balance_date_to_date
+)
 from ui.components.transaction_tile import transaction_tile
 from ui.components.monthly_summary import monthly_summary_table
 
@@ -26,6 +29,7 @@ class DiaryTab(ft.Column):
         ]
 
     async def refresh(self):
+        # 1 Show spinner and clear old items
         self.list.controls = [
             ft.Container(
                 content=ft.ProgressRing(),
@@ -35,14 +39,22 @@ class DiaryTab(ft.Column):
         ]
         await self.page.safe_update()
 
-        data = await asyncio.to_thread(svc_get_transactions_with_running_balance)
+        try:
+            from_d = date.fromisoformat(self.from_date.value) if self.from_date.value else None
+            to_d = date.fromisoformat(self.to_date.value) if self.to_date.value else None
+        except ValueError:
+            await self.page.show_snack("Invalid date format (use YYYY-MM-DD)", "red")
+            from_d, to_d = None, None # Fallback all
+
+        # 2. Fetch data (offloaded to a thread to keep the spinner moving)
+        # This prevents the UI from freezing during the database/API call
+        # Use filtered service (limit to 100 for perf)
+        data = await asyncio.to_thread(
+            svc_get_transactions_with_running_balance_date_to_date, from_d, to_d
+            )
         data = data[:100]
-
-        # Date to date picker function
-        from_d = date.fromisoformat(self.from_date.value) if self.from_date.value else None
-        to_d = date.fromisoformat(self.to_date.value) if self.to_date.value else None
-        items = svc_get_transactions_with_running_balance(from_d, to_d)
-
+        
+        # 3 Build the new List
         if not data:
             new_controls = [ft.Text("No transactions found.", size=16, italic=True)]
         else:
@@ -54,10 +66,10 @@ class DiaryTab(ft.Column):
                     item["running_balance"]
                 ) for item in data
             ]
-
+        # 4 Update both the list and the summary table
         self.list.controls = new_controls
-
+        # Clear the old rows and replace the summary table component
         self.summary_table.rows.clear()
         self.controls[-1] = monthly_summary_table()
-
+        # Final single update to push all changes to the UI
         await self.page.safe_update()

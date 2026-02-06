@@ -21,12 +21,13 @@ from ..database import SessionLocal
 # Transactions
 # -------------------------
 
-def svc_get_transactions_with_running_balance_date_to_date(from_date=None, to_date=None) -> List[dict]:
-    return get_transactions_with_running_balance_date_to_date()
-
 
 def svc_get_transactions_with_running_balance() -> List[dict]:
     return get_transactions_with_running_balance()
+
+
+def svc_get_transactions_with_running_balance_date_to_date(from_date=None, to_date=None) -> List[dict]:
+    return get_transactions_with_running_balance_date_to_date(from_date, to_date)
 
 
 def svc_get_all_transactions() -> List[Transaction]:

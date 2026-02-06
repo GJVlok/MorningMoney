@@ -28,7 +28,7 @@ def build_desktop_ui(page: ft.Page, new_entry_tab, diary_tab, investments_tab, g
             ft.Tab(text="New", icon=ft.Icons.ADD_CIRCLE, content=new_entry_tab),
             ft.Tab(text="Diary", icon=ft.Icons.RECEIPT_LONG, content=diary_tab),
             ft.Tab(text="Investments", icon=ft.Icons.TRENDING_UP, content=investments_tab),
-            ft.Tab(text="Graphs", icon=ft.Icons.TRENDING_UP_SHARP, content=settings_tab),
+            ft.Tab(text="Graphs", icon=ft.Icons.TRENDING_UP_SHARP, content=graphs_tab),
             ft.Tab(text="Settings", icon=ft.Icons.SETTINGS, content=settings_tab),
         ],
     )

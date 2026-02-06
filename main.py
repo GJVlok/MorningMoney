@@ -1,6 +1,7 @@
 # main.py
 import flet as ft
 import asyncio
+import matplotlib; matplotlib.use('Agg')
 
 from controls.common import init_page_extensions
 from controls.desktop import build_desktop_ui

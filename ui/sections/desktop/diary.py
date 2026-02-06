@@ -1,7 +1,10 @@
 # ui/sections/desktop/diary.py
 import flet as ft
 import asyncio
-from src.services.core import svc_get_transactions_with_running_balance
+from src.services.core import (
+    svc_get_transactions_with_running_balance,
+    svc_get_transactions_with_running_balance_date_to_date
+    )
 from ui.components.transaction_tile import transaction_tile
 from ui.components.monthly_summary import monthly_summary_table
 
@@ -35,15 +38,20 @@ class DiaryTab(ft.Column):
             )
         ]
         await self.page.safe_update()
+
+        try:
+            from_d = date.fromisoformat(self.from_date.value) if self.from_date.value else None
+            to_d = date.fromisoformat(self.to_date.value) if self.to_date.value else None
+        except ValueError:
+            await self.page.show_snack("Invalid date format (use YYYY-MM-DD)", "red")
+            from_d, to_d = None, None # Fallback all
         # 2. Fetch data (offloaded to a thread to keep the spinner moving)
         # This prevents the UI from freezing during the database/API call
-        data = await asyncio.to_thread(svc_get_transactions_with_running_balance)
+        # Use filtered service (limit to 100 for perf)
+        data = await asyncio.to_thread(
+            svc_get_transactions_with_running_balance_date_to_date, from_d, to_d
+            )
         data = data[:100]
-
-        # Date to date picker function
-        from_d = date.fromisoformat(self.from_date.value) if self.from_date.value else None
-        to_d = date.fromisoformat(self.to_date.value) if self.to_date.value else None
-        items = svc_get_transactions_with_running_balance(from_d, to_d)
         
         # 3 Build the new List
         if not data:
