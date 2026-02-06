@@ -1,6 +1,7 @@
 # ui/sections/desktop/diary.py
 import flet as ft
 import asyncio
+from datetime import date
 from src.services.core import (
     svc_get_transactions_with_running_balance,
     svc_get_transactions_with_running_balance_date_to_date
@@ -39,12 +40,20 @@ class DiaryTab(ft.Column):
         ]
         await self.page.safe_update()
 
-        try:
-            from_d = date.fromisoformat(self.from_date.value) if self.from_date.value else None
-            to_d = date.fromisoformat(self.to_date.value) if self.to_date.value else None
-        except ValueError:
-            await self.page.show_snack("Invalid date format (use YYYY-MM-DD)", "red")
-            from_d, to_d = None, None # Fallback all
+        from_d, to_d = None, None # Default to all
+        if self.from_date.value or self.to_date.value: # Only phare if fields have input
+            try:
+                if self.from_date.value:
+                    from_d = date.fromisoformat(self.from_date.value)
+                if self.to_date.value:
+                    to_d = date.fromisoformat(self.to_date.value)
+            except ValueError:
+                await self.page.show_snack("Invalid date format (use YYYY-MM-DD)", "red")
+                self.from_date.value = "" # Reset invalid field
+                self.to_date.value = ""   # Reset invalid field
+                await self.page.safe_update()
+                return # Early exit to prevent bad data fetch
+                
         # 2. Fetch data (offloaded to a thread to keep the spinner moving)
         # This prevents the UI from freezing during the database/API call
         # Use filtered service (limit to 100 for perf)
