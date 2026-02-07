@@ -2,10 +2,13 @@
 import flet as ft
 import asyncio
 import matplotlib; matplotlib.use('Agg')
+import logging
 
 from controls.common import init_page_extensions
 from controls.desktop import build_desktop_ui
 from ui.utils.theme import get_theme
+
+# logging.basicConfig(level=config.LOG_LEVEL)
 
 async def build_main_ui(page: ft.Page):
     page.clean()
