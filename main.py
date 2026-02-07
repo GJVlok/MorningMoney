@@ -87,7 +87,6 @@ async def build_main_ui(page: ft.Page):
         page.route = "/diary"
 
     page.run_task(refresh_all)
-    await page.update()
 
     # # Optional: show username in header later
     # await page.show_snack(f"Welcome, {page.session.get('username') or 'friend'}!", "green")
