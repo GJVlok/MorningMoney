@@ -1,4 +1,4 @@
-# utils/theme.py
+# ui/utils/theme.py
 import flet as ft
 
 def get_theme(mode="dark"):

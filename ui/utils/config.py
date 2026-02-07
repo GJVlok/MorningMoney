@@ -1,4 +1,4 @@
-# utils/config.py
+# ui/utils/config.py
 import os
 from decimal import Decimal
 
