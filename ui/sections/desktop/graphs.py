@@ -27,7 +27,7 @@ class GraphsTab(ft.Column):
         summaries = svc_get_monthly_summary()
 
         # Generate chart (now awaited properly!)
-        chart_src = await generate_chart(self) # note: no self. prefix here
+        chart_src = generate_chart() # note: no self. prefix here
 
         # Update UI
         self.chart_image.src = chart_src

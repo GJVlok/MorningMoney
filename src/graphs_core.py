@@ -5,7 +5,7 @@ from io import BytesIO
 import base64
 from src.services.core import svc_get_monthly_summary
 
-async def generate_chart(self):
+async def generate_chart():
     summaries = svc_get_monthly_summary()
     if not summaries:
         return "No data yet!"
