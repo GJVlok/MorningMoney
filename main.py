@@ -5,6 +5,7 @@ import matplotlib; matplotlib.use('Agg')
 
 from controls.common import init_page_extensions
 from controls.desktop import build_desktop_ui
+from utils.theme import get_theme
 
 async def build_main_ui(page: ft.Page):
     page.clean()
