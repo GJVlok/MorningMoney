@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 from datetime import date
+from decimal import Decimal
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DB_PATH = os.path.join(BASE_DIR, "data", "finance.db")
@@ -19,7 +20,7 @@ class Transaction(Base):
     id = Column(Integer, primary_key=True)
     date = Column(Date, nullable=False, default=date.today)
     category = Column(String, nullable=False, default="Uncategorized")
-    amount = Column(Float, nullable=False)
+    amount = Column(Decimal, nullable=False)
     description = Column(String)
     account = Column(String, default="Cash")
 
@@ -28,9 +29,9 @@ class Investment(Base):
     
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    current_value = Column(Float, nullable=False)
-    monthly_contribution = Column(Float, default=0)
-    expected_annual_return = Column(Float, default=10.0)
+    current_value = Column(Decimal, nullable=False)
+    monthly_contribution = Column(Decimal, default=0)
+    expected_annual_return = Column(Decimal, default=10.0)
     target_year = Column(Integer, default=2050)
     notes = Column(String)
 

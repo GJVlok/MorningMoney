@@ -1,6 +1,8 @@
 # controls/common.py
 import flet as ft
 import asyncio
+from decimal import Decimal
+
 from src.services.core import svc_get_balance, svc_get_total_projected_wealth
 from src.motivation import daily_message
 
@@ -34,7 +36,7 @@ def init_page_extensions(page: ft.Page):
 
 def money_text(value, size=20, weight="bold"):
     try:
-        value = float(value or 0)
+        value = Decimal(value or 0)
         color = "#07ff07" if value >= 0 else "red"
         return ft.Text(f"R{value:,.2f}", size=size, weight=weight, color=color)
     except (TypeError, ValueError):

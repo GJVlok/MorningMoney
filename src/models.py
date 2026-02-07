@@ -3,8 +3,9 @@ from .database import SessionLocal, Transaction, Investment
 from datetime import date
 from typing import List
 from sqlalchemy import select, func, text
+from decimal import Decimal
 
-def add_transaction(date: date, category: str, amount: float, description: str = "", account: str = "Cash"):
+def add_transaction(date: date, category: str, amount: Decimal, description: str = "", account: str = "Cash"):
     with SessionLocal() as db:
         t = Transaction(date=date, category=category, amount=amount, description=description, account=account)
         db.add(t)
@@ -14,12 +15,12 @@ def get_all_transactions() -> List[Transaction]:
     with SessionLocal() as db:
         return db.query(Transaction).order_by(Transaction.date.desc()).all()
 
-def get_balance() -> float:
+def get_balance() -> Decimal:
     with SessionLocal() as db:
         total = db.scalar(select(func.coalesce(func.sum(Transaction.amount), 0)))
-        return float(total)
+        return Decimal(total)
 
-def add_or_update_investment(name: str, current_value: float, monthly: float = 0, return_rate: float = 10.0, target_year: int = 2050, notes: str = ""):
+def add_or_update_investment(name: str, current_value: Decimal, monthly: Decimal = 0, return_rate: Decimal = 10.0, target_year: int = 2050, notes: str = ""):
     with SessionLocal() as db:
         inv = db.query(Investment).filter(Investment.name == name).first()
         if inv:
@@ -38,7 +39,7 @@ def get_investments():
     with SessionLocal() as db:
         return db.query(Investment).all()
 
-def calculate_future_value(investment: Investment, extra_monthly: float = 0) -> float:
+def calculate_future_value(investment: Investment, extra_monthly: Decimal = 0) -> Decimal:
     from math import pow
     today = date.today()
     target = date(investment.target_year, 12, 31)
@@ -51,7 +52,7 @@ def calculate_future_value(investment: Investment, extra_monthly: float = 0) -> 
     fv_contributions = total_monthly * ((pow(1 + monthly_rate, months) - 1) / monthly_rate)
     return round(fv_current + fv_contributions, 2)
 
-def get_total_projected_wealth(target_year: int = None) -> float:
+def get_total_projected_wealth(target_year: int = None) -> Decimal:
     total = 0
     for inv in get_investments():
         if target_year is None or inv.target_year == target_year:
@@ -115,4 +116,4 @@ def get_monthly_summary() -> List[dict]:
             ORDER BY month DESC
             LIMIT 24
         """))
-        return [{"month": r[0], "income": float(r[1] or 0), "expenses": float(r[2] or 0)} for r in result.fetchall()]
+        return [{"month": r[0], "income": Decimal(r[1] or 0), "expenses": Decimal(r[2] or 0)} for r in result.fetchall()]

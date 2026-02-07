@@ -1,5 +1,6 @@
 # ui/components/investment_form.py
 import flet as ft
+from decimal import Decimal
 from src.services.core import svc_add_or_update_investment
 
 
@@ -40,9 +41,9 @@ def investment_form(page: ft.Page, refresh_all=None) -> ft.Column:
         try:
             svc_add_or_update_investment(
                 name=name.value or "Unnamed",
-                current_value=float(current.value or 0),
-                monthly=float(monthly.value or 0),
-                return_rate=float(rate.value or 11),
+                current_value=Decimal(current.value or 0),
+                monthly=Decimal(monthly.value or 0),
+                return_rate=Decimal(rate.value or 11),
                 target_year=int(year.value or 2050),
             )
             await page.show_snack("Investment saved!", "green")

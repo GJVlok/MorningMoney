@@ -1,6 +1,7 @@
 # controls/dialogs.py
 import flet as ft
 from typing import TYPE_CHECKING
+from decimal import Decimal
 
 from src.services.core import (
     svc_add_or_update_investment,
@@ -20,7 +21,7 @@ if TYPE_CHECKING:
 async def edit_transaction_dialog(page: ft.Page, transaction, refresh_all):
     async def save_changes(e):
         try:
-            new_amount = float(amount_field.value)
+            new_amount = Decimal(amount_field.value)
             if not switch.value:
                 new_amount = -abs(new_amount)
 
@@ -120,9 +121,9 @@ async def edit_investment_dialog(page: ft.Page, inv, refresh_all):
         try:
             svc_add_or_update_investment(
                 name=name_field.value or "Unnamed",
-                current_value=float(current.value or 0),
-                monthly=float(monthly.value or 0),
-                return_rate=float(rate.value or 11),
+                current_value=Decimal(current.value or 0),
+                monthly=Decimal(monthly.value or 0),
+                return_rate=Decimal(rate.value or 11),
                 target_year=int(year.value or 2050),
             )
 

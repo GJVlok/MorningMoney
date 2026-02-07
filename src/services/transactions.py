@@ -1,5 +1,4 @@
 # src/services/transactions.py
-
 from typing import List
 from ..models import (
     add_transaction as _add_transaction,
@@ -8,11 +7,12 @@ from ..models import (
     get_monthly_summary as _get_monthly_summary,
 )
 from ..database import Transaction
+from decimal import Decimal
 
 
 # Service layer — provides a stable API for UI and prevents direct model imports.
 
-def add_new_transaction(date, category: str, amount: float, description: str = ""):
+def add_new_transaction(date, category: str, amount: Decimal, description: str = ""):
     """Add a new transaction through the model layer."""
     return _add_transaction(
         date=date,
@@ -27,7 +27,7 @@ def get_all_transactions() -> List[Transaction]:
     return _get_all_transactions()
 
 
-def get_balance() -> float:
+def get_balance() -> Decimal:
     """Return total account balance."""
     return _get_balance()
 

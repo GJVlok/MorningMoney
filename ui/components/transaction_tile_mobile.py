@@ -1,5 +1,6 @@
 # ui/components/transaction_tile_mobile.py
 import flet as ft
+from decimal import Decimal
 from src.database import Transaction
 from controls.dialogs import edit_transaction_dialog, delete_transaction
 from ui.components.transaction_tile import transaction_tile
@@ -64,7 +65,7 @@ def transaction_tile_mobile(
     transaction: Transaction,
     page: ft.Page,
     refresh_all,
-    running_balance: float | None = None,
+    running_balance: Decimal | None = None,
 ) -> ft.Control:
     """Mobile-specific transaction tile with gestures."""
 

@@ -1,5 +1,6 @@
 # ui/components/transaction_tile.py
 import flet as ft
+from decimal import Decimal
 from src.database import Transaction
 from controls.dialogs import edit_transaction_dialog, delete_transaction
 from controls.common import money_text
@@ -8,7 +9,7 @@ def transaction_tile(
     transaction: Transaction,
     page: ft.Page,
     refresh_all,
-    running_balance: float | None = None,
+    running_balance: Decimal | None = None,
 ) -> ft.Control:
     """Desktop/Web transaction tile (no mobile UX)."""
 

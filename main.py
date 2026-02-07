@@ -94,7 +94,7 @@ async def build_main_ui(page: ft.Page):
 
 async def main(page: ft.Page):
     page.title = "MorningMoney"
-    page.theme_mode = "dark"
+    page.theme = get_theme(page.theme_mode)
 
     init_page_extensions(page)
 

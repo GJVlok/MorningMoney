@@ -1,6 +1,7 @@
 # ui/components/new_entry_form.py
 import flet as ft
 from datetime import date
+from decimal import Decimal
 from src.services.core import svc_add_transaction
 
 
@@ -82,7 +83,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
 
     async def submit():
         try:
-            value = float(amount.value or 0)
+            value = Decimal(amount.value or 0)
 
             if "expense" in type_selector.selected:
                 value = -abs(value)

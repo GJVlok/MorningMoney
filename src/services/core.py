@@ -15,6 +15,7 @@ from ..models import (
     Investment,
 )
 from ..database import SessionLocal
+from decimal import Decimal
 
 
 # -------------------------
@@ -62,7 +63,7 @@ def svc_delete_transaction(transaction_id: int):
             db.commit()
 
 
-def svc_get_balance() -> float:
+def svc_get_balance() -> Decimal:
     return get_balance()
 
 
@@ -76,9 +77,9 @@ def svc_get_investments() -> List[Investment]:
 
 def svc_add_or_update_investment(
     name: str,
-    current_value: float,
-    monthly: float = 0,
-    return_rate: float = 10.0,
+    current_value: Decimal,
+    monthly: Decimal = 0,
+    return_rate: Decimal = 10.0,
     target_year: int = 2050,
     notes: str = "",
 ):
@@ -100,11 +101,11 @@ def svc_delete_investment(investment_id: int):
             db.commit()
 
 
-def svc_calculate_future_value(inv: Investment, extra_monthly: float = 0) -> float:
+def svc_calculate_future_value(inv: Investment, extra_monthly: Decimal = 0) -> Decimal:
     return calculate_future_value(inv, extra_monthly)
 
 
-def svc_get_total_projected_wealth(target_year: int = None) -> float:
+def svc_get_total_projected_wealth(target_year: int = None) -> Decimal:
     return get_total_projected_wealth(target_year)
 
 

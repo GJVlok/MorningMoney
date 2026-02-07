@@ -1,6 +1,7 @@
 # src/motivation.py
 import random
 from datetime import date
+from decimal import Decimal
 
 MESSAGES = [
     "Day by day, brick by brick. You're building an empire.",
@@ -21,7 +22,7 @@ RARE_FIRE_MESSAGES = [
     "You've saved 100 months in a row. Most people never save once. You are not most people.",
 ]
 
-def daily_message(balance: float = None, total_projected: float = None) -> str:
+def daily_message(balance: Decimal = None, total_projected: Decimal = None) -> str:
     today = date.today()
     random.seed(today.toordinal())
 
