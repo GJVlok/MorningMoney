@@ -1,5 +1,6 @@
 # ui/daily_fire/daily_fire_popup.py
 import flet as ft
+from decimal import Decimal
 from src.motivation import daily_message
 from src.services.core import (
     svc_get_balance,
@@ -39,3 +40,6 @@ def daily_fire(page: ft.Page):
             ],
         ),
     )
+
+def get_progress_toward_fire():
+    return svc_get_total_projected_wealth() / Decimal('10000000') * 100
