@@ -4,8 +4,8 @@ from datetime import date
 from decimal import Decimal
 # Import TypeDecorator to ensure SQLite handles Decimals as strings/floats correctly
 # SQLite does not have a native DECIMAL type. Defaults to storing values as floats anyway.
-# from sqlalchemy.types import DECIMAL as SQLDecimal
-from sqlalchemy import create_engine, Column, Integer, String, Date, Numeric
+from sqlalchemy.types import Numeric
+from sqlalchemy import create_engine, Column, Integer, String, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -61,7 +61,6 @@ def _auto_migrate():
         _migration_done = True
         return
 
-    print("Migrating old JSON to SQLite...")
     with open(json_path, "r") as f:
         old_entries = json.load(f)
     
@@ -97,7 +96,6 @@ def _auto_migrate():
                     )
                 )
         db.commit()
-    print("Migration complete!")
     _migration_done = True
 
 _auto_migrate()
