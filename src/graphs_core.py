@@ -1,6 +1,5 @@
 # src/graphs_core.py
 import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 from src.services.core import svc_get_monthly_summary
