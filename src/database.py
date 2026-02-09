@@ -9,6 +9,12 @@ from sqlalchemy import create_engine, Column, Integer, String, Date, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+# A Quick Tip on SQLite
+# SQLite is "type-less." It will store these numbers as floating-point values internally.
+# However, because you are now using SQLAlchemy's Numeric type, the library will automatically 
+# convert those values back into Python Decimal objects whenever you query the database, 
+# preserving your precision during calculations in your app.
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DB_PATH = os.path.join(BASE_DIR, "data", "finance.db")
 os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
