@@ -1,10 +1,13 @@
 # src/database.py
-from sqlalchemy import create_engine, Column, Integer, String, Float, Date, text
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 import os
 from datetime import date
 from decimal import Decimal
+# Import TypeDecorator to ensure SQLite handles Decimals as strings/floats correctly
+# SQLite does not have a native DECIMAL type. Defaults to storing values as floats anyway.
+# from sqlalchemy.types import DECIMAL as SQLDecimal
+from sqlalchemy import create_engine, Column, Integer, String, Date, Numeric
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DB_PATH = os.path.join(BASE_DIR, "data", "finance.db")
@@ -20,7 +23,8 @@ class Transaction(Base):
     id = Column(Integer, primary_key=True)
     date = Column(Date, nullable=False, default=date.today)
     category = Column(String, nullable=False, default="Uncategorized")
-    amount = Column(Decimal, nullable=False)
+    # Numeric with asdecimal=True ensures SQLAlchemy converts SQLite floats back to Decimals
+    amount = Column(Numeric(precision=15, scale=2), nullable=False)
     description = Column(String)
     account = Column(String, default="Cash")
 
@@ -29,15 +33,16 @@ class Investment(Base):
     
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    current_value = Column(Decimal, nullable=False)
-    monthly_contribution = Column(Decimal, default=0)
-    expected_annual_return = Column(Decimal, default=10.0)
+    current_value = Column(Numeric(precision=15, scale=2), nullable=False)
+    monthly_contribution = Column(Numeric(precision=15, scale=2), default=Decimal("0.00"))
+    # Annual return is a percentage; keep as Numeric for precision in compounding
+    expected_annual_return = Column(Numeric(precision=4, scale=2), default=Decimal(10.00)) # e.g., 10.00%
     target_year = Column(Integer, default=2050)
     notes = Column(String)
 
 Base.metadata.create_all(engine)
 
-# Auto-migrate
+# Migration Logic
 _migration_done = False
 
 def _auto_migrate():
@@ -60,10 +65,31 @@ def _auto_migrate():
                 entry_date = date.fromisoformat(entry["date"])
             except:
                 continue
-            if entry.get("income", 0) > 0:
-                db.add(Transaction(date=entry_date, category="Salary", amount=entry["income"], description=entry.get("notes","")))
-            if entry.get("expense", 0) > 0:
-                db.add(Transaction(date=entry_date, category="Expense", amount=-entry["expense"], description=entry.get("notes","")))
+
+            # Handle Income
+            income_val = entry.get("income", 0)
+            if income_val and float(income_val) > 0:
+                db.add(
+                    Transaction(
+                        date=entry_date,
+                        category="Salary",
+                        amount=Decimal(str(income_val)), # Convert via string for safety
+                        description=entry.get("notes","")
+                    )
+                )
+
+            # Handle Expense
+            expense_val = entry.get("expense", 0)
+            if expense_val and float(expense_val) > 0:
+                db.add(
+                    Transaction(
+                        date=entry_date,
+                        category="Expense",
+                        # Multiply by -1 using Decimal to maintain type consistency
+                        amount=Decimal(str(expense_val)) * Decimal("-1.00"),
+                        description=entry.get("notes","")
+                    )
+                )
         db.commit()
     print("Migration complete!")
     _migration_done = True
