@@ -1,11 +1,20 @@
 # ui/components/new_entry_form.py
 import flet as ft
 from datetime import date
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from src.services.core import svc_add_transaction
 
 
 def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
+
+    # Helper to clean currency strings (reusing logic from dialogs)
+    def get_clean_amount(val: str) -> Decimal:
+        if not val or not val.strip():
+            return Decimal("0.00")
+        # Strip R, $, and commas
+        clean = val.replace("R", "").replace("$", "").replace(",", "").strip()
+        return Decimal(clean)
+    
     amount = ft.TextField(
         label="Amount (R)",
         keyboard_type=ft.KeyboardType.NUMBER,
@@ -13,6 +22,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         expand=True,
         border_color="#afdaaf",
         focused_border_color="white",
+        hint_text="0.00"
     )
 
     # Seperate category lists - easy to expand later!
@@ -54,12 +64,13 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         options=[ft.dropdown.Option(c) for c in EXPENSE_CATEGORIES],  # Starts with expenses
         expand=True,
         icon=ft.Icons.CATEGORY,
-        border_color="#afdaaf",
+        border_color="#ffd2d2", # Start red for expense
     )
 
     # Handler to update dropdown when type changes
     def update_category_dropdown(e):
-        selected_type = next(iter(e.control.selected)) if e.control.selected else "expense"  # Get "income" or "expense"
+        # Safely extrac selection
+        selected_type = next(iter(type_selector.selected)) if type_selector.selected else "expense"  # Get "income" or "expense"
 
         if selected_type == "income":
             category_dropdown.options = [ft.dropdown.Option(c) for c in INCOME_CATEGORIES]
@@ -79,42 +90,49 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         max_lines=3,
     )
 
-    feedback = ft.Text(size=14)
-
     async def submit():
         try:
-            value = Decimal(amount.value or 0)
+            # 1. Clean and convert to Decimal
+            raw_value = get_clean_amount(amount.value)
 
-            if "expense" in type_selector.selected:
-                value = -abs(value)
+            if raw_value == 0:
+                await page.show_snack("Please enter an amount greater than zero.", "orange")
+                return
 
-            category = category_dropdown.value or "Uncategorized"
+            # 2. Ensure correct sign logic
+            # Use abs() first to prevent user-entered negatives from flipping back to positive
+            selected_type = next(iter(type_selector.selected)) if type_selector.selected else "expense"
+            if selected_type == "income":
+                final_amount = abs(raw_value)
+            else:
+                final_amount = -abs(raw_value)
 
+            # 3. Save to DB via service
             # SINGLE write
             svc_add_transaction(
                 date=date.today(),
-                category=category,
-                amount=value,
+                category=category_dropdown.value or "Uncategorized",
+                amount=final_amount,
                 description=notes.value or "",
             )
 
+            # 4. Success UI Flow
             # Reset form AFTER success
             amount.value = ""
             notes.value = ""
-            type_selector.selected = {"expense"}
-            update_category_dropdown(None) # Reset to expense options
+            # Feedback
+            await page.show_snack(f"Saved: R{abs(final_amount):,.2f}", "green")
 
-            await page.show_snack("Transaction saved.", "green")
+            # 5. Refresh logic
+            if refresh_all:
+                await refresh_all() # Note the () - executing the callback
 
             await page.safe_update()
 
-            if refresh_all:
-                await refresh_all
-            
-        except ValueError:
-            await page.show_snack("Invalid input!", "red")
-
+        except (InvalidOperation, ValueError):
+            await page.show_snack("Invalid number! Use digits and '.' only.", "red")
         except Exception as e:
+            print(f"From Error: {e}")
             await page.show_snack("Something went wrong.", "red")
 
     return ft.Column(
@@ -129,12 +147,6 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
                 bgcolor="#afdaaf",
                 color="black",
                 on_click=lambda _: page.run_task(submit),
-            ),
-            ft.Container(
-                content=feedback,
-                alignment=ft.alignment.center,
-                padding=8,
-                opacity=0 if not feedback.value else 1,
             ),
         ],
         scroll="auto",

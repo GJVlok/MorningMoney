@@ -1,7 +1,7 @@
 # controls/common.py
 import flet as ft
 import asyncio
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 from src.services.core import svc_get_balance, svc_get_total_projected_wealth
 from src.motivation import daily_message
@@ -22,10 +22,17 @@ def init_page_extensions(page: ft.Page):
         except Exception:
             # give event loop a tick and retry
             await asyncio.sleep(0)
-            page.update()
+            try:
+                page.update()
+            except:
+                pass
 
     async def show_snack(message: str, bgcolor: str = "green", duration_ms: int = 4000):
-        page.snack_bar = ft.SnackBar(ft.Text(message, color="white"), bgcolor=bgcolor, open=True, duration=duration_ms)
+        page.snack_bar = ft.SnackBar(
+            content=ft.Text(message, color="white"),
+            bgcolor=bgcolor,
+            duration=duration_ms
+        )
         page.snack_bar.open = True
         page.update()
         # give event loop a tick
@@ -35,9 +42,22 @@ def init_page_extensions(page: ft.Page):
     page.show_snack = show_snack
 
 def money_text(value, size=20, weight="bold"):
+    """
+    Standardized currency display.
+    Ensures any input (float, int, str, None) is treated as a Decimal.
+    """
     try:
-        value = Decimal(value or 0)
-        color = "#07ff07" if value >= 0 else "red"
-        return ft.Text(f"R{value:,.2f}", size=size, weight=weight, color=color)
-    except (TypeError, ValueError):
-        return ft.Text("R0.00", color="orange", italic=True)
+        # Convert to string first to avoid float 'noise'
+        clean_value = Decimal(str(value or '0.00'))
+
+        # Color coding: Green for positive/zero, Red for negative
+        color = "#07ff07" if clean_value >= 0 else "#ff4444"
+
+        # Formatting: R1,234.56
+        # :,.2f works perfectly with Decimals for commas and 2 decimal places
+        formatted_value = f"R{clean_value:,.2f}"
+
+        return ft.Text(formatted_value, size=size, weight=weight, color=color)
+    
+    except (TypeError, ValueError, InvalidOperation):
+        return ft.Text("R0.00", size=size, color="orange", italic=True)
