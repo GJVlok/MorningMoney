@@ -4,8 +4,7 @@ from io import BytesIO
 import base64
 from src.services.core import svc_get_monthly_summary
 
-# Should this be sync or async?
-async def generate_chart():
+def generate_chart():
     summaries = svc_get_monthly_summary()
     if not summaries:
         return "No data yet!"
