@@ -1,4 +1,4 @@
-# ui/sections/web/diary.py
+# ui/sections/web/diary_web.py
 import flet as ft
 import asyncio
 from datetime import date

@@ -1,4 +1,4 @@
-# ui/sections/desktop/settings.py
+# ui/sections/desktop/settings_desktop.py
 import flet as ft
 from ui.components.settings_dev_tools import settings_dev_tools
 

@@ -1,4 +1,4 @@
-# ui/sections/desktop/investments.py
+# ui/sections/desktop/investments_desktop.py
 import flet as ft
 from src.services.core import svc_get_investments
 from ui.components.investment_card import investment_card
@@ -31,9 +31,5 @@ class InvestmentsTab(ft.Column):
             self.container.controls.append(
                 investment_card(inv, self.page, self.refresh_all)
             )
-
-        self.container.controls.append(
-            investment_form(self.page, self.refresh_all)
-        )
 
         await self.page.safe_update()

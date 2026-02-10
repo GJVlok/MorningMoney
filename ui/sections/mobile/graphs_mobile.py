@@ -1,4 +1,4 @@
-# ui/sections/mobile/graphs.py
+# ui/sections/mobile/graphs_mobile.py
 import flet as ft
 from src.services.core import svc_get_monthly_summary
 from src.graphs_core import generate_chart

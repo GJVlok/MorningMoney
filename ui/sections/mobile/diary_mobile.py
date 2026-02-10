@@ -1,4 +1,4 @@
-# ui/sections/mobile/diary.py
+# ui/sections/mobile/diary_mobile.py
 import flet as ft
 import asyncio
 from datetime import date

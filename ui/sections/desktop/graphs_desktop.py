@@ -1,4 +1,4 @@
-# ui/sections/desktop/graphs.py
+# ui/sections/desktop/graphs_desktop.py
 import flet as ft
 from src.services.core import svc_get_monthly_summary
 from src.graphs_core import generate_chart
