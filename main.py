@@ -98,23 +98,26 @@ async def build_main_ui(page: ft.Page):
 async def main(page: ft.Page):
     page.title = "MorningMoney"
 
-    saved_mode = page.session.get("theme_mode", "dark")
-    page.theme_mode = saved_mode
-    page.theme = get_theme(saved_mode)
+    await asyncio.sleep(0.1)
+
+    try:
+        saved_mode = await page.client_storage.get_async("theme_mode")
+        page.theme_mode = saved_mode or "dark"
+    except Exception:
+        page.theme_mode = "dark"
 
     init_page_extensions(page)
 
     async def toggle_theme(e):
-        page.theme_mode = "light" if page.theme_mode == "dark" else "dark"
-        page.theme = get_theme(page.theme_mode)
+        new_mode = "light" if page.theme_mode == "dark" else "dark"
+        page.theme_mode = new_mode
 
-        page.session.set("theme_mode", page.theme_mode)
+        await page.client_storage.set("theme_mode", new_mode)
 
         await page.show_snack(f"{page.theme_mode.capitalize()} mode activated!", "#afdaaf")
-        await page.safe_update()
+        await page.update()
 
     page.toggle_theme = toggle_theme
-
     await build_main_ui(page)
 
 if __name__ == "__main__":
