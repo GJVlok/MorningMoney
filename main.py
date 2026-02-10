@@ -34,25 +34,25 @@ async def build_main_ui(page: ft.Page):
     # ---- import correct tab classes ----
     if use_desktop:
         if page.platform == "web":
-            from ui.sections.web.new_entry import NewEntryTab
-            from ui.sections.web.diary import DiaryTab
-            from ui.sections.web.investments import InvestmentsTab
-            from ui.sections.web.graphs import GraphsTab
-            from ui.sections.web.settings import SettingsTab
+            from ui.sections.web.new_entry_web import NewEntryTab
+            from ui.sections.web.diary_web import DiaryTab
+            from ui.sections.web.investments_web import InvestmentsTab
+            from ui.sections.web.graphs_web import GraphsTab
+            from ui.sections.web.settings_web import SettingsTab
             platform_name = "web"
         else:
-            from ui.sections.desktop.new_entry import NewEntryTab
-            from ui.sections.desktop.diary import DiaryTab
-            from ui.sections.desktop.investments import InvestmentsTab
-            from ui.sections.desktop.graphs import GraphsTab
-            from ui.sections.desktop.settings import SettingsTab
+            from ui.sections.desktop.new_entry_desktop import NewEntryTab
+            from ui.sections.desktop.diary_desktop import DiaryTab
+            from ui.sections.desktop.investments_desktop import InvestmentsTab
+            from ui.sections.desktop.graphs_desktop import GraphsTab
+            from ui.sections.desktop.settings_desktop import SettingsTab
             platform_name = "desktop"
     else:
-        from ui.sections.mobile.new_entry import NewEntryTab
-        from ui.sections.mobile.diary import DiaryTab
-        from ui.sections.mobile.investments import InvestmentsTab
-        from ui.sections.mobile.graphs import GraphsTab
-        from ui.sections.mobile.settings import SettingsTab
+        from ui.sections.mobile.new_entry_mobile import NewEntryTab
+        from ui.sections.mobile.diary_mobile import DiaryTab
+        from ui.sections.mobile.investments_mobile import InvestmentsTab
+        from ui.sections.mobile.graphs_mobile import GraphsTab
+        from ui.sections.mobile.settings_mobile import SettingsTab
         platform_name = "mobile"
 
     # ---- create tabs ----

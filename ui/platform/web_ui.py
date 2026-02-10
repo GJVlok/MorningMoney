@@ -1,11 +1,11 @@
 # ui/platform/web_ui.py
 import flet as ft
 
-from ui.sections.web.new_entry import NewEntryTab
-from ui.sections.web.diary import DiaryTab
-from ui.sections.web.investments import InvestmentsTab
-from ui.sections.web.graphs import GraphsTab
-from ui.sections.web.settings import SettingsTab
+from ui.sections.web.new_entry_web import NewEntryTab
+from ui.sections.web.diary_web import DiaryTab
+from ui.sections.web.investments_web import InvestmentsTab
+from ui.sections.web.graphs_web import GraphsTab
+from ui.sections.web.settings_web import SettingsTab
 
 from controls.web import build_web_ui
 

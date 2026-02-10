@@ -1,11 +1,11 @@
 # ui/platform/desktop_ui.py
 import flet as ft
 
-from ui.sections.desktop.new_entry import NewEntryTab
-from ui.sections.desktop.diary import DiaryTab
-from ui.sections.desktop.investments import InvestmentsTab
-from ui.sections.desktop.graphs import GraphsTab
-from ui.sections.desktop.settings import SettingsTab
+from ui.sections.desktop.new_entry_desktop import NewEntryTab
+from ui.sections.desktop.diary_desktop import DiaryTab
+from ui.sections.desktop.investments_desktop import InvestmentsTab
+from ui.sections.desktop.graphs_desktop import GraphsTab
+from ui.sections.desktop.settings_desktop import SettingsTab
 
 from controls.desktop import build_desktop_ui
 

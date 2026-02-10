@@ -1,11 +1,11 @@
 # ui/platform/mobile_ui.py
 import flet as ft
 
-from ui.sections.mobile.new_entry import NewEntryTab
-from ui.sections.mobile.diary import DiaryTab
-from ui.sections.mobile.investments import InvestmentsTab
-from ui.sections.mobile.graphs import GraphsTab
-from ui.sections.mobile.settings import SettingsTab
+from ui.sections.mobile.new_entry_mobile import NewEntryTab
+from ui.sections.mobile.diary_mobile import DiaryTab
+from ui.sections.mobile.investments_mobile import InvestmentsTab
+from ui.sections.mobile.graphs_mobile import GraphsTab
+from ui.sections.mobile.settings_mobile import SettingsTab
 
 from controls.mobile import build_mobile_ui
 
