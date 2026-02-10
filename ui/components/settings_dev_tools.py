@@ -23,6 +23,33 @@ def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
         tooltip="Forces narrow phone view + bottom nav even on desktop",
     )
 
+    theme_switch = ft.Switch(
+        label="Light Mode",
+        value=page.theme_mode == "light",
+        active_color="#2e8b57",
+        thumb_color="#ffffff",
+        on_change=page.toggle_theme,
+    )
+
+    # return ft.Column(
+    #     spacing=20,
+    #     controls=[
+    #         ft.Text("Appearance", size=26, weight="bold"),
+    #         ft.Row([
+    #             ft.Icon(ft.Icons.WB_SUNNY, color="orange"),
+    #             theme_switch,
+    #             ft.Icon(ft.Icons.NIGHTS_STAY, color="#afdaaf"),
+    #         ], alignment="center"),
+
+    #         ft.Divider(),
+
+    #         # ... rest of your existing controls (force desktop, etc.) ...
+    #         ft.Text("Developer Tools", size=26, weight="bold"),
+    #         ft.Divider(),
+    #         # ... the rest stays exactly the same ...
+    #     ],
+    # )
+
     def apply_desktop_override(enabled: bool):
         set_force_desktop(page.session, enabled)
         if enabled:
@@ -61,9 +88,16 @@ def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
         page.run_task(page.show_snack, "Window resized to 1200x800", "green")
 
     return ft.Column(
-        spacing=15,
+        spacing=20,
         scroll="auto",
         controls=[
+            ft.Text("Appearance", size=26, weight="bold"),
+            ft.Row([
+                ft.Icon(ft.Icons.WB_SUNNY, color="orange"),
+                theme_switch,
+                ft.Icon(ft.Icons.NIGHTS_STAY, color="#afdaaf"),
+            ], alignment="center"),
+            ft.Divider(),
             ft.Text("Developer Tools", size=26, weight="bold"),
             ft.Divider(),
             ft.Text("Layout Override", size=18, weight="bold"),
