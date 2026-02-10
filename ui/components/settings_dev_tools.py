@@ -24,31 +24,10 @@ def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
     )
 
     theme_switch = ft.Switch(
-        label="Light Mode",
+        label="Dark Mode" if page.theme_mode == "light" else "Light Mode",
         value=page.theme_mode == "light",
-        active_color="#2e8b57",
-        thumb_color="#ffffff",
         on_change=page.toggle_theme,
     )
-
-    # return ft.Column(
-    #     spacing=20,
-    #     controls=[
-    #         ft.Text("Appearance", size=26, weight="bold"),
-    #         ft.Row([
-    #             ft.Icon(ft.Icons.WB_SUNNY, color="orange"),
-    #             theme_switch,
-    #             ft.Icon(ft.Icons.NIGHTS_STAY, color="#afdaaf"),
-    #         ], alignment="center"),
-
-    #         ft.Divider(),
-
-    #         # ... rest of your existing controls (force desktop, etc.) ...
-    #         ft.Text("Developer Tools", size=26, weight="bold"),
-    #         ft.Divider(),
-    #         # ... the rest stays exactly the same ...
-    #     ],
-    # )
 
     def apply_desktop_override(enabled: bool):
         set_force_desktop(page.session, enabled)

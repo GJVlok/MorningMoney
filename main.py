@@ -6,7 +6,7 @@ import logging
 
 from controls.common import init_page_extensions
 from controls.desktop import build_desktop_ui
-from ui.utils.theme import get_theme
+from ui.utils.theme import get_color_scheme
 
 # logging.basicConfig(level=config.LOG_LEVEL)
 
@@ -102,21 +102,31 @@ async def main(page: ft.Page):
 
     try:
         saved_mode = await page.client_storage.get_async("theme_mode")
-        page.theme_mode = saved_mode or "dark"
-    except Exception:
+        page.theme_mode = saved_mode if saved_mode else "dark"
+    except Exception as ex:
+        print(f"Theme load failed (using dark)< {ex}")
         page.theme_mode = "dark"
+
+    page.color_scheme = get_color_scheme(page.theme_mode)
 
     init_page_extensions(page)
 
     async def toggle_theme(e):
-        new_mode = "light" if page.theme_mode == "dark" else "dark"
-        page.theme_mode = new_mode
+        try:
+            new_mode = "light" if page.theme_mode == "dark" else "dark"
+            page.theme_mode = new_mode
+            page.color_scheme = get_color_scheme(new_mode)
 
-        await page.client_storage.set("theme_mode", new_mode)
+            await page.client_storage.set_async("theme_mode", new_mode)
 
-        await page.show_snack(f"{page.theme_mode.capitalize()} mode activated!", "#afdaaf")
-        await page.update()
+            await page.show_snack(f"{page.theme_mode.capitalize()} mode activated!", "#afdaaf")
+            await page.safe_update()
 
+        except TimeoutError:
+            await page.show_snack("Theme saved, but storage timed out - try again?", "orange")
+        except Exception as ex:
+            print(f"Toggle theme error: {ex}")
+            await page.show_snack("Couldn't save theme preference", "red")
     page.toggle_theme = toggle_theme
     await build_main_ui(page)
 
