@@ -27,12 +27,12 @@ class Transaction(Base):
     __tablename__ = "transactions"
     
     id = Column(Integer, primary_key=True)
-    date = Column(Date, nullable=False, default=date.today)
-    category = Column(String, nullable=False, default="Uncategorized")
-    # Numeric with asdecimal=True ensures SQLAlchemy converts SQLite floats back to Decimals
-    amount = Column(Numeric(precision=15, scale=2), nullable=False)
+    date = Column(Date, nullable=False)
+    category = Column(String, nullable=False)
+    amount = Column(Numeric(precision=10, scale=2), nullable=False)
     description = Column(String)
     account = Column(String, default="Cash")
+    tags = Column(String)
 
 class Investment(Base):
     __tablename__ = "investments"

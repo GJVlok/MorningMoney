@@ -5,10 +5,20 @@ from typing import List
 from sqlalchemy import select, func, text
 from decimal import Decimal, ROUND_HALF_UP
 
-def add_transaction(date: date, category: str, amount: Decimal, description: str = "", account: str = "Cash"):
+def add_transaction(date: date,
+                    category: str,
+                    amount: Decimal,
+                    description: str = "",
+                    account: str = "Cash",
+                    tags: str = ""):
     with SessionLocal() as db:
         # Ensure amount is a Decimal before saving
-        t = Transaction(date=date, category=category, amount=Decimal(str(amount)), description=description, account=account)
+        t = Transaction(date=date,
+                        category=category,
+                        amount=Decimal(str(amount)),
+                        description=description,
+                        account=account,
+                        tags=tags)
         db.add(t)
         db.commit()
 
@@ -22,7 +32,12 @@ def get_balance() -> Decimal:
         # Convert the SQLite result (float/int) back to Decimal
         return Decimal(str(total)).quantize(Decimal('0.01'))
 
-def add_or_update_investment(name: str, current_value: Decimal, monthly: Decimal = 0, return_rate: Decimal = 10.0, target_year: int = 2050, notes: str = ""):
+def add_or_update_investment(name: str,
+                             current_value: Decimal,
+                             monthly: Decimal = 0,
+                             return_rate: Decimal = 10.0,
+                             target_year: int = 2050,
+                             notes: str = ""):
     with SessionLocal() as db:
         inv = db.query(Investment).filter(Investment.name == name).first()
         if inv:
