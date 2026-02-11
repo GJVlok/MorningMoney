@@ -3,13 +3,35 @@ import flet as ft
 from decimal import Decimal
 from src.database import Transaction
 from controls.dialogs import edit_transaction_dialog, delete_transaction
-from ui.components.transaction_tile import transaction_tile
+from ui.components.transaction_tile import transaction_tile  # Reuse base
 
 def _mobile_transaction_menu(
     transaction: Transaction,
     page: ft.Page,
     refresh_all,
 ):
+    full_desc = transaction.description or transaction.date.strftime("%d %b %Y")
+
+    def show_full_notes(_):
+        sheet = ft.BottomSheet(
+            content=ft.Container(
+                ft.Column(
+                    [
+                        ft.Text("Full Notes", size=18, weight="bold"),
+                        ft.Text(full_desc, size=14),
+                    ],
+                    spacing=10,
+                ),
+                padding=20,
+                bgcolor=ft.Colors.with_opacity(0.98, "#1e1e2e"),
+                border_radius=12,
+            ),
+            open=True,
+            enable_drag=True,
+        )
+        page.bottom_sheet = sheet
+        page.update()
+
     def handler(_):
         sheet = ft.BottomSheet(
             ft.Container(
@@ -43,9 +65,16 @@ def _mobile_transaction_menu(
                                 page.update(),
                             ),
                         ),
+                        ft.ListTile(
+                            leading=ft.Icon(ft.Icons.NOTES, color="green"),
+                            title=ft.Text("View Full Notes"),
+                            on_click=lambda _: (
+                                show_full_notes(_),
+                                setattr(sheet, "open", False),
+                                page.update(),
+                            ),
+                        ),
                     ],
-                    tight=True,
-                    spacing=10,
                 ),
                 padding=20,
                 bgcolor=ft.Colors.with_opacity(0.98, "#1e1e2e"),
@@ -53,13 +82,11 @@ def _mobile_transaction_menu(
             ),
             open=True,
             enable_drag=True,
-            is_scroll_controlled=True,
         )
         page.bottom_sheet = sheet
         page.update()
 
     return handler
-
 
 def transaction_tile_mobile(
     transaction: Transaction,

@@ -11,9 +11,36 @@ def transaction_tile(
     refresh_all,
     running_balance: Decimal | None = None,
 ) -> ft.Control:
-    """Desktop/Web transaction tile (no mobile UX)."""
+    """Desktop/Web transaction tile (responsive, with notes preview)."""
 
-    trailing_content = ft.Column(
+    # Preview logic: Shorten desc if long
+    full_desc = transaction.description or transaction.date.strftime("%d %b %Y")
+    preview_desc = full_desc[:50] + "..." if len(full_desc) > 50 else full_desc
+
+    # Title area (category + desc preview + future tags)
+    title_area = ft.Column(
+        [
+            ft.Text(
+                transaction.category,
+                weight="bold",
+                max_lines=1,
+                overflow=ft.TextOverflow.ELLIPSIS,
+            ),
+            ft.Text(
+                preview_desc,
+                color="grey",
+                max_lines=2,
+                overflow=ft.TextOverflow.ELLIPSIS,
+                tooltip=full_desc,  # Hover for full (desktop/web)
+            ),
+            # Future tags: ft.Row([ft.Chip(label=ft.Text(tag), bgcolor="blue200") for tag in transaction.tags or []], wrap=True),
+        ],
+        spacing=2,
+        expand=True,
+    )
+
+    # Amount/Balance (restored, flexible)
+    amount_balance = ft.Column(
         [
             money_text(transaction.amount, size=18, weight="bold"),
             ft.Text(
@@ -28,76 +55,47 @@ def transaction_tile(
         horizontal_alignment="end",
     )
 
-    title_area = ft.Column(
+    # Buttons
+    buttons = ft.Row(
         [
-            ft.Text(
-                transaction.category,
-                weight="bold",
-                max_lines=1,
-                overflow=ft.TextOverflow.ELLIPSIS,
-            ),
-            ft.Text(
-                transaction.description
-                or transaction.date.strftime("%d %b %Y"),
-                color="grey",
-                max_lines=2,
-                overflow=ft.TextOverflow.ELLIPSIS,
-            ),
-            # Future tags: Add a Row here for chips (e.g., ft.Chip for each tag).
-            # Placeholder: When you implement, fetch tags from Transaction model (add a 'tags' field as list[str]).
-            # Example: ft.Row([ft.Chip(label=ft.Text(tag), bgcolor="blue200") for tag in transaction.tags or []], wrap=True),
-        ],
-        spacing=2,
-        expand=True,
-    )
-
-    base_tile = ft.ListTile(
-        leading=ft.Icon(ft.Icons.RECEIPT, color="#ff0066"),
-        title=title_area,
-        trailing=trailing_content,
-    )
-
-    # Outer container: Use ResponsiveRow for better resizing.
-    # Teach: ResponsiveRow adapts columns based on breakpoints (e.g., col=12 full width on small screens).
-    # This prevents cutoff by stacking if window is too narrow.
-    return ft.Container(
-        content=ft.Row(
-            [
-                ft.Container(base_tile, col={"xs": 12, "sm": 9}), # Main content takes most space
-                ft.Container( # Buttons stack vertically on small, horizontal on large.
-                    content=ft.Row(
-                        [
-                            ft.IconButton(
-                                ft.Icons.EDIT,
-                                icon_color="blue400",
-                                tooltip="Edit",
-                                on_click=lambda _: page.run_task(
-                                    edit_transaction_dialog,
-                                    page,
-                                    transaction,
-                                    refresh_all,
-                                ),
-                            ),
-                            ft.IconButton(
-                                ft.Icons.DELETE,
-                                icon_color="red400",
-                                tooltip="Delete",
-                                on_click=lambda _: page.run_task(
-                                    delete_transaction,
-                                    page,
-                                    transaction,
-                                    refresh_all,
-                                ),
-                            ),
-                        ],
-                        spacing=4,
-                        alignment="end", # Align right
-                    ),
-                    col={"xs": 12, "sm": 3}, #Buttons take less space, stack on mobile-like narrow.
+            ft.IconButton(
+                ft.Icons.EDIT,
+                icon_color="blue400",
+                tooltip="Edit",
+                on_click=lambda _: page.run_task(
+                    edit_transaction_dialog,
+                    page,
+                    transaction,
+                    refresh_all,
                 ),
+            ),
+            ft.IconButton(
+                ft.Icons.DELETE,
+                icon_color="red400",
+                tooltip="Delete",
+                on_click=lambda _: page.run_task(
+                    delete_transaction,
+                    page,
+                    transaction,
+                    refresh_all,
+                ),
+            ),
+        ],
+        spacing=4,
+        alignment="end",
+    )
+
+    # Main layout: ResponsiveRow for adaptive sizing
+    return ft.Container(
+        content=ft.ResponsiveRow(
+            [
+                ft.Container(ft.Icon(ft.Icons.RECEIPT, color="#ff0066"), col=1),  # Icon fixed small
+                ft.Container(title_area, col={"xs": 12, "sm": 6, "md": 7}),  # Title expands most
+                ft.Container(amount_balance, col={"xs": 12, "sm": 3}),  # Amount/balance next
+                ft.Container(buttons, col={"xs": 12, "sm": 2}),  # Buttons stack on narrow
             ],
-            alignment="spaceBetween",
-            vertical_alignment="center",
+            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
         ),
         padding=ft.padding.symmetric(horizontal=16, vertical=10),
         border_radius=12,
