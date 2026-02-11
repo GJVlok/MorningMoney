@@ -36,6 +36,7 @@ async def build_main_ui(page: ft.Page):
         if page.platform == "web":
             from ui.sections.web.new_entry_web import NewEntryTab
             from ui.sections.web.diary_web import DiaryTab
+            from ui.sections.web.montly_web import MonthlyTab
             from ui.sections.web.investments_web import InvestmentsTab
             from ui.sections.web.graphs_web import GraphsTab
             from ui.sections.web.settings_web import SettingsTab
@@ -43,6 +44,7 @@ async def build_main_ui(page: ft.Page):
         else:
             from ui.sections.desktop.new_entry_desktop import NewEntryTab
             from ui.sections.desktop.diary_desktop import DiaryTab
+            from ui.sections.desktop.monthly_desktop import MonthlyTab
             from ui.sections.desktop.investments_desktop import InvestmentsTab
             from ui.sections.desktop.graphs_desktop import GraphsTab
             from ui.sections.desktop.settings_desktop import SettingsTab
@@ -50,6 +52,7 @@ async def build_main_ui(page: ft.Page):
     else:
         from ui.sections.mobile.new_entry_mobile import NewEntryTab
         from ui.sections.mobile.diary_mobile import DiaryTab
+        from ui.sections.mobile.monthly_mobile import MonthlyTab
         from ui.sections.mobile.investments_mobile import InvestmentsTab
         from ui.sections.mobile.graphs_mobile import GraphsTab
         from ui.sections.mobile.settings_mobile import SettingsTab
@@ -58,11 +61,17 @@ async def build_main_ui(page: ft.Page):
     # ---- create tabs ----
     new_entry_tab = NewEntryTab(page, None)
     diary_tab = DiaryTab(page, None)
+    monthly_tab = MonthlyTab(page, None)
     investments_tab = InvestmentsTab(page, None)
     graphs_tab = GraphsTab(page, None)
     settings_tab = SettingsTab(page, None)
 
-    tabs = [new_entry_tab, diary_tab, investments_tab, graphs_tab, settings_tab]
+    tabs = [new_entry_tab,
+            diary_tab,
+            monthly_tab,
+            investments_tab,
+            graphs_tab,
+            settings_tab]
 
     # ---- refresh coordinator ----
     async def refresh_all():
