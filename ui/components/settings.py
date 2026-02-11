@@ -1,4 +1,4 @@
-# ui/components/settings_dev_tools.py
+# ui/components/settings.py
 import flet as ft
 from src.services.settings import (
     set_force_desktop,
