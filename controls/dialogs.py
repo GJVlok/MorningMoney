@@ -81,7 +81,15 @@ async def edit_transaction_dialog(page: ft.Page, transaction, refresh_all):
 
     # transaction.amount > 0 means it's Income (Switch = True)
     switch = ft.Switch(label="Is this Income?", value=transaction.amount > 0)
-    notes = ft.TextField(value=transaction.description or "", label="Notes")
+    notes = ft.TextField(
+        value=transaction.description or "",
+        label="Notes (optional)",
+        multiline=True,
+        min_lines=1,
+        max_lines=3,
+        max_length=256,
+        expand=True,
+    )
 
     dialog = ft.AlertDialog(
         title=ft.Text("Edit Transaction"),

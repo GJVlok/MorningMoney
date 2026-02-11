@@ -86,8 +86,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     notes = ft.TextField(
         label="Notes (optional)",
         multiline=True,
-        min_lines=1,
-        max_lines=3,
+        max_length=256,
+        expand=True,
     )
 
     async def submit():
