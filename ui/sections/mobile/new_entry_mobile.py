@@ -5,14 +5,18 @@ from ui.components.investment_form import investment_form
 
 class NewEntryTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
-        super().__init__(expand=True)
+        super().__init__(
+            expand=True,
+            scroll="auto",
+            spacing=20,
+            )
         self.page = page
         self.refresh_all = refresh_all
         self._build()
 
     def _build(self):
         self.controls = [
-            ft.Text("Add Transaction", size=28, weight="bold"),
+            ft.Text("Add Transaction", size=24, weight="bold"),
             new_entry_form(self.page, self.refresh_all),
             ft.Divider(height=20, color="transparent"),
             ft.Text("Add Investment", size=24, weight="bold"),
