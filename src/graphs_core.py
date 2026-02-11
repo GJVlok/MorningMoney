@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 from src.services.core import svc_get_monthly_summary
+from src.services.core import svc_get_tag_summary
 
 def generate_chart():
     summaries = svc_get_monthly_summary()
@@ -22,9 +23,11 @@ def generate_chart():
     plt.legend()
     plt.xticks(rotation=45)
     plt.tight_layout()
+    plt.style.use('dark_background')
 
     buf = BytesIO()
     plt.savefig(buf, format='png')
+    plt.close()
     buf.seek(0)
     img_base64 = base64.b64encode(buf.read()).decode('utf-8')
     return f"data:image/png;base64, {img_base64}"

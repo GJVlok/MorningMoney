@@ -158,3 +158,16 @@ def get_monthly_summary() -> List[dict]:
                 "expenses": Decimal(str(r[2] or 0)).quantize(Decimal('0.01'))
             })
         return summary
+    
+def get_tag_summary(month: str = None) -> List[dict]:
+    with SessionLocal() as db:
+        query = """
+            SELECT tag, SUM(amount) as total
+            FROM (
+                SELECT unnest(string_to_array(tags, ',')) as tag, amount
+                FROM transactions
+                WHERE strftime('%Y-%m', date) = :month AND amount < 0 # Expenses
+            ) GROUP BY tag
+        """
+        result = db.execute(text(query), {"month": month or date.today().strftime("%Y-%m")})
+        return [{"tag": r[0], "total": Decimal(str(r[1]))} for r in result]

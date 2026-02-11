@@ -9,6 +9,7 @@ from ..models import (
     calculate_future_value,
     get_total_projected_wealth,
     get_monthly_summary,
+    get_tag_summary,
     get_transactions_with_running_balance,
     get_transactions_with_running_balance_date_to_date,
     Transaction,
@@ -109,3 +110,6 @@ def svc_get_total_projected_wealth(target_year: int = None) -> Decimal:
 
 def svc_get_monthly_summary():
     return get_monthly_summary()
+
+def svc_get_tag_summary():
+    return get_tag_summary()
