@@ -6,7 +6,17 @@ from src.services.core import svc_add_transaction
 
 
 def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
-
+    # New: Date Picker
+    date_field = ft.TextField(
+        label="Date (YYYY-MM-DD)",
+        value=date.today().isoformat(),
+        keyboard_type=ft.KeyboardType.DATETIME,
+    )
+    # New: Tags feild
+    tags_field = ft.TextField(
+        label="Tags (comma-seperated, e.g., milk,shop:Checkers)",
+        expand=True,
+    )
     # Helper to clean currency strings (reusing logic from dialogs)
     def get_clean_amount(val: str) -> Decimal:
         if not val or not val.strip():
@@ -94,12 +104,18 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         try:
             # 1. Clean and convert to Decimal
             raw_value = get_clean_amount(amount.value)
-
             if raw_value == 0:
                 await page.show_snack("Please enter an amount greater than zero.", "orange")
                 return
 
-            # 2. Ensure correct sign logic
+            # 2. Parse Date and Tags (The new Logic)
+            try:
+                entry_date = date.fromisoformat(date_field.value)
+            except (ValueError, AttributeError):
+                entry_date = date.today()
+            tags_str = tags_field.value.strip() if tags_field.value else ""
+
+            # 3. Ensure correct sign logic
             # Use abs() first to prevent user-entered negatives from flipping back to positive
             selected_type = next(iter(type_selector.selected)) if type_selector.selected else "expense"
             if selected_type == "income":
@@ -107,19 +123,22 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             else:
                 final_amount = -abs(raw_value)
 
-            # 3. Save to DB via service
+            # 4. Save to DB via service
             # SINGLE write
             svc_add_transaction(
                 date=date.today(),
                 category=category_dropdown.value or "Uncategorized",
                 amount=final_amount,
                 description=notes.value or "",
+                tags=tags_str
             )
 
-            # 4. Success UI Flow
+            # 5. Success UI Flow
             # Reset form AFTER success
             amount.value = ""
             notes.value = ""
+            date_field.value = date.today().isoformat()
+            tags_field.value = ""
             # Feedback
             await page.show_snack(f"Saved: R{abs(final_amount):,.2f}", "green")
 
@@ -138,8 +157,10 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     return ft.Column(
         controls=[
             type_selector,
+            date_field,
             amount,
             category_dropdown,
+            tags_field,
             notes,
             ft.ElevatedButton(
                 "Save Transaction",

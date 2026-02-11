@@ -29,14 +29,20 @@ def svc_get_transactions_with_running_balance_date_to_date(from_date=None, to_da
 def svc_get_all_transactions() -> List[Transaction]:
     return get_all_transactions()
 
-def svc_add_transaction(date, category, amount, description=""):
+def svc_add_transaction(date,
+                        category,
+                        amount,
+                        description="",
+                        tags=""):
     # Ensure amount is a Decimal string-conversion safe
     add_transaction(
         date=date,
         category=category,
         amount=Decimal(str(amount)),
         description=description,
+        tags=tags
     )
+    # Add helper: svc_get_tags_for_transaction(id) if needed later.
 
 def svc_update_transaction(transaction_id: int, **fields):
     with SessionLocal() as db:

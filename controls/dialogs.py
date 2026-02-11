@@ -51,6 +51,8 @@ async def edit_transaction_dialog(page: ft.Page, transaction, refresh_all):
                 category=category.value,
                 amount=new_amount,
                 description=notes.value or "",
+                date=date_field.value,
+                tags=tags_field.value,
             )
 
             dialog.open = False
@@ -91,12 +93,24 @@ async def edit_transaction_dialog(page: ft.Page, transaction, refresh_all):
         expand=True,
     )
 
+    date_field = ft.TextField(
+        value=transaction.date.isoformat() if transaction.date else "",
+        label="Date (YYYY-MM-DD)"
+    )
+    tags_field = ft.TextField(
+        value=transaction.tags or "", 
+        label="Tags (comma separated)"
+    )
+
     dialog = ft.AlertDialog(
         title=ft.Text("Edit Transaction"),
         content=ft.Column([
             amount_field,
             category,
-            ft.Row([switch, ft.Text(" Income if checked")]), notes
+            ft.Row([switch, ft.Text(" Income if checked")]),
+            notes,
+            date_field,
+            tags_field,
             ],
             tight=True,
         ),
