@@ -17,9 +17,24 @@ def transaction_tile(
     full_desc = transaction.description or transaction.date.strftime("%d %b %Y")
     preview_desc = full_desc[:50] + "..." if len(full_desc) > 50 else full_desc
 
+    tags_list = (transaction.tags or "").split(",") if transaction.tags else []
+    tag_chips = ft.Row(
+        [ft.Chip(label=ft.Text(tag.strip(), size=10), bgcolor="blue200") for tag in tags_list[:3]],
+        wrap=True,
+        spacing=5,
+    )
+    # Add "+X more" indicator if there are many tags
+    if len(tags_list) > 3:
+        tag_chips.controls.append(ft.Text(f"+{len(tags_list)-3} more", size=10, color="grey"))
+
     # Title area (category + desc preview + future tags)
     title_area = ft.Column(
-        [
+        [   
+            ft.Text(
+                transaction.date.strftime("%d %b %Y"),
+                size=12,
+                color="grey",
+            ),
             ft.Text(
                 transaction.category,
                 weight="bold",
@@ -33,7 +48,7 @@ def transaction_tile(
                 overflow=ft.TextOverflow.ELLIPSIS,
                 tooltip=full_desc,  # Hover for full (desktop/web)
             ),
-            # Future tags: ft.Row([ft.Chip(label=ft.Text(tag), bgcolor="blue200") for tag in transaction.tags or []], wrap=True),
+            tag_chips,
         ],
         spacing=2,
         expand=True,

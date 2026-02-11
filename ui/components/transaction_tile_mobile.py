@@ -10,17 +10,29 @@ def _mobile_transaction_menu(
     page: ft.Page,
     refresh_all,
 ):
-    full_desc = transaction.description or transaction.date.strftime("%d %b %Y")
+    full_desc = transaction.description or "No notes provided."
+    # --- ADD TAG LOGIG FOR BOTTOM SHEET ---
+    tags_list = (transaction.tags or "").split(",") if transaction.tags else []
+    tag_chips = ft.Row(
+        [ft.Chip(label=ft.Text(tag.strip(), size=10), bgcolor="blue200") for tag in tags_list],
+        wrap=True,
+    )
 
     def show_full_notes(_):
         sheet = ft.BottomSheet(
             content=ft.Container(
                 ft.Column(
                     [
-                        ft.Text("Full Notes", size=18, weight="bold"),
+                        ft.Text("Transaction Details", size=18, weight="bold"),
+                        ft.Text(f"Date: {transaction.date.strftime('%d %b %Y')}", size=14, color="grey"),
+                        ft.Divider(),
+                        ft.Text("Notes:", weight="bold"),
                         ft.Text(full_desc, size=14),
+                        ft.Text("Tags:", weight="bold") if tags_list else ft.Container(),
+                        tag_chips, # Show all tags in the details view
                     ],
                     spacing=10,
+                    tight=True,
                 ),
                 padding=20,
                 bgcolor=ft.Colors.with_opacity(0.98, "#1e1e2e"),
