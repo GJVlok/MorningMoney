@@ -5,11 +5,11 @@ from ui.sections.desktop.new_entry_desktop import NewEntryTab
 from ui.sections.desktop.diary_desktop import DiaryTab
 from ui.sections.desktop.monthly_desktop import MonthlyTab
 from ui.sections.desktop.investments_desktop import InvestmentsTab
+from ui.sections.desktop.tags_insights_desktop import TagsInsightsTab
 from ui.sections.desktop.graphs_desktop import GraphsTab
 from ui.sections.desktop.settings_desktop import SettingsTab
 
 from controls.desktop import build_desktop_ui
-
 
 def build_desktop(page: ft.Page):
     # Instantiate tabs
@@ -17,10 +17,17 @@ def build_desktop(page: ft.Page):
     diary = DiaryTab(page, None)
     monthly = MonthlyTab(page, None)
     investments = InvestmentsTab(page, None)
+    tags_insights = TagsInsightsTab(page, None)
     graphs = GraphsTab(page, None)
     settings = SettingsTab(page, None)
 
-    tabs = [new_entry, diary, monthly, investments, graphs, settings]
+    tabs = [new_entry,
+            diary,
+            monthly,
+            investments,
+            graphs,
+            tags_insights,
+            settings]
 
     async def refresh_all():
         for t in tabs:
@@ -37,6 +44,7 @@ def build_desktop(page: ft.Page):
         diary,
         monthly,
         investments,
+        tags_insights,
         graphs,
         settings,
     )

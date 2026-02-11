@@ -38,6 +38,7 @@ async def build_main_ui(page: ft.Page):
             from ui.sections.web.diary_web import DiaryTab
             from ui.sections.web.montly_web import MonthlyTab
             from ui.sections.web.investments_web import InvestmentsTab
+            from ui.sections.web.tags_insights_web import TagsInsightsTab
             from ui.sections.web.graphs_web import GraphsTab
             from ui.sections.web.settings_web import SettingsTab
             platform_name = "web"
@@ -46,6 +47,7 @@ async def build_main_ui(page: ft.Page):
             from ui.sections.desktop.diary_desktop import DiaryTab
             from ui.sections.desktop.monthly_desktop import MonthlyTab
             from ui.sections.desktop.investments_desktop import InvestmentsTab
+            from ui.sections.desktop.tags_insights_desktop import TagsInsightsTab
             from ui.sections.desktop.graphs_desktop import GraphsTab
             from ui.sections.desktop.settings_desktop import SettingsTab
             platform_name = "desktop"
@@ -54,6 +56,7 @@ async def build_main_ui(page: ft.Page):
         from ui.sections.mobile.diary_mobile import DiaryTab
         from ui.sections.mobile.monthly_mobile import MonthlyTab
         from ui.sections.mobile.investments_mobile import InvestmentsTab
+        from ui.sections.mobile.tags_insights_mobile import TagsInsightsTab
         from ui.sections.mobile.graphs_mobile import GraphsTab
         from ui.sections.mobile.settings_mobile import SettingsTab
         platform_name = "mobile"
@@ -63,6 +66,7 @@ async def build_main_ui(page: ft.Page):
     diary_tab = DiaryTab(page, None)
     monthly_tab = MonthlyTab(page, None)
     investments_tab = InvestmentsTab(page, None)
+    tabs_insights_tab = TagsInsightsTab(page, None)
     graphs_tab = GraphsTab(page, None)
     settings_tab = SettingsTab(page, None)
 
@@ -70,6 +74,7 @@ async def build_main_ui(page: ft.Page):
             diary_tab,
             monthly_tab,
             investments_tab,
+            tabs_insights_tab,
             graphs_tab,
             settings_tab]
 

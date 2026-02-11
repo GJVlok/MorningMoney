@@ -4,6 +4,8 @@ from datetime import date
 from typing import List
 from sqlalchemy import select, func, text
 from decimal import Decimal, ROUND_HALF_UP
+from collections import defaultdict
+from sqlalchemy import func
 
 def add_transaction(date: date,
                     category: str,
@@ -160,14 +162,32 @@ def get_monthly_summary() -> List[dict]:
         return summary
     
 def get_tag_summary(month: str = None) -> List[dict]:
+    target_month = month or date.today().strftime("%Y-%m")
+    
     with SessionLocal() as db:
-        query = """
-            SELECT tag, SUM(amount) as total
-            FROM (
-                SELECT unnest(string_to_array(tags, ',')) as tag, amount
-                FROM transactions
-                WHERE strftime('%Y-%m', date) = :month AND amount < 0 # Expenses
-            ) GROUP BY tag
-        """
-        result = db.execute(text(query), {"month": month or date.today().strftime("%Y-%m")})
-        return [{"tag": r[0], "total": Decimal(str(r[1]))} for r in result]
+        # 1. Fetch only the necessary columns for the target month
+        # We filter for amount < 0 to get only expenses
+        transactions = (
+            db.query(Transaction.tags, Transaction.amount)
+            .filter(
+                func.strftime('%Y-%m', Transaction.date) == target_month,
+                Transaction.amount < 0
+            )
+            .all()
+        )
+
+        # 2. Aggregate tags using a dictionary
+        tag_map = defaultdict(Decimal)
+        for t_tags, t_amount in transactions:
+            if t_tags:
+                # Split comma-separated tags, strip whitespace, and ignore empty strings
+                tags = [tag.strip() for tag in t_tags.split(",") if tag.strip()]
+                for tag in tags:
+                    # Use abs() because we want to see expense totals as positive numbers
+                    tag_map[tag] += Decimal(str(abs(t_amount)))
+
+        # 3. Convert to the list of dicts your UI expects
+        return [
+            {"tag": tag, "total": total} 
+            for tag, total in sorted(tag_map.items(), key=lambda x: x[1], reverse=True)
+        ]

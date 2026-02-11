@@ -7,6 +7,7 @@ def build_mobile_ui(page: ft.Page,
                     diary_tab,
                     monthly_tab,
                     investments_tab,
+                    tags_insights_tab,
                     graphs_tab,
                     settings_tab):
     balance_text = ft.Text(size=36, weight="bold", text_align="center")
@@ -27,6 +28,7 @@ def build_mobile_ui(page: ft.Page,
             ft.IconButton(ft.Icons.RECEIPT_LONG, tooltip="Diary", on_click=lambda _: page.go("/diary")),
             ft.IconButton(ft.Icons.CALENDAR_MONTH, tooltip="Monthly", on_click=lambda _: page.go("/monthly")),
             ft.IconButton(ft.Icons.TRENDING_UP, tooltip="Investments", on_click=lambda _: page.go("/investments")),
+            ft.IconButton(ft.Icons.TAG, tooltip="Tag Insights", on_click=lambda _: page.go("/tags_insights")),
             ft.IconButton(ft.Icons.TRENDING_UP_SHARP, tooltip="Graphs", on_click=lambda _: page.go("/graphs")),
             ft.IconButton(ft.Icons.SETTINGS, tooltip="Settings", on_click=lambda _: page.go("/settings")),
         ], alignment="spaceAround")
@@ -49,6 +51,8 @@ def build_mobile_ui(page: ft.Page,
             content_stack.controls.append(monthly_tab)
         elif route == "/investments":
             content_stack.controls.append(investments_tab)
+        elif route == "/tags_insights":
+            content_stack.controls.append(tags_insights_tab)
         elif route == "/graphs":
             content_stack.controls.append(graphs_tab)
         elif route == "/settings":

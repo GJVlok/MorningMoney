@@ -5,6 +5,7 @@ from ui.sections.mobile.new_entry_mobile import NewEntryTab
 from ui.sections.mobile.diary_mobile import DiaryTab
 from ui.sections.mobile.monthly_mobile import MonthlyTab
 from ui.sections.mobile.investments_mobile import InvestmentsTab
+from ui.sections.mobile.tags_insights_mobile import TagsInsightsTab
 from ui.sections.mobile.graphs_mobile import GraphsTab
 from ui.sections.mobile.settings_mobile import SettingsTab
 
@@ -16,10 +17,17 @@ def build_mobile(page: ft.Page):
     diary = DiaryTab(page, None)
     monthly = MonthlyTab(page, None)
     investments = InvestmentsTab(page, None)
+    tags_insights = TagsInsightsTab(page, None)
     graphs = GraphsTab(page, None)
     settings = SettingsTab(page, None)
 
-    tabs = [new_entry, diary, monthly, investments, graphs, settings]
+    tabs = [new_entry,
+            diary,
+            monthly,
+            investments,
+            tags_insights,
+            graphs,
+            settings]
 
     async def refresh_all():
         for t in tabs:
@@ -36,6 +44,7 @@ def build_mobile(page: ft.Page):
         diary,
         monthly,
         investments,
+        tags_insights,
         graphs,
         settings,
     )
