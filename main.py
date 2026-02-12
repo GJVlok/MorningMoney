@@ -150,4 +150,4 @@ async def main(page: ft.Page):
     await build_main_ui(page)
 
 if __name__ == "__main__":
-    ft.run(target=main)
+    ft.run(main)
