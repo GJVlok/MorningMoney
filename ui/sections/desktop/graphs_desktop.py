@@ -1,41 +1,29 @@
 # ui/sections/desktop/graphs_desktop.py
 import flet as ft
-from src.services.core import svc_get_monthly_summary
-from src.graphs_core import generate_chart
 
 class GraphsTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
         super().__init__(expand=True, scroll="auto")
         self.page = page
         self.refresh_all = refresh_all
-        self.chart_image = ft.Image(src="", width=600, height=400, fit=ft.ImageFit.CONTAIN) # Placeholder
-        self.summary_view = ft.Text("Loading...", italic=True)
+        self._build()
 
+    def _build(self):
         self.controls = [
             ft.Text("Financial Graphs", size=28, weight="bold"),
             ft.Divider(),
-            self.chart_image,
-            self.summary_view,
+            ft.Container(
+                content=ft.Column([
+                    ft.Icon(ft.Icons.BAR_CHART, size=80, color="grey"),
+                    ft.Text("Graphs Coming Soon!", size=24, weight="bold", color="orange"),
+                    ft.Text("We're building visualizations for your income, expenses, and trends. Stay tuned!", 
+                            size=16, italic=True, text_align="center"),
+                ], alignment="center", horizontal_alignment="center"),
+                expand=True,
+                alignment=ft.alignment.center,
+            ),
         ]
 
     async def refresh(self):
-        # Show loading
-        self.controls[-1] = ft.ProgressRing()
-        await self.page.safe_update()
-
-        # Get data
-        summaries = svc_get_monthly_summary()
-
-        # Generate chart (now awaited properly!)
-        chart_src = generate_chart() # note: no self. prefix here
-
-        # Update UI
-        self.chart_image.src = chart_src
-
-        # Replace loading text with actual summary (you can make a nice table later)
-        if summaries:
-            self.summary_view.value = f"Last month: Income R{summaries[0]['income']:,.0f}"
-        else:
-            self.summary_view.value = "No data yet"
-
+        self._build()  # Rebuild if needed
         await self.page.safe_update()
