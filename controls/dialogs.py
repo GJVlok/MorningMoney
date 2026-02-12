@@ -123,8 +123,8 @@ async def edit_transaction_dialog(page: ft.Page, transaction, refresh_all):
 
 ##############################################################################################
 
-    page.dialog = dialog
-    dialog.open = True
+    page.open(dialog)
+    dialog.open = False
     page.update()
 
 
@@ -149,8 +149,8 @@ async def delete_transaction(page: ft.Page, transaction, refresh_all):
         modal=True,
     )
 
-    page.dialog = dialog
-    dialog.open = True
+    page.open(dialog)
+    dialog.open = False
     page.update()
 
 
@@ -196,8 +196,8 @@ async def edit_investment_dialog(page: ft.Page, inv, refresh_all):
         modal=True,
     )
 
-    page.dialog = dialog
-    dialog.open = True
+    page.open(dialog)
+    dialog.open = False
     page.update()
 
 
@@ -222,6 +222,6 @@ async def delete_investment(page: ft.Page, inv, refresh_all):
         modal=True,
     )
 
-    page.dialog = dialog
-    dialog.open = True
+    page.open(dialog)
+    dialog.open = False
     page.update()
