@@ -92,7 +92,7 @@ def investment_form(page: ft.Page, refresh_all=None) -> ft.Column:
             ft.ElevatedButton(
                 "Save Investment",
                 icon=ft.Icons.SAVE,
-                bgcolor="#afdaaf",
+                bgcolor="#94d494",
                 color="black",
                 on_click=lambda e: page.run_task(on_save, e),
             ),

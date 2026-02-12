@@ -138,7 +138,7 @@ async def main(page: ft.Page):
 
             await page.client_storage.set_async("theme_mode", new_mode)
 
-            await page.show_snack(f"{page.theme_mode.capitalize()} mode activated!", "#afdaaf")
+            await page.show_snack(f"{page.theme_mode.capitalize()} mode activated!", "#94d494")
             await page.safe_update()
 
         except TimeoutError:

@@ -13,7 +13,7 @@ def get_color_scheme(mode: str = "dark") -> ft.ColorScheme:
 
     else: # Dark mode
         return ft.ColorScheme(
-                primary="#afdaaf",
+                primary="#94d494",
                 background="#1e1e2e",
                 surface="#2d2d3d",
                 on_background="#ffffff",

@@ -74,7 +74,7 @@ def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
             ft.Row([
                 ft.Icon(ft.Icons.WB_SUNNY, color="orange"),
                 theme_switch,
-                ft.Icon(ft.Icons.NIGHTS_STAY, color="#afdaaf"),
+                ft.Icon(ft.Icons.NIGHTS_STAY, color="#94d494"),
             ], alignment="center"),
             ft.Divider(),
             ft.Text("Developer Tools", size=26, weight="bold"),
