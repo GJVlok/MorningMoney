@@ -29,7 +29,7 @@ def build_mobile_ui(page: ft.Page,
             ft.IconButton(ft.Icons.CALENDAR_MONTH, tooltip="Monthly", on_click=lambda _: page.go("/monthly")),
             ft.IconButton(ft.Icons.TRENDING_UP, tooltip="Investments", on_click=lambda _: page.go("/investments")),
             ft.IconButton(ft.Icons.TAG, tooltip="Tag Insights", on_click=lambda _: page.go("/tags_insights")),
-            ft.IconButton(ft.Icons.TRENDING_UP_SHARP, tooltip="Graphs", on_click=lambda _: page.go("/graphs")),
+            ft.IconButton(ft.Icons.BAR_CHART, tooltip="Graphs", on_click=lambda _: page.go("/graphs")),
             ft.IconButton(ft.Icons.SETTINGS, tooltip="Settings", on_click=lambda _: page.go("/settings")),
         ], alignment="spaceAround")
     )

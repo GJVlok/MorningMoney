@@ -37,7 +37,7 @@ def build_desktop_ui(page: ft.Page,
             ft.Tab(text="Monthly", icon=ft.Icons.CALENDAR_MONTH, content=monthly_tab),
             ft.Tab(text="Investments", icon=ft.Icons.TRENDING_UP, content=investments_tab),
             ft.Tab(text="Tag Insights", icon=ft.Icons.TAG, content=tags_insights_tab),
-            ft.Tab(text="Graphs", icon=ft.Icons.TRENDING_UP_SHARP, content=graphs_tab),
+            ft.Tab(text="Graphs", icon=ft.Icons.BAR_CHART, content=graphs_tab),
             ft.Tab(text="Settings", icon=ft.Icons.SETTINGS, content=settings_tab),
         ],
     )
