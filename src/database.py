@@ -33,6 +33,7 @@ class Transaction(Base):
     description = Column(String)
     account = Column(String, default="Cash")
     tags = Column(String)
+    saved_amount = Column(Numeric(precision=15, scale=2), default=Decimal('0.00'))
 
 class Investment(Base):
     __tablename__ = "investments"

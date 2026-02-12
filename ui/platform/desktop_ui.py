@@ -6,6 +6,7 @@ from ui.sections.desktop.diary_desktop import DiaryTab
 from ui.sections.desktop.monthly_desktop import MonthlyTab
 from ui.sections.desktop.investments_desktop import InvestmentsTab
 from ui.sections.desktop.tags_insights_desktop import TagsInsightsTab
+from ui.sections.desktop.savings_brag_desktop import SavingsBragTab
 from ui.sections.desktop.graphs_desktop import GraphsTab
 from ui.sections.desktop.settings_desktop import SettingsTab
 
@@ -18,6 +19,7 @@ def build_desktop(page: ft.Page):
     monthly = MonthlyTab(page, None)
     investments = InvestmentsTab(page, None)
     tags_insights = TagsInsightsTab(page, None)
+    savings_brag = SavingsBragTab(page, None)
     graphs = GraphsTab(page, None)
     settings = SettingsTab(page, None)
 
@@ -25,8 +27,9 @@ def build_desktop(page: ft.Page):
             diary,
             monthly,
             investments,
-            graphs,
             tags_insights,
+            savings_brag,
+            graphs,
             settings]
 
     async def refresh_all():
@@ -45,6 +48,7 @@ def build_desktop(page: ft.Page):
         monthly,
         investments,
         tags_insights,
+        savings_brag,
         graphs,
         settings,
     )

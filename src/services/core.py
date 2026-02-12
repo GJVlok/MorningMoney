@@ -12,6 +12,7 @@ from ..models import (
     get_tag_summary,
     get_transactions_with_running_balance,
     get_transactions_with_running_balance_date_to_date,
+    get_total_saved,
     Transaction,
     Investment,
 )
@@ -34,14 +35,16 @@ def svc_add_transaction(date,
                         category,
                         amount,
                         description="",
-                        tags=""):
+                        tags="",
+                        saved_amount=0):
     # Ensure amount is a Decimal string-conversion safe
     add_transaction(
         date=date,
         category=category,
         amount=Decimal(str(amount)),
         description=description,
-        tags=tags
+        tags=tags,
+        saved_amount=Decimal(str(saved_amount))
     )
     # Add helper: svc_get_tags_for_transaction(id) if needed later.
 
@@ -113,3 +116,6 @@ def svc_get_monthly_summary():
 
 def svc_get_tag_summary():
     return get_tag_summary()
+
+def svc_get_total_saved() -> Decimal:
+    return get_total_saved()

@@ -6,6 +6,38 @@ from src.services.core import svc_add_transaction
 
 
 def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
+    def update_discount_fields(e=None):
+    # Note: Added 'e=None' so it works as both an event handler and a direct call
+        selected_type = next(iter(type_selector.selected)) if type_selector.selected else "expense"
+        is_expense = selected_type == "expense" # Match the lowercase value in SegmentedButton
+        
+        discount_type.visible = is_expense
+        fixed_fields.visible = is_expense and discount_type.value == "Fixed Prices"
+        percent_fields.visible = is_expense and discount_type.value == "Percentage"
+        page.update()
+
+    # 2. Define the toggle FIRST so discount_type can see it
+    type_selector = ft.SegmentedButton(
+        selected={"expense"},
+        show_selected_icon=False,
+        segments=[
+            ft.Segment(value="income", label=ft.Text("Income")),
+            ft.Segment(value="expense", label=ft.Text("Expense")),
+        ],
+        on_change=lambda e: [update_category_dropdown(e), update_discount_fields(e)],
+    )
+
+    # 3. Now define the rest of the fields
+    discount_type = ft.Dropdown(
+        label="Discount Type",
+        options=[
+            ft.dropdown.Option("None"),
+            ft.dropdown.Option("Fixed Prices"),
+            ft.dropdown.Option("Percentage"),
+        ],
+        value="None",
+        on_change=update_discount_fields, # References the function above
+    )
     # New: Date Picker
     date_field = ft.TextField(
         label="Date (YYYY-MM-DD)",
@@ -17,6 +49,28 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         label="Tags (comma-seperated, e.g., milk,shop:Checkers)",
         expand=True,
     )
+    # New Discount Field
+    discount_type = ft.Dropdown(
+        label="Discount Type",
+        options=[
+            ft.dropdown.Option("None"),
+            ft.dropdown.Option("Fixed Prices"),
+            ft.dropdown.Option("Percentage"),
+        ],
+        value="None",
+        on_change=lambda e: update_discount_fields(),
+    )
+    # Containers for conditional fields
+    fixed_fields = ft.Row(visible=False, controls=[
+        ft.TextField(label="Original Price (R)", keyboard_type=ft.KeyboardType.NUMBER, expand=True),
+        ft.TextField(label="Discounted Price (R)", keyboard_type=ft.KeyboardType.NUMBER, expand=True),
+    ])
+
+    percent_fields = ft.Row(visible=False, controls=[
+        ft.TextField(label="Original Price (R)", keyboard_type=ft.KeyboardType.NUMBER, expand=True),
+        ft.TextField(label="Discount % (e.g., 20)", keyboard_type=ft.KeyboardType.NUMBER, expand=True),
+    ])
+
     # Helper to clean currency strings (reusing logic from dialogs)
     def get_clean_amount(val: str) -> Decimal:
         if not val or not val.strip():
@@ -49,23 +103,6 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         "Medical", "Insurance", "Savings Transfer", "Debt Repayment",
         "Education", "Gifts Given", "Hobbies", "Travel", "Other Expense"
     ]
-
-    # Segmented button for type toggle — starts with "Expense" selected
-    type_selector = ft.SegmentedButton(
-        selected={"expense"},  # Default to expense
-        show_selected_icon=False,  # Clean look
-        segments=[
-            ft.Segment(
-                value="income",
-                label=ft.Text("Income"),
-            ),
-            ft.Segment(
-                value="expense",
-                label=ft.Text("Expense"),
-            ),
-        ],
-        on_change=lambda e: update_category_dropdown(e),  # We'll define this next
-    )
 
     # Single dropdown — options update based on type
     category_dropdown = ft.Dropdown(
@@ -123,6 +160,24 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             else:
                 final_amount = -abs(raw_value)
 
+            saved = Decimal('0.00')
+            if selected_type == "expense" and discount_type.value != "None":
+                if discount_type.value == "Fixed Prices":
+                    orig = get_clean_amount(fixed_fields.controls[0].value)
+                    disc = get_clean_amount(fixed_fields.controls[1].value)
+                    if orig <= disc:
+                        raise ValueError("Original must be > discounted!")
+                    saved = orig - disc
+                    final_amount = -disc  # Expense
+                else:  # Percentage
+                    orig = get_clean_amount(percent_fields.controls[0].value)
+                    perc = Decimal(percent_fields.controls[1].value or '0')
+                    if perc < 0 or perc > 100:
+                        raise ValueError("Percent 0-100!")
+                    saved = orig * (perc / Decimal('100'))
+                    paid = orig - saved
+                    final_amount = -paid
+
             # 4. Save to DB via service
             # SINGLE write
             svc_add_transaction(
@@ -130,7 +185,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
                 category=category_dropdown.value or "Uncategorized",
                 amount=final_amount,
                 description=notes.value or "",
-                tags=tags_str
+                tags=tags_str,
+                saved_amount=saved
             )
 
             # 5. Success UI Flow
@@ -141,6 +197,15 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             tags_field.value = ""
             # Feedback
             await page.show_snack(f"Saved: R{abs(final_amount):,.2f}", "green")
+            await page.show_snack(f"Deal hunter! Saved R{saved:,.2f}—building your savings empire!", "green")
+
+            # Clear discount fields too
+            discount_type.value = "None"
+            fixed_fields.controls[0].value = ""
+            fixed_fields.controls[1].value = ""
+            percent_fields.controls[0].value = ""
+            percent_fields.controls[1].value = ""
+            update_discount_fields()
 
             # 5. Refresh logic
             if refresh_all:
@@ -162,6 +227,9 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             category_dropdown,
             tags_field,
             notes,
+            discount_type,
+            fixed_fields,
+            percent_fields,
             ft.ElevatedButton(
                 "Save Transaction",
                 icon=ft.Icons.SAVE,

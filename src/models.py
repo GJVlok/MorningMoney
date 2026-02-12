@@ -12,7 +12,8 @@ def add_transaction(date: date,
                     amount: Decimal,
                     description: str = "",
                     account: str = "Cash",
-                    tags: str = ""):
+                    tags: str = "",
+                    saved_amount: Decimal = Decimal('0.00')):
     with SessionLocal() as db:
         # Ensure amount is a Decimal before saving
         t = Transaction(date=date,
@@ -20,7 +21,8 @@ def add_transaction(date: date,
                         amount=Decimal(str(amount)),
                         description=description,
                         account=account,
-                        tags=tags)
+                        tags=tags,
+                        saved_amount=Decimal(str(saved_amount)))
         db.add(t)
         db.commit()
 
@@ -191,3 +193,8 @@ def get_tag_summary(month: str = None) -> List[dict]:
             {"tag": tag, "total": total} 
             for tag, total in sorted(tag_map.items(), key=lambda x: x[1], reverse=True)
         ]
+    
+def get_total_saved() -> Decimal:
+    with SessionLocal() as db:
+        total = db.query(func.sum(Transaction.saved_amount)).scalar()
+        return Decimal(str(total)) if total else Decimal('0.00')

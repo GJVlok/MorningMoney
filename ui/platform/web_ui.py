@@ -3,9 +3,10 @@ import flet as ft
 
 from ui.sections.web.new_entry_web import NewEntryTab
 from ui.sections.web.diary_web import DiaryTab
-from ui.sections.web.montly_web import MonthlyTab
+from ui.sections.web.monthly_web import MonthlyTab
 from ui.sections.web.investments_web import InvestmentsTab
 from ui.sections.web.tags_insights_web import TagsInsightsTab
+from ui.sections.web.savings_brag_web import SavingsBragTab
 from ui.sections.web.graphs_web import GraphsTab
 from ui.sections.web.settings_web import SettingsTab
 
@@ -18,6 +19,7 @@ def build_web(page: ft.Page):
     monthly = MonthlyTab(page, None)
     investments = InvestmentsTab(page, None)
     tags_insights = TagsInsightsTab(page, None)
+    savings_brag = SavingsBragTab(page, None)
     graphs = GraphsTab(page, None)
     settings = SettingsTab(page, None)
 
@@ -26,6 +28,7 @@ def build_web(page: ft.Page):
             monthly,
             investments,
             tags_insights,
+            savings_brag,
             graphs,
             settings]
 
@@ -45,6 +48,7 @@ def build_web(page: ft.Page):
         monthly,
         investments,
         tags_insights,
+        savings_brag,
         graphs,
         settings,
     )

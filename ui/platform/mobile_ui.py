@@ -6,6 +6,7 @@ from ui.sections.mobile.diary_mobile import DiaryTab
 from ui.sections.mobile.monthly_mobile import MonthlyTab
 from ui.sections.mobile.investments_mobile import InvestmentsTab
 from ui.sections.mobile.tags_insights_mobile import TagsInsightsTab
+from ui.sections.mobile.savings_brag_mobile import SavingsBragTab
 from ui.sections.mobile.graphs_mobile import GraphsTab
 from ui.sections.mobile.settings_mobile import SettingsTab
 
@@ -18,6 +19,7 @@ def build_mobile(page: ft.Page):
     monthly = MonthlyTab(page, None)
     investments = InvestmentsTab(page, None)
     tags_insights = TagsInsightsTab(page, None)
+    savings_brag = SavingsBragTab(page, None)
     graphs = GraphsTab(page, None)
     settings = SettingsTab(page, None)
 
@@ -26,6 +28,7 @@ def build_mobile(page: ft.Page):
             monthly,
             investments,
             tags_insights,
+            savings_brag,
             graphs,
             settings]
 
@@ -45,6 +48,7 @@ def build_mobile(page: ft.Page):
         monthly,
         investments,
         tags_insights,
+        savings_brag,
         graphs,
         settings,
     )
