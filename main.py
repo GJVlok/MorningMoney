@@ -6,7 +6,7 @@ import logging
 
 from controls.common import init_page_extensions
 from controls.desktop import build_desktop_ui
-from ui.utils.theme import get_color_scheme
+from ui.utils.theme import apply_theme
 
 # logging.basicConfig(level=config.LOG_LEVEL)
 
@@ -120,13 +120,13 @@ async def main(page: ft.Page):
     await asyncio.sleep(0.1)
 
     try:
-        saved_mode = await page.client_storage.get_async("theme_mode")
+        saved_mode = await page.storage.get_async("theme_mode")
         page.theme_mode = saved_mode if saved_mode else "dark"
     except Exception as ex:
         print(f"Theme load failed (using dark)< {ex}")
         page.theme_mode = "dark"
 
-    page.color_scheme = get_color_scheme(page.theme_mode)
+    apply_theme(page, page.theme_mode)
 
     init_page_extensions(page)
 
@@ -134,9 +134,9 @@ async def main(page: ft.Page):
         try:
             new_mode = "light" if page.theme_mode == "dark" else "dark"
             page.theme_mode = new_mode
-            page.color_scheme = get_color_scheme(new_mode)
+            page.theme_mode = apply_theme(new_mode)
 
-            await page.client_storage.set_async("theme_mode", new_mode)
+            await page.storage.set_async("theme_mode", new_mode)
 
             await page.show_snack(f"{page.theme_mode.capitalize()} mode activated!", "#94d494")
             await page.safe_update()
