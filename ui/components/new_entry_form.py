@@ -42,21 +42,35 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         spacing=16,
     )
 
-    def update_discount_fields(e=None):
-        selected_type = next(iter(type_selector.selected)) if type_selector.selected else "expense"
-        is_expense = selected_type == "expense"
-        for field in [fixed_fields.controls[0], fixed_fields.controls[1],
-            percent_fields.controls[0], percent_fields.controls[1]]:
-            field.on_change = lambda e: update_saved_preview()
+    def get_is_expense():
+        return "expense" in type_selector.selected
 
-        if discount_type.value == "Fixed Prices" and fixed_fields.visible:
-            page.focus(fixed_fields.controls[0])
-        elif discount_type.value == "Percentage" and percent_fields.visible:
-            page.focus(percent_fields.controls[0])
-        
+    def update_discount_fields(e=None):
+        is_expense = get_is_expense()
+
+        # Toggle main discount UI
+        discount_container.visible = is_expense
         discount_type.visible = is_expense
+
+        # Toggle specific discount modes
         fixed_fields.visible = is_expense and discount_type.value == "Fixed Prices"
         percent_fields.visible = is_expense and discount_type.value == "Percentage"
+
+        # Attach preview updates
+        for field in [
+            fixed_fields.controls[0],
+            fixed_fields.controls[1],
+            percent_fields.controls[0],
+            percent_fields.controls[1],
+        ]:
+            field.on_change = lambda e: update_saved_preview()
+
+        # Focus AFTER visibility is set
+        if fixed_fields.visible:
+            page.focus(fixed_fields.controls[0])
+        elif percent_fields.visible:
+            page.focus(percent_fields.controls[0])
+
         update_saved_preview()
         page.update()
 
@@ -156,7 +170,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         error = ""
 
         try:
-            is_expense = "expense" in type_selector.selected
+            is_expense = get_is_expense()
             if not is_expense or discount_type.value == "None":
                 saved_preview.value = ""
                 saved_preview.update()
@@ -317,7 +331,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             else:
                 success_msg = "Transaction saved!"
 
-            await page.show_snack(success_msg, bgcolor="#2e7d32", duration=4000)
+            await page.show_snack(success_msg, bgcolor="#2e7d32", duration_ms=4000)
 
             amount.value = ""
             notes.value = ""
@@ -341,6 +355,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         except Exception as e:
             print(f"From Error: {e}")
             await page.show_snack("Something went wrong.", "red")
+
+    update_discount_fields()
 
     return ft.Column(
         controls=[
