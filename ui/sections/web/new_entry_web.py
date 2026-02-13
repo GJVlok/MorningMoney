@@ -10,7 +10,7 @@ class NewEntryTab(ft.Column):
             scroll="auto",
             spacing=20,
             )
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
         self._build()
 
@@ -41,4 +41,4 @@ class NewEntryTab(ft.Column):
 
     async def refresh(self):
         self._build()
-        await self.page.safe_update()
+        await self._page.safe_update()

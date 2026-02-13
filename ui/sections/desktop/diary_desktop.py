@@ -12,7 +12,7 @@ from ui.components.monthly_summary import monthly_summary_table
 class DiaryTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
         super().__init__(expand=True, scroll="auto")
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
         self.list = ft.Column(expand=True, scroll="auto")
         self.from_date = ft.TextField(label="From Date (YYYY-MM-DD)", value="")

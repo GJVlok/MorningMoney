@@ -11,12 +11,12 @@ from ui.components.transaction_tile_mobile import transaction_tile_mobile
 class DiaryTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
         super().__init__(expand=True, scroll="auto")
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
         self.list = ft.Column(expand=True, scroll="auto")
         self.from_date = ft.TextField(label="From Date (YYYY-MM-DD)", value="")
         self.to_date = ft.TextField(label="To Date (YYYY-MM-DD)", value="")
-        self.filter_btn = ft.ElevatedButton("Filter", on_click=lambda _: self.page.run_task(self.refresh))
+        self.filter_btn = ft.ElevatedButton("Filter", on_click=lambda _: self._page.run_task(self.refresh))
 
         self.controls = [
             ft.Text("Recent Transactions", size=24, weight="bold"),
@@ -33,7 +33,7 @@ class DiaryTab(ft.Column):
                 padding=20
             )
         ]
-        await self.page.safe_update()
+        await self._page.safe_update()
 
         from_d, to_d = None, None
         if self.from_date.value or self.to_date.value:
@@ -43,10 +43,10 @@ class DiaryTab(ft.Column):
                 if self.to_date.value:
                     to_d = date.fromisoformat(self.to_date.value)
             except ValueError:
-                await self.page.show_snack("Invalid date format (use YYYY-MM-DD)", "red")
+                await self._page.show_snack("Invalid date format (use YYYY-MM-DD)", "red")
                 self.from_date.value = ""
                 self.to_date.value = ""
-                await self.page.safe_update()
+                await self._page.safe_update()
                 return
 
         data = await asyncio.to_thread(
@@ -67,4 +67,4 @@ class DiaryTab(ft.Column):
             ]
 
         self.list.controls = new_controls
-        await self.page.safe_update()
+        await self._page.safe_update()

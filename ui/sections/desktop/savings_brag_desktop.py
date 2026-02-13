@@ -6,7 +6,7 @@ from controls.common import money_text
 class SavingsBragTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
         super().__init__(expand=True, scroll="auto")
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
         self._build()
 
@@ -30,4 +30,4 @@ class SavingsBragTab(ft.Column):
 
     async def refresh(self):
         self._build()
-        await self.page.safe_update()
+        await self._page.safe_update()

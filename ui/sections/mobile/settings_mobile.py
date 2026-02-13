@@ -5,7 +5,7 @@ from ui.components.settings import settings_dev_tools
 class SettingsTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
         super().__init__(expand=True, scroll="auto")
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
 
         self.controls = [
@@ -15,4 +15,4 @@ class SettingsTab(ft.Column):
         ]
 
     async def refresh(self):
-        await self.page.safe_update()
+        await self._page.safe_update()

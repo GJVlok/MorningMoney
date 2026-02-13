@@ -7,7 +7,7 @@ from ui.components.investment_form import investment_form
 class InvestmentsTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
         super().__init__(expand=True, scroll="auto")
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
         self.container = ft.Column(scroll="auto")
         self._build()
@@ -32,4 +32,4 @@ class InvestmentsTab(ft.Column):
                 investment_card(inv, self.page, self.refresh_all)
             )
 
-        await self.page.safe_update()
+        await self._page.safe_update()

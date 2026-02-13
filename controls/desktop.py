@@ -24,7 +24,7 @@ def build_desktop_ui(page: ft.Page,
     header = ft.Row([
         ft.Text("MorningMoney", size=40, weight="bold"),
         ft.Container(expand=True),
-        ft.Text(f"Hi, {page.session.get('username') or 'friend'}!", size=18, color="grey"),
+        ft.Text(f"Hi, {page.session['username'] or 'friend'}!", size=18, color="grey"),
         balance_text,
     ], alignment="spaceBetween")
 

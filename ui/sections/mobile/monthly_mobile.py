@@ -5,7 +5,7 @@ from ui.components.monthly_summary import monthly_summary_mobile  # Desktop tabl
 class MonthlyTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
         super().__init__(expand=True, scroll="auto")
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
         self.future_content = ft.Column()  # Placeholder for future additions
         self._build()
@@ -20,4 +20,4 @@ class MonthlyTab(ft.Column):
 
     async def refresh(self):
         self._build()  # Rebuild to refresh summary
-        await self.page.safe_update()
+        await self._page.safe_update()

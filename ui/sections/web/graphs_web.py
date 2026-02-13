@@ -4,7 +4,7 @@ import flet as ft
 class GraphsTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):
         super().__init__(expand=True, scroll="auto")
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
         self._build()
 
@@ -26,4 +26,4 @@ class GraphsTab(ft.Column):
 
     async def refresh(self):
         self._build()  # Rebuild if needed
-        await self.page.safe_update()
+        await self._page.safe_update()
