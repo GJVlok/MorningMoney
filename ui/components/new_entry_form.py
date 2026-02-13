@@ -14,7 +14,6 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     def on_date_change(e):
         selected_date_ref.current.value = e.control.value.strftime("%d %b %Y")
         page.session.set("last_used_date", e.control.value)
-        page.update()
 
     date_picker = ft.DatePicker(
         ref=date_hidden,
@@ -27,9 +26,14 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     date_row = ft.Row(
         [
             ft.ElevatedButton(
-                text="Choose Date",
-                icon=ft.Icons.CALENDAR_MONTH,
-                on_click=lambda _: page.open(date_picker),
+                content=ft.Row([
+                    ft.Icon(ft.Icons.CALENDAR_MONTH),
+                    ft.Text("Choose Date"),
+                ], spacing=8),
+                on_click=lambda _: (
+                    page.overlay.append(date_picker),
+                    setattr(date_picker, "open", True),
+                )
             ),
             ft.Text(
                 ref=selected_date_ref,
@@ -53,8 +57,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         discount_type.visible = is_expense
 
         # Toggle specific discount modes
-        fixed_fields.visible = is_expense and discount_type.value == "Fixed Prices"
-        percent_fields.visible = is_expense and discount_type.value == "Percentage"
+        fixed_fields.visible = is_expense and discount_type.value == "fixed_prices"
+        percent_fields.visible = is_expense and discount_type.value == "percentage"
 
         # Attach preview updates
         for field in [
@@ -72,14 +76,13 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             page.focus(percent_fields.controls[0])
 
         update_saved_preview()
-        page.update()
 
     def on_type_change(e):
         update_category_dropdown(e)
         update_discount_fields(e)
 
     type_selector = ft.SegmentedButton(
-        selected={"expense"},
+        selected=["expense"],
         show_selected_icon=False,
         segments=[
             ft.Segment(value="income", label=ft.Text("Income")),
@@ -91,13 +94,13 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     discount_type = ft.Dropdown(
         label="Discount Type",
         options=[
-            ft.dropdown.Option("None"),
-            ft.dropdown.Option("Fixed Prices"),
-            ft.dropdown.Option("Percentage"),
+            ft.dropdown.Option(key="none", text="None"),
+            ft.dropdown.Option(key="fixed_price", text="Fixed Prices"),
+            ft.dropdown.Option(key="percentage", text="Percentage"),
         ],
         value="None",
-        on_change=lambda e: update_discount_fields(),
     )
+    discount_type.on_change=lambda e: update_discount_fields(),
 
     tags_field = ft.TextField(
         label="Tags (comma-seperated, e.g., milk,shop:Checkers)",
@@ -122,7 +125,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     
     amount = ft.TextField(
         label="Amount",
-        prefix_text="R ",
+        prefix=ft.Text("R "),
         keyboard_type=ft.KeyboardType.NUMBER,
         input_filter=ft.InputFilter(allow=True, regex_string=r"^\d*\.?\d{0,2}$"),
         on_change=lambda e: update_amount_preview(),
@@ -171,12 +174,11 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
 
         try:
             is_expense = get_is_expense()
-            if not is_expense or discount_type.value == "None":
+            if not is_expense or discount_type.value == "none":
                 saved_preview.value = ""
-                saved_preview.update()
                 return
 
-            if discount_type.value == "Fixed Prices":
+            if discount_type.value == "fixed_prices":
                 orig_str = fixed_fields.controls[0].value.strip()
                 disc_str = fixed_fields.controls[1].value.strip()
                 if not orig_str or not disc_str:
@@ -191,7 +193,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
                     saved = orig - disc
                     message = f"You save R{saved:,.2f} — great deal!"
 
-            elif discount_type.value == "Percentage":
+            elif discount_type.value == "percentage":
                 orig_str = percent_fields.controls[0].value.strip()
                 perc_str = percent_fields.controls[1].value.strip()
                 if not orig_str or not perc_str:
@@ -218,9 +220,6 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             saved_preview.value = "Check the numbers — something doesn't add up"
             saved_preview.color = ft.Colors.RED_400
 
-        saved_preview.update()
-
-
     def update_amount_preview():
         try:
             val = Decimal(amount.value or "0")
@@ -228,10 +227,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
                 amount_preview.value = f"Expense of {money_text(-val).value}"
             else:
                 amount_preview.value = f"Income of {money_text(val).value}"
-            amount_preview.update()
         except:
             amount_preview.value = ""
-            amount_preview.update()
 
     INCOME_CATEGORIES = [
         "Salary", "Freelance", "Side Hustle", "Investment Return",
@@ -249,10 +246,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     category_dropdown = ft.Dropdown(
         label="Category",
         value=EXPENSE_CATEGORIES[0],
-        options=[ft.dropdown.Option(c) for c in EXPENSE_CATEGORIES],
+        options=[ft.dropdown.Option(key=c, text=c) for c in EXPENSE_CATEGORIES],
         expand=True,
-        icon=ft.Icons.CATEGORY,
-        border_color=ft.Colors.RED_400,
     )
     def update_category_dropdown(e):
         selected_type = "income" if "income" in type_selector.selected else "expense"
@@ -260,13 +255,15 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         if selected_type == "income":
             category_dropdown.options = [ft.dropdown.Option(c) for c in INCOME_CATEGORIES]
             category_dropdown.value = INCOME_CATEGORIES[0]
-            category_dropdown.border_color = "#94d494"  # Green for income
+            category_dropdown.border_color = ft.InputBorder(
+                border_side=ft.BorderSide(2, "#94d494")
+            )
         else:
             category_dropdown.options = [ft.dropdown.Option(c) for c in EXPENSE_CATEGORIES]
             category_dropdown.value = EXPENSE_CATEGORIES[0]
-            category_dropdown.border_color = "#c21717"  # Red-ish for expense
-        
-        page.update()
+            category_dropdown.border_color = ft.InputBorder(
+                border_side=ft.BorderSide(2, "#c21717")
+            )
 
     notes = ft.TextField(
         label="Notes (optional)",
@@ -295,8 +292,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
                 final_amount = -abs(raw_value)
 
             saved = Decimal('0.00')
-            if selected_type == "expense" and discount_type.value != "None":
-                if discount_type.value == "Fixed Prices":
+            if selected_type == "expense" and discount_type.value != "none":
+                if discount_type.value == "fixed_prices":
                     orig = get_clean_amount(fixed_fields.controls[0].value)
                     disc = get_clean_amount(fixed_fields.controls[1].value)
                     if orig <= disc:
@@ -338,7 +335,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             date_picker.value = dt_date.today()
             tags_field.value = ""
 
-            discount_type.value = "None"
+            discount_type.value = "none"
             fixed_fields.controls[0].value = ""
             fixed_fields.controls[1].value = ""
             percent_fields.controls[0].value = ""
@@ -376,13 +373,15 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             notes,
             discount_container,
             ft.ElevatedButton(
-                "Save Transaction",
-                icon=ft.Icons.SAVE,
-                bgcolor="#94d494",
-                color="black",
-                on_click=lambda _: page.run_task(submit),
+                content=ft.Row([
+                    ft.Icon(ft.Icons.SAVE),
+                    ft.Text("Save Transaction"),
+                ],
+                spacing=8,
+            ),
+            bgcolor="#94d494",
+            color="black",
+            on_click=lambda _: page.run_task(submit),
             ),
         ],
-        scroll="auto",
-        spacing=12,
-    )
+    ),

@@ -6,7 +6,7 @@ import logging
 
 from controls.common import init_page_extensions
 from controls.desktop import build_desktop_ui
-from ui.utils.theme import apply_theme
+from src.services.settings import init_theme
 from ui.utils.flet_compat import pref_get, pref_set, safe_update
 
 # logging.basicConfig(level=config.LOG_LEVEL)
@@ -15,8 +15,8 @@ async def build_main_ui(page: ft.Page):
     page.clean()
 
     # ---- platform detection ---- (move your existing detection code here)
-    force_desktop = await page.shared_preferences.get("force_desktop")
-    force_mobile = await page.shared_preferences.get("force_mobile")
+    force_desktop = await pref_get("force_desktop", False)
+    force_mobile = await pref_get("force_mobile", False)
 
     def is_real_desktop():
         return (
@@ -116,41 +116,11 @@ async def build_main_ui(page: ft.Page):
     # await page.show_snack(f"Welcome, {page.session.get('username') or 'friend'}!", "green")
 
 async def main(page: ft.Page):
-    prefs = ft.SharedPreferences()
-    page.overlay.append(prefs)
-    await page.update_async()
-    
     page.title = "MorningMoney"
-
-    await asyncio.sleep(0.1)
-
-    try:
-        theme = await pref_get(page, "theme", False) or False
-        page.theme_mode = theme if theme else "dark"
-    except Exception as ex:
-        print(f"Theme load failed (using dark)< {ex}")
-        page.theme_mode = "dark"
-
-    apply_theme(page, page.theme_mode)
 
     init_page_extensions(page)
 
-    async def toggle_theme(e):
-        try:
-            new_mode = "light" if page.theme_mode == "dark" else "dark"
-            page.theme_mode = new_mode
-            apply_theme(page, page.theme_mode)
-
-            await pref_set(page, "theme", True)
-
-            await page.show_snack(f"{new_mode.capitalize()} mode activated!", "#94d494")
-            await safe_update(page)
-
-        except TimeoutError:
-            await page.show_snack("Theme saved, but storage timed out - try again?", "orange")
-        except Exception as ex:
-            print(f"Toggle theme error: {ex}")
-            await page.show_snack("Couldn't save theme preference", "red")
+    await init_theme(page)
 
     await build_main_ui(page)
 

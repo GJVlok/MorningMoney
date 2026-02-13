@@ -29,7 +29,7 @@ class DiaryTab(ft.Column):
         self.list.controls = [
             ft.Container(
                 content=ft.ProgressRing(),
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
                 padding=20
             )
         ]

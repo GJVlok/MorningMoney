@@ -1,6 +1,6 @@
 # ui/sections/web/settings_web.py
 import flet as ft
-from ui.components.settings import settings_dev_tools
+from ui.components.settings_dev_tools import settings_dev_tools
 
 class SettingsTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all):

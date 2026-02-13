@@ -20,7 +20,7 @@ class GraphsTab(ft.Column):
                             size=16, italic=True, text_align="center"),
                 ], alignment="center", horizontal_alignment="center"),
                 expand=True,
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
             ),
         ]
 

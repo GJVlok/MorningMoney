@@ -23,7 +23,7 @@ class SavingsBragTab(ft.Column):
                     brag_text,
                 ], alignment="center", horizontal_alignment="center"),
                 expand=True,
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
             ),
             # Future: List of top savings transactions
         ]

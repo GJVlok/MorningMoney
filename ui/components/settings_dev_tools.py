@@ -1,4 +1,4 @@
-# ui/components/settings.py
+# ui/components/settings_dev_tools.py
 import flet as ft
 from src.services.settings import (
     set_force_desktop,
@@ -23,11 +23,17 @@ def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
         tooltip="Forces narrow phone view + bottom nav even on desktop",
     )
 
+    def on_theme_toggle(e):
+        page.run_task(page.toggle_theme)
+        theme_switch.label = "Dark Mode" if page.theme_mode == "light" else "Light Mode"
+        page.update()
+
     theme_switch = ft.Switch(
         label="Dark Mode" if page.theme_mode == "light" else "Light Mode",
         value=page.theme_mode == "light",
-        on_change=page.toggle_theme,
     )
+
+    theme_switch.on_change = on_theme_toggle
 
     def apply_desktop_override(enabled: bool):
         set_force_desktop(page.session, enabled)
