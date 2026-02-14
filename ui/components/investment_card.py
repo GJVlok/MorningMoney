@@ -1,36 +1,59 @@
 # ui/components/investment_card.py
 import flet as ft
+from datetime import date as dt_date
+from decimal import Decimal
 from src.database import Investment
 from src.services.core import svc_calculate_future_value
 from controls.dialogs import edit_investment_dialog, delete_investment
+from ui.components.investment_form import investment_form  # ← new connection
 
 
-def _investment_card_content(investment: Investment) -> ft.Column:
-    fv = svc_calculate_future_value(investment)
+# Constants – easy to tweak later (e.g. adjust FIRE goal per user)
+FIRE_THRESHOLD = Decimal("10000000")  # R10M
+FIRE_COLOR = "#00ff88"                # bright green
+ON_TRACK_COLOR = "#ffaa00"            # warm orange
+CARD_BG = "#1e1e2e"
 
-    status_color = "#00ff88" if fv >= 10_000_000 else "orange"
-    status_text = "FIRE!" if fv >= 10_000_000 else "on track"
 
-    return ft.Column(
-        spacing=8,
-        controls=[
-            ft.Text(investment.name, size=22, weight="bold", color="white"),
-            ft.Text(
-                f"Current: R{investment.current_value:,.0f}  •  "
-                f"+R{investment.monthly_contribution:,.0f}/mo @ "
-                f"{investment.expected_annual_return}%",
-                color="grey",
-            ),
-            ft.Divider(color="grey"),
-            ft.Text("Projected", color=status_color),
-            ft.Text(f"R{fv:,.0f}", size=34, weight="bold", color=status_color),
-            ft.Text(
-                f"R{fv / 1_000_000:.2f} million {status_text}",
-                color=status_color,
-                italic=True,
-            ),
-        ],
-    )
+def _build_card_content(inv: Investment) -> ft.Column:
+    """Core content – reusable & testable"""
+    try:
+        fv = svc_calculate_future_value(inv)
+        years_to_target = inv.target_year - dt_date.today().year
+        status_color = FIRE_COLOR if fv >= FIRE_THRESHOLD else ON_TRACK_COLOR
+        status_label = "FIRE Achieved!" if fv >= FIRE_THRESHOLD else f"On Track (~{years_to_target} yrs)"
+        
+        return ft.Column(
+            spacing=10,
+            controls=[
+                ft.Text(inv.name or "Unnamed Investment", size=22, weight=ft.FontWeight.BOLD, color="white"),
+                ft.Text(
+                    f"Current: R{inv.current_value:,.0f}  •  "
+                    f"+R{inv.monthly_contribution:,.0f}/mo @ {inv.expected_annual_return}%",
+                    size=14,
+                    color=ft.Colors.GREY_400,
+                ),
+                ft.Divider(height=1, color=ft.Colors.GREY_700),
+                ft.Row(
+                    [
+                        ft.Text("Projected Value", size=16, color=status_color),
+                        ft.Text(f"R{fv:,.0f}", size=32, weight=ft.FontWeight.BOLD, color=status_color),
+                    ],
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                ),
+                ft.Text(
+                    f"≈ R{fv / Decimal('1000000'):.1f}M – {status_label}",
+                    size=14,
+                    color=status_color,
+                    italic=True,
+                ),
+            ],
+        )
+    except Exception as e:
+        return ft.Column([
+            ft.Text("Error calculating projection", color=ft.Colors.RED_400),
+            ft.Text(str(e), size=12, color=ft.Colors.GREY_500),
+        ])
 
 
 def investment_card(
@@ -38,46 +61,59 @@ def investment_card(
     page: ft.Page,
     refresh_all,
 ) -> ft.Card:
-    """Desktop / Web investment card"""
+    """Investment summary card – desktop/web style"""
 
-    content = _investment_card_content(investment)
+    content = _build_card_content(investment)
 
-    return ft.Card(
-        elevation=8,
+    def on_edit(e):
+        # Option A: Use modern form directly (recommended)
+        # page.dialog = ft.AlertDialog(
+        #     modal=True,
+        #     content=investment_form(page, refresh_all, existing_inv=investment),
+        #     actions=[ft.TextButton("Close", on_click=lambda _: page.close_dialog())],
+        # )
+        # page.dialog.open = True
+        # page.update()
+
+        # Option B: Keep using your dialog function (if you prefer popup style)
+        page.run_task(edit_investment_dialog, page, investment, refresh_all)
+
+    def on_delete(e):
+        page.run_task(delete_investment, page, investment, refresh_all)
+
+    card = ft.Card(
+        elevation=6,
+        color=CARD_BG,
+        margin=ft.margin.all(8),
         content=ft.Container(
-            bgcolor="#1e1e2e",
-            border_radius=12,
-            padding=10,
+            border_radius=16,
+            padding=16,
             content=ft.Row(
-                alignment="spaceBetween",
+                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                vertical_alignment=ft.CrossAxisAlignment.START,
                 controls=[
-                    ft.Container(content=content, padding=20, expand=True),
+                    ft.Container(content=content, expand=True),
                     ft.Column(
-                        spacing=4,
+                        spacing=8,
                         controls=[
                             ft.IconButton(
-                                ft.Icons.EDIT,
-                                tooltip="Edit",
-                                on_click=lambda e: page.run_task(
-                                    edit_investment_dialog,
-                                    page,
-                                    investment,
-                                    refresh_all,
-                                ),
+                                ft.Icons.EDIT_OUTLINED,
+                                icon_color=ft.Colors.BLUE_300,
+                                tooltip="Edit investment",
+                                on_click=on_edit,
                             ),
                             ft.IconButton(
-                                ft.Icons.DELETE,
-                                tooltip="Delete",
-                                on_click=lambda e: page.run_task(
-                                    delete_investment,
-                                    page,
-                                    investment,
-                                    refresh_all,
-                                ),
+                                ft.Icons.DELETE_OUTLINE,
+                                icon_color=ft.Colors.RED_400,
+                                tooltip="Delete investment",
+                                on_click=on_delete,
                             ),
                         ],
                     ),
                 ],
             ),
+            on_hover=lambda e: setattr(card, "elevation", 12 if e.data == "true" else 6) or card.update(),
         ),
     )
+
+    return card

@@ -3,12 +3,11 @@ import asyncio
 from pathlib import Path
 from typing import Any
 
-async def safe_update(page):
+async def safe_update(page):  # Keep async for now, but could be sync
     """Async-safe wrapper around page.update()."""
     try:
         page.update()
     except Exception:
-        # best-effort retry in next loop tick
         await asyncio.sleep(0)
         try:
             page.update()
@@ -21,74 +20,40 @@ def set_window_size(page, width: int, height: int):
     if not win:
         return
     try:
-        win.width = width
-        win.height = height
+        page.window.width = width  # Updated: page.window (newer Flet API)
+        page.window.height = height
     except Exception:
-        # some Flet versions expose different API; ignore safely
-        try:
-            if hasattr(win, "set_size"):
-                win.set_size(width, height)
-        except Exception:
-            pass
+        pass  # Ignore if API changes
 
 def center_window(page):
     win = getattr(page, "window", None)
     if not win:
         return
     try:
-        win.center()
-    except Exception:
-        try:
-            if hasattr(win, "center_window"):
-                win.center_window()
-        except Exception:
-            pass
-
-def run_task(page, coro_or_callable, *args, **kwargs):
-    """
-    Unified runner: try page.run_task if available; otherwise fallback to asyncio.create_task.
-    Accepts coroutine function or coroutine object.
-    """
-    try:
-        # prefer page.run_task when available
-        if hasattr(page, "run_task"):
-            return page.run_task(coro_or_callable, *args, **kwargs)
+        page.window.center()  # Updated: page.window.center()
     except Exception:
         pass
 
-    # fallback
+def run_task(page, coro_or_callable, *args, **kwargs):
     try:
-        if asyncio.iscoroutine(coro_or_callable):
-            return asyncio.create_task(coro_or_callable)
         if asyncio.iscoroutinefunction(coro_or_callable):
-            return asyncio.create_task(coro_or_callable(*args, **kwargs))
-        # sync callable -> run in thread
-        loop = asyncio.get_event_loop()
-        return loop.run_in_executor(None, lambda: coro_or_callable(*args, **kwargs))
+            asyncio.create_task(coro_or_callable(*args, **kwargs))  # Schedule async
+        else:
+            loop = asyncio.get_event_loop()
+            loop.run_in_executor(None, lambda: coro_or_callable(*args, **kwargs))  # Sync in thread
     except Exception:
-        return None
+        pass
 
-async def pref_get(page, key: str, default: Any = None):
-    """Try awaiting shared_preferences.get if it's async, otherwise return directly."""
+def pref_get(page, key: str, default: Any = None):  # Sync now
+    """Use page.client_storage.get."""
     try:
-        prefs = getattr(page, "shared_preferences", None)
-        if prefs is None:
-            return default
-        val = prefs.get(key, default)
-        if hasattr(val, "__await__"):
-            return await val
-        return val
+        return page.client_storage.get(key) or default
     except Exception:
         return default
 
-async def pref_set(page, key: str, value: Any):
-    """Try set() and await if necessary; swallow errors."""
+def pref_set(page, key: str, value: Any):  # Sync now
+    """Use page.client_storage.set."""
     try:
-        prefs = getattr(page, "shared_preferences", None)
-        if prefs is None:
-            return
-        res = prefs.set(key, value)
-        if hasattr(res, "__await__"):
-            await res
+        page.client_storage.set(key, value)
     except Exception:
         pass
