@@ -3,7 +3,6 @@ import flet as ft
 import logging
 from src.services.core import svc_get_balance
 
-
 def build_desktop_ui(
     page: ft.Page,
     new_entry_tab: ft.Container,

@@ -5,9 +5,7 @@ from ui.components.investment_form import investment_form
 
 
 class NewEntryTab(ft.Column):
-
     def __init__(self, page: ft.Page, refresh_all=None):
-
         super().__init__(
             expand=True,
             scroll=ft.ScrollMode.AUTO,

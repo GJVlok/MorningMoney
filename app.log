@@ -122,3 +122,115 @@ TypeError: Tabs.__init__() got an unexpected keyword argument 'tabs'
 2026-02-19 17:30:20,967 - INFO - Balance updated
 2026-02-19 17:30:21,084 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
 2026-02-19 17:30:28,578 - INFO - Session was garbage collected: cjWLB3FPhrnw8DNt
+2026-02-19 21:42:48,486 - INFO - Balance updated
+2026-02-19 21:42:48,487 - INFO - Balance updated
+2026-02-19 21:42:48,607 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-19 21:44:49,728 - INFO - Session was garbage collected: 9uhoHUx6i94rBUMZ
+2026-02-19 22:00:18,873 - INFO - Balance updated
+2026-02-19 22:00:18,873 - INFO - Balance updated
+2026-02-19 22:00:18,996 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-19 22:00:34,430 - INFO - Session was garbage collected: YdrvYqimqohGWMRH
+2026-02-19 22:01:22,329 - INFO - Balance updated
+2026-02-19 22:01:22,330 - INFO - Balance updated
+2026-02-19 22:01:22,458 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-19 22:02:28,687 - INFO - Session was garbage collected: zUXqUsVFdinhtHRC
+2026-02-19 22:06:02,605 - INFO - Balance updated
+2026-02-19 22:06:02,605 - INFO - Balance updated
+2026-02-19 22:06:02,730 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-19 22:07:05,265 - INFO - Session was garbage collected: 6us9C7j5Lap5PhQi
+2026-02-19 22:22:56,173 - INFO - Balance updated
+2026-02-19 22:22:56,174 - INFO - Balance updated
+2026-02-19 22:22:56,233 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-19 22:23:51,937 - INFO - Session was garbage collected: bFUYgVUhZqj9rxiQ
+2026-02-19 22:34:42,271 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 125, in build_main_ui
+    build_desktop_ui(page, *tabs_list)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\controls\desktop.py", line 141, in build_desktop_ui
+    page.add(layout)
+    ~~~~~~~~^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_page.py", line 287, in add
+    self.update()
+    ~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 452, in update
+    self.__update(self)
+    ~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 461, in __update
+    self.session.patch_control(c)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\messaging\session.py", line 143, in patch_control
+    self.__send_message(
+    ~~~~~~~~~~~~~~~~~~~^
+        ClientMessage(
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        )
+        ^
+    )
+    ^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\messaging\session.py", line 286, in __send_message
+    self.__conn.send_message(message)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\messaging\flet_socket_server.py", line 305, in send_message
+    m = msgpack.packb(
+        [message.action, message.body],
+        default=configure_encode_object_for_msgpack(BaseControl),
+    )
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\msgpack\__init__.py", line 36, in packb
+    return Packer(**kwargs).pack(o)
+           ~~~~~~~~~~~~~~~~~~~~~^^^
+  File "msgpack/_packer.pyx", line 279, in msgpack._cmsgpack.Packer.pack
+  File "msgpack/_packer.pyx", line 276, in msgpack._cmsgpack.Packer.pack
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 265, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 232, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 213, in msgpack._cmsgpack.Packer._pack_inner
+  File "msgpack/_packer.pyx", line 270, in msgpack._cmsgpack.Packer._pack
+  File "msgpack/_packer.pyx", line 257, in msgpack._cmsgpack.Packer._pack_inner
+TypeError: can not serialize 'set' object
+2026-02-19 22:34:58,191 - INFO - Session was garbage collected: vnFlqwjohkFfvmsM
+2026-02-19 22:43:24,440 - INFO - Balance updated
+2026-02-19 22:43:24,441 - INFO - Balance updated
+2026-02-19 22:43:24,534 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-19 22:44:57,009 - INFO - Session was garbage collected: bABICdaWPdCpzlFR

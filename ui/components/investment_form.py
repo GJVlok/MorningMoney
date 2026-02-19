@@ -56,7 +56,7 @@ def investment_form(page: ft.Page, refresh_all=None, existing_inv=None):
     rate_field = ft.TextField(
         label="Expected Annual Return %",
         value=f"{existing_inv.expected_annual_return:.2f}" if is_edit else "11.00",
-        suffix_text="%",
+        suffix=ft.Text("%", size=16, color=ft.Colors.GREY_700),
         expand=True,
     )
 
@@ -76,10 +76,9 @@ def investment_form(page: ft.Page, refresh_all=None, existing_inv=None):
 
     # ---------------- PREVIEW ---------------- #
 
-    def update_preview(e=None):
+    def update_preview(e=None, do_update=True):
 
         try:
-
             curr = float(clean_decimal(current_field.value))
             monthly = float(clean_decimal(monthly_field.value))
             rate = float(clean_decimal(rate_field.value, "0")) / 100
@@ -89,7 +88,8 @@ def investment_form(page: ft.Page, refresh_all=None, existing_inv=None):
 
             if years <= 0 or rate <= 0:
                 preview_text.value = ""
-                preview_text.update()
+                if do_update:
+                    preview_text.update()
                 return
 
             future = (
@@ -104,13 +104,14 @@ def investment_form(page: ft.Page, refresh_all=None, existing_inv=None):
 
             preview_text.value = "Check inputs"
             preview_text.color = ft.Colors.GREY_500
-
-        preview_text.update()
+        if do_update:
+            preview_text.update()
 
     for f in [current_field, monthly_field, rate_field, year_field]:
-        f.on_change = update_preview
+        f.on_change = lambda _: update_preview(_, do_update=True)
 
-    update_preview()
+    # Initial set (no update)
+    update_preview(None, do_update=False)
 
     # ---------------- SAVE ---------------- #
 
@@ -188,7 +189,7 @@ def investment_form(page: ft.Page, refresh_all=None, existing_inv=None):
             ft.Row([rate_field, year_field]),
             preview_text,
             ft.ElevatedButton(
-                "Update Investment" if is_edit else "Save Investment",
+                content=ft.Text("Update Investment" if is_edit else "Save Investment"),
                 icon=ft.Icons.SAVE,
                 bgcolor="#94d494",
                 color=ft.Colors.BLACK,

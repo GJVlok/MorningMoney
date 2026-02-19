@@ -8,7 +8,6 @@ from controls.common import money_text
 
 
 def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
-
     today = dt_date.today()
 
     # ---------------- DATE PICKER ---------------- #
@@ -77,7 +76,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         return "expense" in type_selector.selected
 
     type_selector = ft.SegmentedButton(
-        selected={"expense"},
+        selected=["expense"],
         show_selected_icon=False,
         segments=[
             ft.Segment(value="income", label=ft.Text("Income")),
@@ -104,7 +103,6 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     category_dropdown = ft.Dropdown(expand=True)
 
     def update_category_dropdown():
-
         if get_is_expense():
             category_dropdown.options = [
                 ft.dropdown.Option(c)
@@ -120,7 +118,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             category_dropdown.value = INCOME_CATEGORIES[0]
             category_dropdown.border_color = ft.Colors.GREEN_400
 
-        page.update()
+        # page.update()
 
     type_selector.on_change = lambda e: (
         update_category_dropdown(),
@@ -161,7 +159,6 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     )
 
     def update_amount_preview(e=None):
-
         try:
             val = clean_decimal(amount.value)
 
@@ -179,7 +176,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         except Exception:
             amount_preview.value = "Invalid amount"
 
-        page.update()
+        if e is not None:
+            amount_preview.update()
 
     amount.on_change = update_amount_preview
 
@@ -240,17 +238,16 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         border_radius=12,
     )
 
-    def update_saved_preview():
-
+    def update_saved_preview(do_update=True):
         saved = Decimal("0.00")
         msg = ""
         color = ft.Colors.GREEN_300
 
         try:
-
             if not get_is_expense() or discount_type.value == "none":
                 saved_preview.value = ""
-                page.update()
+                if do_update:
+                    saved_preview.update()
                 return
 
             if discount_type.value == "fixed":
@@ -280,7 +277,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
                 )
 
                 if perc < 0 or perc > 100:
-                    msg = "Discount % must be 0–100"
+                    msg = "Discount % must be 0-100"
                     color = ft.Colors.RED_400
                 else:
                     saved = orig * (perc / Decimal("100"))
@@ -292,10 +289,10 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
 
         saved_preview.value = msg
         saved_preview.color = color
-        page.update()
+        if do_update:
+            saved_preview.update()
 
     def update_discount_fields(e=None):
-
         is_exp = get_is_expense()
 
         discount_container.visible = is_exp
@@ -304,9 +301,10 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         fixed_row.visible = is_exp and discount_type.value == "fixed"
         percent_row.visible = is_exp and discount_type.value == "percent"
 
-        update_saved_preview()
+        update_saved_preview(do_update=(e is not None)) # pass False at init
 
-        page.update()
+        if e is not None:
+            page.update()
 
     discount_type.on_change = update_discount_fields
 
@@ -323,9 +321,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     # ---------------- SUBMIT ---------------- #
 
     async def submit(e):
-
         try:
-
             amt_clean = clean_decimal(amount.value)
 
             if amt_clean == 0:
@@ -394,7 +390,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             notes,
             discount_container,
             ft.ElevatedButton(
-                label="Save Transaction",
+                content=ft.Text("Save Transaction"),
                 on_click=lambda _: page.run_task(submit),
             ),
         ],
