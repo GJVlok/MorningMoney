@@ -1,6 +1,7 @@
 # main.py
 import flet as ft
 import asyncio
+import logging
 import matplotlib; matplotlib.use('Agg')  # Non-interactive backend – good for server-side charts
 
 from controls.common import init_page_extensions
@@ -27,6 +28,16 @@ from ui.sections.desktop.settings_desktop import SettingsTab
 # You may want mobile/web variants too – for now assuming shared tabs or conditional
 # If mobile needs different tabs, import them conditionally later
 
+
+def setup_logging():
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler("app.log"),
+            logging.StreamHandler()
+        ]
+    )
 
 async def build_main_ui(page: ft.Page):
     page.clean()
@@ -80,8 +91,8 @@ async def build_main_ui(page: ft.Page):
     async def refresh_all():
         try:
             page.balance_updater()  # Update global balance display
-        except AttributeError:
-            pass  # If not set yet
+        except AttributeError as e:
+            logging.error(f"Error updating balance: {e}")
 
         for tab in tabs_list:
             if hasattr(tab, "refresh") and callable(tab.refresh):
@@ -155,12 +166,10 @@ async def build_main_ui(page: ft.Page):
         pref_get(page, "seen_welcome", True)  # Mark as seen (sync set)
 
 async def main(page: ft.Page):
-    # Core init
+    setup_logging()
     init_page_extensions(page)
     await init_theme(page)
-
-    # Optional: log startup
-    # logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.DEBUG)
 
     await build_main_ui(page)
 
