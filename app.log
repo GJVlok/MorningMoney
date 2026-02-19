@@ -2,3 +2,123 @@
 2026-02-19 15:37:11,946 - INFO - Balance updated successfully.
 2026-02-19 15:37:11,970 - INFO - Balance updated successfully.
 2026-02-19 15:37:16,660 - INFO - Session was garbage collected: MIbxwiJePTNTNTj6
+2026-02-19 16:20:31,756 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 125, in build_main_ui
+    build_desktop_ui(page, *tabs_list)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\controls\desktop.py", line 60, in build_desktop_ui
+    ft.Tab(
+    ~~~~~~^
+        text="New",
+        ^^^^^^^^^^^
+        icon=ft.Icons.ADD_CIRCLE_OUTLINE,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        content=new_entry_tab,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+TypeError: Tab.__init__() got an unexpected keyword argument 'text'
+2026-02-19 16:20:36,500 - INFO - Session was garbage collected: cz5yARcfYeun67hh
+2026-02-19 16:58:11,121 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 125, in build_main_ui
+    build_desktop_ui(page, *tabs_list)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\controls\desktop.py", line 60, in build_desktop_ui
+    ft.Tab(
+    ~~~~~~^
+        label="New",
+        ^^^^^^^^^^^^
+        icon=ft.Icons.ADD_CIRCLE_OUTLINE,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        content=new_entry_tab,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+TypeError: Tab.__init__() got an unexpected keyword argument 'content'
+2026-02-19 16:58:14,759 - INFO - Session was garbage collected: 4hAS7UmA4FkAcSvQ
+2026-02-19 17:08:19,246 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 125, in build_main_ui
+    build_desktop_ui(page, *tabs_list)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\controls\desktop.py", line 55, in build_desktop_ui
+    tabs_list = ft.Tabs(
+        tabs=[
+    ...<32 lines>...
+        ],
+    )
+TypeError: Tabs.__init__() got an unexpected keyword argument 'tabs'
+2026-02-19 17:08:23,963 - INFO - Session was garbage collected: i4fX2DFtbbHe81LR
+2026-02-19 17:17:10,547 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 125, in build_main_ui
+    build_desktop_ui(page, *tabs_list)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\controls\desktop.py", line 55, in build_desktop_ui
+    tab_bar = ft.TabBar(
+        selected_index=0,
+    ...<34 lines>...
+        ],
+    )
+TypeError: TabBar.__init__() got an unexpected keyword argument 'selected_index'
+2026-02-19 17:17:14,698 - INFO - Session was garbage collected: skreuBKXQj8DQNNU
+2026-02-19 17:18:49,119 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 125, in build_main_ui
+    build_desktop_ui(page, *tabs_list)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\controls\desktop.py", line 55, in build_desktop_ui
+    tab_bar = ft.TabBar(
+        selected_index=0,
+    ...<34 lines>...
+        ],
+    )
+TypeError: TabBar.__init__() got an unexpected keyword argument 'selected_index'
+2026-02-19 17:18:50,444 - INFO - Session was garbage collected: cGUY29t7BH0a3S5f
+2026-02-19 17:24:51,608 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 125, in build_main_ui
+    build_desktop_ui(page, *tabs_list)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\controls\desktop.py", line 55, in build_desktop_ui
+    tabs_container = ft.Tabs(
+        selected_index=0,
+    ...<25 lines>...
+            ),
+        )
+TypeError: Tabs.__init__() got an unexpected keyword argument 'tabs'
+2026-02-19 17:24:57,469 - INFO - Session was garbage collected: 5sv8O8bRpvQekYol
+2026-02-19 17:28:53,879 - INFO - Balance updated
+2026-02-19 17:28:53,880 - INFO - Balance updated
+2026-02-19 17:28:53,998 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-19 17:29:41,977 - INFO - Session was garbage collected: NDuUjbr4r7kHBOEZ
+2026-02-19 17:30:20,966 - INFO - Balance updated
+2026-02-19 17:30:20,967 - INFO - Balance updated
+2026-02-19 17:30:21,084 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-19 17:30:28,578 - INFO - Session was garbage collected: cjWLB3FPhrnw8DNt
