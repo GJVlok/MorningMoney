@@ -10,9 +10,11 @@ class NewEntryTab(ft.Column):
             expand=True,
             scroll=ft.ScrollMode.AUTO,
             spacing=24,
+            horizontal_alignment=ft.CrossAxisAlignment.STRETCH,  # optional: full width
         )
 
         self._page = page
+        self.padding = ft.padding.only(top=16, bottom=32, left=16, right=16)
         self.refresh_all = refresh_all
 
         # Containers for partial rebuild
@@ -22,6 +24,7 @@ class NewEntryTab(ft.Column):
                 0.08, ft.Colors.PRIMARY_CONTAINER
             ),
             border_radius=12,
+            expand=False,
         )
 
         self.investment_container = ft.Container(
@@ -30,6 +33,7 @@ class NewEntryTab(ft.Column):
                 0.08, ft.Colors.PRIMARY_CONTAINER
             ),
             border_radius=12,
+            expand=False,
         )
 
         self.controls = [
@@ -45,9 +49,7 @@ class NewEntryTab(ft.Column):
     # ---------------- REBUILD ---------------- #
 
     def _rebuild_content(self):
-
         try:
-
             # Transaction section
             self.transaction_container.content = ft.Column(
                 [

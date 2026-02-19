@@ -109,6 +109,7 @@ def build_desktop_ui(
         length=8,  # must equal len(tab_bar.tabs) and len(tab_contents.controls)
         selected_index=0,
         animation_duration=300,
+        expand=True,
         content=ft.Column(
             expand=True,
             controls=[
