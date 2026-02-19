@@ -174,10 +174,6 @@ def transaction_tile(
             setattr(e.control, "bgcolor", ft.Colors.with_opacity(0.12, ft.Colors.PRIMARY)),
             e.control.update()
         ),
-        on_blur=lambda e: (
-            setattr(e.control, "bgcolor", ft.Colors.with_opacity(0.06, ft.Colors.PRIMARY)),
-            e.control.update()
-        ),
     )
 
     return tile

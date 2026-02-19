@@ -41,7 +41,7 @@ def init_page_extensions(page: ft.Page):
     page.safe_update = safe_update
     page.show_snack = show_snack
 
-def money_text(value, size=20, weight="bold"):
+def money_text(value, size=20, weight="bold", color: str | None=None):
     """
     Standardized currency display.
     Ensures any input (float, int, str, None) is treated as a Decimal.
@@ -51,7 +51,8 @@ def money_text(value, size=20, weight="bold"):
         clean_value = Decimal(str(value or '0.00'))
 
         # Color coding: Green for positive/zero, Red for negative
-        color = "#07ff07" if clean_value >= 0 else "#ff4444"
+        if color is None:
+            color = "#07ff07" if clean_value >= 0 else "#ff4444"
 
         # Formatting: R1,234.56
         # :,.2f works perfectly with Decimals for commas and 2 decimal places

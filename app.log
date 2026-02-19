@@ -266,3 +266,73 @@ TypeError: can not serialize 'set' object
 2026-02-19 23:59:10,621 - INFO - Balance updated
 2026-02-19 23:59:10,718 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
 2026-02-20 00:00:29,001 - INFO - Session was garbage collected: Jktl8qKQQxBKWi3L
+2026-02-20 00:03:11,959 - INFO - Balance updated
+2026-02-20 00:03:11,960 - INFO - Balance updated
+2026-02-20 00:03:12,056 - ERROR - Refresh error in DiaryTab: money_text() got an unexpected keyword argument 'color'
+2026-02-20 00:03:20,005 - INFO - Session was garbage collected: EDU9T2t9waIRAlZ7
+2026-02-20 00:09:10,752 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 96, in build_main_ui
+    tabs_list = create_tabs(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 46, in create_tabs
+    MonthlyTab(page, None),
+    ~~~~~~~~~~^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\monthly_desktop.py", line 11, in __init__
+    self._build()
+    ~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\monthly_desktop.py", line 17, in _build
+    monthly_summary_table(),  # Always on top
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\monthly_summary.py", line 99, in monthly_summary_table
+    ft.DataCell(money_text(income, size=14)),
+                ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: money_text() missing 1 required positional argument: 'color'
+2026-02-20 00:09:18,366 - INFO - Session was garbage collected: ory0KUWTJNIjoDKA
+2026-02-20 00:14:17,759 - INFO - Balance updated
+2026-02-20 00:14:17,760 - INFO - Balance updated
+2026-02-20 00:14:17,855 - ERROR - Refresh error in DiaryTab: Container.__init__() got an unexpected keyword argument 'on_blur'
+2026-02-20 00:14:33,144 - INFO - Session was garbage collected: AXyYqoRSiG750oaK
+2026-02-20 00:18:51,483 - INFO - Balance updated
+2026-02-20 00:18:51,483 - INFO - Balance updated
+2026-02-20 00:20:02,389 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 00:20:02,399 - INFO - Session was garbage collected: L8DDJLFlfOPwmKYz
+2026-02-20 00:26:45,904 - INFO - Balance updated
+2026-02-20 00:26:45,905 - INFO - Balance updated
+2026-02-20 00:27:21,805 - ERROR - Unhandled error in 'on_click' handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\messaging\session.py", line 198, in dispatch_event
+    await control._trigger_event(event_name, event_data)
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 344, in _trigger_event
+    event_handler(e)
+    ~~~~~~~~~~~~~^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 394, in <lambda>
+    on_click=lambda _: page.run_task(submit),
+                       ~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 497, in run_task
+    handler(*args, **kwargs), self.session.connection.loop
+    ~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: new_entry_form.<locals>.submit() missing 1 required positional argument: 'e'
+2026-02-20 00:29:15,941 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 00:29:15,943 - INFO - Session was garbage collected: PGB4uv6ecFu2Qb2k
