@@ -68,7 +68,7 @@ def settings_dev_tools(page: ft.Page, refresh_all=None) -> ft.Column:
     async def apply_desktop_size(e):
         page.window.width = 1200
         page.window.height = 800
-        page.window.center()
+        await page.window.center()
         page.update()
         page.run_task(page.show_snack, "Window resized to 1200x800", "green")
 

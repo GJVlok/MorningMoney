@@ -17,7 +17,7 @@ class DiaryTab(ft.Column):
         self.list = ft.Column(expand=True, scroll="auto")
         self.from_date = ft.TextField(label="From Date (YYYY-MM-DD)", value="")
         self.to_date = ft.TextField(label="To Date (YYYY-MM-DD)", value="")
-        self.filter_btn = ft.ElevatedButton("Filter", on_click=lambda _: self.page.run_task(self.refresh))
+        self.filter_btn = ft.ElevatedButton("Filter", on_click=lambda _: self._page.run_task(self.refresh))
 
         self.controls = [
             ft.Text("Recent Transactions", size=28, weight="bold"),
@@ -35,7 +35,7 @@ class DiaryTab(ft.Column):
                 padding=20
             )
         ]
-        await self.page.safe_update()
+        await self._page.safe_update()
 
         from_d, to_d = None, None # Default to all
         if self.from_date.value or self.to_date.value: # Only phare if fields have input
@@ -45,10 +45,10 @@ class DiaryTab(ft.Column):
                 if self.to_date.value:
                     to_d = date.fromisoformat(self.to_date.value)
             except ValueError:
-                await self.page.show_snack("Invalid date format (use YYYY-MM-DD)", "red")
+                await self._page.show_snack("Invalid date format (use YYYY-MM-DD)", "red")
                 self.from_date.value = "" # Reset invalid field
                 self.to_date.value = ""   # Reset invalid field
-                await self.page.safe_update()
+                await self._page.safe_update()
                 return # Early exit to prevent bad data fetch
                 
         # 2. Fetch data (offloaded to a thread to keep the spinner moving)
@@ -66,11 +66,11 @@ class DiaryTab(ft.Column):
             new_controls = [
                 transaction_tile(
                     item["transaction"],
-                    self.page,
+                    self._page,
                     self.refresh_all,
                     item["running_balance"]
                 ) for item in data
             ]
         # 4 Update both the list and the summary table
         self.list.controls = new_controls
-        await self.page.safe_update()
+        await self._page.safe_update()

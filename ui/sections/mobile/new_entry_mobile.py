@@ -17,10 +17,10 @@ class NewEntryTab(ft.Column):
     def _build(self):
         self.controls = [
             ft.Text("Add Transaction", size=24, weight="bold"),
-            new_entry_form(self.page, self.refresh_all),
+            new_entry_form(self._page, self.refresh_all),
             ft.Divider(height=20, color="transparent"),
             ft.Text("Add Investment", size=24, weight="bold"),
-            investment_form(self.page, self.refresh_all),
+            investment_form(self._page, self.refresh_all),
         ]
 
     async def refresh(self):

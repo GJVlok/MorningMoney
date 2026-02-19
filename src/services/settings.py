@@ -22,29 +22,39 @@ def get_force_mobile(session):
     except (KeyError, TypeError):
         return False
 
-def init_theme(page: ft.Page):  # Removed async—client_storage is sync now
+async def init_theme(page: ft.Page):  # Removed async—client_storage is sync now
     """
     Initialize theme on app startup.
     Attaches toggle_theme to page.
     """
-    # No need for _prefs_initialized or overlay—client_storage is always available
-    theme_mode_str = page.client_storage.get("theme_mode") or "dark"  # Default to dark
-    page.theme_mode = ft.ThemeMode.DARK if theme_mode_str == "dark" else ft.ThemeMode.LIGHT
-    apply_theme(page, page.theme_mode)  # Your custom theme applicator
+    
+    prefs = page.shared_preferences
+    theme_mode_str = await prefs.get("theme_mode") or "dark"
+    
+    if theme_mode_str == "dark":
+        page.theme_mode = ft.ThemeMode.DARK
+    else:
+        page.theme_mode = ft.ThemeMode.LIGHT
 
-    def toggle_theme():  # Removed async—sync now
+    apply_theme(page, page.theme_mode)
+
+# Attach toggle function (make it async too)
+    async def toggle_theme():
         try:
-            new_mode = "dark" if page.theme_mode == ft.ThemeMode.LIGHT else "light"
-            page.theme_mode = ft.ThemeMode.DARK if new_mode == "dark" else ft.ThemeMode.LIGHT
+            current = page.theme_mode
+            new_mode = "light" if current == ft.ThemeMode.DARK else "dark"
+            page.theme_mode = ft.ThemeMode.LIGHT if new_mode == "light" else ft.ThemeMode.DARK
             apply_theme(page, page.theme_mode)
-            page.client_storage.set("theme_mode", new_mode)  # Sync save
-            page.show_snack_bar(ft.SnackBar(ft.Text(f"{new_mode.capitalize()} mode activated!"), bgcolor="#94d494"))  # Updated to show_snack_bar (Flet's method)
-            page.update()
+
+            # Save async
+            await prefs.set("theme_mode", new_mode)
+            await page.show_snack(f"{new_mode.capitalize()} mode activated!", bgcolor="#94d494")
+            await page.update_async()  # Safer in async world
         except Exception as ex:
             print(f"Toggle theme error: {ex}")
-            page.show_snack_bar(ft.SnackBar(ft.Text("Couldn't save theme preference"), bgcolor="red"))
+            await page.show_snack("Couldn't save theme preference", bgcolor="red")
 
-    page.toggle_theme = toggle_theme  # Attach as sync method
+    page.toggle_theme = toggle_theme  # Still attach to page
 
 # def get_username(page: ft.Page) -> str:  # Commented out, but if needed: use client_storage.get("username", "friend")
 #     return page.client_storage.get("username") or "friend"

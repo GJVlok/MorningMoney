@@ -19,7 +19,7 @@ class NewEntryTab(ft.Column):
             ft.Container(
                 content=ft.Column([
                     ft.Text("Add Transaction", size=28, weight="bold"),
-                    new_entry_form(self.page, self.refresh_all),
+                    new_entry_form(self._page, self.refresh_all),
                 ]),
                 padding=20,
                 bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.PRIMARY),
@@ -31,7 +31,7 @@ class NewEntryTab(ft.Column):
             ft.Container(
                 content=ft.Column([
                     ft.Text("Add Investment", size=28, weight="bold"),
-                    investment_form(self.page, self.refresh_all),
+                    investment_form(self._page, self.refresh_all),
                 ]),
                 padding=20,
                 bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.PRIMARY),

@@ -60,7 +60,7 @@ class DiaryTab(ft.Column):
             new_controls = [
                 transaction_tile_mobile(
                     item["transaction"],
-                    self.page,
+                    self._page,
                     self.refresh_all,
                     item["running_balance"]
                 ) for item in data

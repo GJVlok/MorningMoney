@@ -53,7 +53,7 @@ async def build_main_ui(page: ft.Page):
         if layout_mode == "desktop" or platform_name == "web":
             page.window.width = 1280
             page.window.height = 900
-            page.window.center()
+            await page.window.center()
         elif layout_mode == "mobile":
             page.window.width = 400
             page.window.height = 850
@@ -150,14 +150,14 @@ async def build_main_ui(page: ft.Page):
         await page.show_snack(
             "Welcome to MorningMoney! Track transactions, watch investments grow, and aim for FIRE.",
             bgcolor="#94d494",
-            duration=6000
+            duration_ms=6000
         )
         pref_get(page, "seen_welcome", True)  # Mark as seen (sync set)
 
 async def main(page: ft.Page):
     # Core init
     init_page_extensions(page)
-    init_theme(page)  # Sync – applies dark/light
+    await init_theme(page)
 
     # Optional: log startup
     # logging.basicConfig(level=logging.DEBUG)
@@ -166,4 +166,4 @@ async def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-    ft.app(target=main)  # Modern entry point – perfect!
+    ft.run(main)  # Modern entry point – perfect!

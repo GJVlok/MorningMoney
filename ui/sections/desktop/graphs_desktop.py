@@ -26,4 +26,4 @@ class GraphsTab(ft.Column):
 
     async def refresh(self):
         self._build()  # Rebuild if needed
-        await self.page.safe_update()
+        await self._page.safe_update()

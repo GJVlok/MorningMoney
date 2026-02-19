@@ -83,7 +83,7 @@ def investment_card(
 
     card = ft.Card(
         elevation=6,
-        color=CARD_BG,
+        bgcolor=CARD_BG,
         margin=ft.margin.all(8),
         content=ft.Container(
             border_radius=16,

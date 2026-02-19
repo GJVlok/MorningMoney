@@ -1,4 +1,5 @@
 # controls/dialogs.py
+from __future__ import annotations
 import flet as ft
 from typing import TYPE_CHECKING
 from datetime import date
@@ -94,7 +95,7 @@ async def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refre
         value=f"{abs(Decimal(str(transaction.amount or '0'))):.2f}",
         keyboard_type=ft.KeyboardType.NUMBER,
         autofocus=True,
-        prefix_text="R ",
+        prefix=ft.Text("R"),
     )
 
     category_dropdown = ft.Dropdown(
@@ -224,14 +225,14 @@ async def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
         label="Current Value",
         value=f"{Decimal(str(inv.current_value)):.2f}",
         keyboard_type=ft.KeyboardType.NUMBER,
-        prefix_text="R ",
+        prefix=ft.Text("R"),
     )
 
     monthly_field = ft.TextField(
         label="Monthly Contribution",
         value=f"{Decimal(str(inv.monthly_contribution)):.2f}",
         keyboard_type=ft.KeyboardType.NUMBER,
-        prefix_text="R ",
+        prefix=ft.Text("R"),
     )
 
     rate_field = ft.TextField(

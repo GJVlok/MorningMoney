@@ -13,7 +13,7 @@ class InvestmentsTab(ft.Column):
             scroll=ft.ScrollMode.AUTO,
             spacing=16,
         )
-        self.page = page
+        self._page = page
         self.refresh_all = refresh_all
 
         # Header + summary row
@@ -44,7 +44,7 @@ class InvestmentsTab(ft.Column):
         ]
 
         # Initial load
-        self.page.run_task(self.refresh)
+        self._page.run_task(self.refresh)
 
     async def refresh(self):
         """Reload investments + update summary"""
@@ -71,7 +71,7 @@ class InvestmentsTab(ft.Column):
         else:
             for inv in investments:
                 self.cards_container.controls.append(
-                    investment_card(inv, self.page, self.refresh_all)
+                    investment_card(inv, self._page, self.refresh_all)
                 )
 
         # Update total projected wealth
@@ -83,23 +83,23 @@ class InvestmentsTab(ft.Column):
         )
         self.total_projected.color = ft.Colors.GREEN_300 if total >= Decimal("1000000") else ft.Colors.GREY_300
 
-        await self.page.safe_update()
+        await self._page.safe_update()
 
     def _open_add_form(self, e):
         """Open the investment form in a dialog (using the improved version)"""
-        form = investment_form(self.page, self.refresh_all)  # no existing_inv = add mode
+        form = investment_form(self._page, self.refresh_all)  # no existing_inv = add mode
 
         dialog = ft.AlertDialog(
             modal=True,
             title=ft.Text("Add New Investment"),
             content=form,
             actions=[
-                ft.TextButton("Close", on_click=lambda _: self.page.close(dialog)),
+                ft.TextButton("Close", on_click=lambda _: self._page.close(dialog)),
             ],
             actions_alignment=ft.MainAxisAlignment.END,
             shape=ft.RoundedRectangleBorder(radius=12),
         )
 
-        self.page.dialog = dialog
+        self._page.dialog = dialog
         dialog.open = True
-        self.page.update()
+        self._page.update()

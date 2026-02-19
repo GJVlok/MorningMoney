@@ -2,26 +2,32 @@
 from typing import Literal
 import flet as ft
 
-def detect_platform(page: ft.Page) -> Literal["desktop","mobile","web"]:
-    # lightweight canonical detection
-    # web platform (if served as web) - page.platform may be "web"
-    plat = getattr(page, "platform", "").lower()
-    if plat in ("web", "android", "ios"):
-        # Distinguish mobile vs web using window width for web-served apps:
-        w = getattr(getattr(page, "window", None), "width", None)
-        if plat == "web" and w and w > 800:
+def detect_platform(page: ft.Page) -> Literal["desktop", "mobile", "web"]:
+    platform = page.platform  # This is now ft.PagePlatform enum
+
+    if platform is None:
+        # Rare fallback (e.g., very early in lifecycle)
+        platform_name = "unknown"
+    else:
+        platform_name = platform.name.lower()  # .name gives string like "WINDOWS", "ANDROID", "WEB"
+
+    # Now use the lowercased string
+    if platform_name in ("web", "android", "ios"):
+        # Web vs mobile distinction via width (your existing heuristic)
+        w = getattr(getattr(page, "window", None), "width", None) or 0
+        if platform_name == "web" and w > 800:
             return "web"
-        if plat in ("android", "ios"):
+        if platform_name in ("android", "ios"):
             return "mobile"
         return "web"
-    # desktop OSes -> desktop
-    if plat in ("windows", "macos", "linux"):
+
+    # Desktop OSes
+    if platform_name in ("windows", "macos", "linux"):
         return "desktop"
 
-    # fallback: use window size heuristics
+    # Fallback heuristic (your original width-based logic)
     w = getattr(getattr(page, "window", None), "width", 0) or 0
-    h = getattr(getattr(page, "window", None), "height", 0) or 0
-    if w > 900 or h > 900:
+    if w > 900:
         return "desktop"
     if w <= 600:
         return "mobile"

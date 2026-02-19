@@ -31,7 +31,7 @@ def investment_form(page: ft.Page, refresh_all=None, existing_inv=None) -> ft.Co
 
     current_field = ft.TextField(
         label="Current Value",
-        prefix_text="R ",
+        prefix=ft.Text("R"),
         value=f"{existing_inv.current_value:.2f}" if is_edit else "",
         keyboard_type=ft.KeyboardType.NUMBER,
         input_filter=ft.InputFilter(allow=True, regex_string=r"^\d*\.?\d{0,2}$"),
@@ -40,7 +40,7 @@ def investment_form(page: ft.Page, refresh_all=None, existing_inv=None) -> ft.Co
 
     monthly_field = ft.TextField(
         label="Monthly Contribution",
-        prefix_text="R ",
+        prefix=ft.Text("R"),
         value=f"{existing_inv.monthly_contribution:.2f}" if is_edit else "0.00",
         keyboard_type=ft.KeyboardType.NUMBER,
         input_filter=ft.InputFilter(allow=True, regex_string=r"^\d*\.?\d{0,2}$"),

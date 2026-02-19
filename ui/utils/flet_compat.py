@@ -25,12 +25,12 @@ def set_window_size(page, width: int, height: int):
     except Exception:
         pass  # Ignore if API changes
 
-def center_window(page):
+async def center_window(page):
     win = getattr(page, "window", None)
     if not win:
         return
     try:
-        page.window.center()  # Updated: page.window.center()
+        await page.window.center()  # Updated: page.window.center()
     except Exception:
         pass
 
