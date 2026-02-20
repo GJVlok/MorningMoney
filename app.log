@@ -692,3 +692,1110 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
 ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
 2026-02-20 16:57:36,951 - INFO - Session was garbage collected: JFPZlBBlAaKSF4Bz
+2026-02-20 17:02:45,229 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 17:02:45,230 - INFO - Starting up TCP server on localhost:54754
+2026-02-20 17:02:45,239 - INFO - Flet app has started...
+2026-02-20 17:02:45,243 - INFO - App URL: tcp://localhost:54754
+2026-02-20 17:02:45,243 - INFO - Starting Flet View app...
+2026-02-20 17:02:45,244 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 17:02:45,244 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 17:02:45,452 - INFO - App session started
+2026-02-20 17:02:45,548 - INFO - Balance updated
+2026-02-20 17:02:45,548 - INFO - Balance updated
+2026-02-20 17:02:50,852 - ERROR - Unhandled error in 'on_click' handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\messaging\session.py", line 198, in dispatch_event
+    await control._trigger_event(event_name, event_data)
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 344, in _trigger_event
+    event_handler(e)
+    ~~~~~~~~~~~~~^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 29, in open_date_picker
+    page.open(date_picker)
+    ^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'open'
+2026-02-20 17:02:56,431 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 17:02:56,432 - INFO - Session was garbage collected: fN9glHWnAvg08KnA
+2026-02-20 18:49:33,837 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 18:49:33,838 - INFO - Starting up TCP server on localhost:53280
+2026-02-20 18:49:33,848 - INFO - Flet app has started...
+2026-02-20 18:49:33,851 - INFO - App URL: tcp://localhost:53280
+2026-02-20 18:49:33,851 - INFO - Starting Flet View app...
+2026-02-20 18:49:33,852 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 18:49:33,852 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 18:49:34,199 - INFO - App session started
+2026-02-20 18:49:34,396 - INFO - Balance updated
+2026-02-20 18:49:34,397 - INFO - Balance updated
+2026-02-20 18:54:00,435 - INFO - Balance updated
+2026-02-20 18:59:40,058 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 18:59:40,060 - INFO - Session was garbage collected: mNnClFXPPQnd9wrd
+2026-02-20 19:09:31,022 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 19:09:31,023 - INFO - Starting up TCP server on localhost:58903
+2026-02-20 19:09:31,034 - INFO - Flet app has started...
+2026-02-20 19:09:31,037 - INFO - App URL: tcp://localhost:58903
+2026-02-20 19:09:31,038 - INFO - Starting Flet View app...
+2026-02-20 19:09:31,039 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 19:09:31,039 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 19:09:31,256 - INFO - App session started
+2026-02-20 19:09:31,392 - INFO - Balance updated
+2026-02-20 19:09:31,393 - INFO - Balance updated
+2026-02-20 19:12:30,622 - INFO - Balance updated
+2026-02-20 19:13:41,451 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 19:13:41,453 - INFO - Session was garbage collected: RxFThJvaJq23BHwb
+2026-02-20 21:07:48,329 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 21:07:48,330 - INFO - Starting up TCP server on localhost:50910
+2026-02-20 21:07:48,343 - INFO - Flet app has started...
+2026-02-20 21:07:48,347 - INFO - App URL: tcp://localhost:50910
+2026-02-20 21:07:48,347 - INFO - Starting Flet View app...
+2026-02-20 21:07:48,348 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:07:48,348 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:07:48,629 - INFO - App session started
+2026-02-20 21:07:48,724 - INFO - Balance updated
+2026-02-20 21:07:48,725 - INFO - Balance updated
+2026-02-20 21:07:57,201 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 21:07:57,204 - INFO - Session was garbage collected: wnUVV4SwpiAY7IaR
+2026-02-20 21:15:52,830 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 21:15:52,831 - INFO - Starting up TCP server on localhost:55849
+2026-02-20 21:15:52,842 - INFO - Flet app has started...
+2026-02-20 21:15:52,845 - INFO - App URL: tcp://localhost:55849
+2026-02-20 21:15:52,846 - INFO - Starting Flet View app...
+2026-02-20 21:15:52,846 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:15:52,847 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:15:53,062 - INFO - App session started
+2026-02-20 21:15:53,111 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 386, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(29) Control must be added to the page first
+2026-02-20 21:15:53,132 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 386, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(245) Control must be added to the page first
+2026-02-20 21:15:53,156 - INFO - Balance updated
+2026-02-20 21:15:53,157 - INFO - Balance updated
+2026-02-20 21:15:53,159 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 386, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(473) Control must be added to the page first
+2026-02-20 21:16:57,554 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 21:16:57,555 - INFO - Starting up TCP server on localhost:55862
+2026-02-20 21:16:57,565 - INFO - Flet app has started...
+2026-02-20 21:16:57,569 - INFO - App URL: tcp://localhost:55862
+2026-02-20 21:16:57,569 - INFO - Starting Flet View app...
+2026-02-20 21:16:57,570 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:16:57,570 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:16:57,769 - INFO - App session started
+2026-02-20 21:16:57,818 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 384, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(29) Control must be added to the page first
+2026-02-20 21:16:57,830 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 384, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(245) Control must be added to the page first
+2026-02-20 21:16:57,856 - INFO - Balance updated
+2026-02-20 21:16:57,857 - INFO - Balance updated
+2026-02-20 21:16:57,858 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 384, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(473) Control must be added to the page first
+2026-02-20 21:17:06,654 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 21:17:06,656 - INFO - Session was garbage collected: qPIEzVGbFMBV6em1
+2026-02-20 21:20:32,964 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 21:20:32,965 - INFO - Starting up TCP server on localhost:64660
+2026-02-20 21:20:32,976 - INFO - Flet app has started...
+2026-02-20 21:20:32,979 - INFO - App URL: tcp://localhost:64660
+2026-02-20 21:20:32,979 - INFO - Starting Flet View app...
+2026-02-20 21:20:32,980 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:20:32,980 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:20:33,200 - INFO - App session started
+2026-02-20 21:20:33,273 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 384, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(29) Control must be added to the page first
+2026-02-20 21:20:33,284 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 384, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(245) Control must be added to the page first
+2026-02-20 21:20:33,310 - INFO - Balance updated
+2026-02-20 21:20:33,310 - INFO - Balance updated
+2026-02-20 21:20:33,312 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 384, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 123, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(473) Control must be added to the page first
+2026-02-20 21:20:36,045 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 21:20:36,047 - INFO - Session was garbage collected: 5NzmzqClsNxsyBfG
+2026-02-20 21:26:06,869 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 21:26:06,869 - INFO - Starting up TCP server on localhost:61922
+2026-02-20 21:26:06,879 - INFO - Flet app has started...
+2026-02-20 21:26:06,882 - INFO - App URL: tcp://localhost:61922
+2026-02-20 21:26:06,882 - INFO - Starting Flet View app...
+2026-02-20 21:26:06,883 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:26:06,883 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:26:07,076 - INFO - App session started
+2026-02-20 21:26:07,127 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 126, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(29) Control must be added to the page first
+2026-02-20 21:26:07,139 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 126, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(245) Control must be added to the page first
+2026-02-20 21:26:07,164 - INFO - Balance updated
+2026-02-20 21:26:07,165 - INFO - Balance updated
+2026-02-20 21:26:07,167 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 126, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(473) Control must be added to the page first
+2026-02-20 21:26:15,846 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 21:26:15,848 - INFO - Session was garbage collected: 5cQqOtR9Owxrgj09
+2026-02-20 21:28:01,292 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 21:28:01,293 - INFO - Starting up TCP server on localhost:49808
+2026-02-20 21:28:01,304 - INFO - Flet app has started...
+2026-02-20 21:28:01,309 - INFO - App URL: tcp://localhost:49808
+2026-02-20 21:28:01,309 - INFO - Starting Flet View app...
+2026-02-20 21:28:01,310 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:28:01,310 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:28:01,606 - INFO - App session started
+2026-02-20 21:28:01,669 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 126, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(29) Control must be added to the page first
+2026-02-20 21:28:01,684 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 126, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(245) Control must be added to the page first
+2026-02-20 21:28:01,715 - INFO - Balance updated
+2026-02-20 21:28:01,716 - INFO - Balance updated
+2026-02-20 21:28:01,717 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_category_dropdown()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 126, in update_category_dropdown
+    category_dropdown.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Dropdown(473) Control must be added to the page first
+2026-02-20 21:28:03,241 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 21:28:03,243 - INFO - Session was garbage collected: Ohw0wbVEtPoHRpVm
+2026-02-20 21:46:29,038 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 21:46:29,039 - INFO - Starting up TCP server on localhost:53708
+2026-02-20 21:46:29,048 - INFO - Flet app has started...
+2026-02-20 21:46:29,051 - INFO - App URL: tcp://localhost:53708
+2026-02-20 21:46:29,052 - INFO - Starting Flet View app...
+2026-02-20 21:46:29,053 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:46:29,053 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:46:29,306 - INFO - App session started
+2026-02-20 21:46:29,391 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 97, in build_main_ui
+    tabs_list = create_tabs(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 45, in create_tabs
+    NewEntryTab(page, refresh_all),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 17, in __init__
+    self.new_entry_form = NewEntryForm(refresh_all)
+                          ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 101, in __init__
+    self.discount_type = ft.Dropdown(
+                         ~~~~~~~~~~~^
+        label="Discount Type",
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        on_change=self.update_discount_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: Dropdown.__init__() got an unexpected keyword argument 'on_change'
+2026-02-20 21:46:54,142 - INFO - Session was garbage collected: lSDlvIwi4FBXQaK4
+2026-02-20 21:50:46,245 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 21:50:46,246 - INFO - Starting up TCP server on localhost:61108
+2026-02-20 21:50:46,256 - INFO - Flet app has started...
+2026-02-20 21:50:46,259 - INFO - App URL: tcp://localhost:61108
+2026-02-20 21:50:46,259 - INFO - Starting Flet View app...
+2026-02-20 21:50:46,260 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:50:46,260 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 21:50:46,470 - INFO - App session started
+2026-02-20 21:50:46,517 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 62, in _rebuild_content
+    self.new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NewEntryForm' object is not callable
+2026-02-20 21:50:46,527 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 62, in _rebuild_content
+    self.new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NewEntryForm' object is not callable
+2026-02-20 21:50:46,553 - INFO - Balance updated
+2026-02-20 21:50:46,554 - INFO - Balance updated
+2026-02-20 21:50:46,555 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 62, in _rebuild_content
+    self.new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NewEntryForm' object is not callable
+2026-02-20 21:50:52,385 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 21:50:52,387 - INFO - Session was garbage collected: E0hu5jCsB3Xuzof3
+2026-02-20 22:01:39,140 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:01:39,141 - INFO - Starting up TCP server on localhost:53416
+2026-02-20 22:01:39,152 - INFO - Flet app has started...
+2026-02-20 22:01:39,155 - INFO - App URL: tcp://localhost:53416
+2026-02-20 22:01:39,155 - INFO - Starting Flet View app...
+2026-02-20 22:01:39,156 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:01:39,156 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:01:39,451 - INFO - App session started
+2026-02-20 22:01:39,534 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 127, in build_main_ui
+    build_desktop_ui(page, *tabs_list)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\controls\desktop.py", line 134, in build_desktop_ui
+    page.add(layout)
+    ~~~~~~~~^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_page.py", line 287, in add
+    self.update()
+    ~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 452, in update
+    self.__update(self)
+    ~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 461, in __update
+    self.session.patch_control(c)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\messaging\session.py", line 157, in patch_control
+    added_control.did_mount()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+TypeError: new_entry_form.<locals>._on_mount() missing 1 required positional argument: '_'
+2026-02-20 22:01:47,244 - INFO - Session was garbage collected: ROPzPG5wzFQLVQrF
+2026-02-20 22:06:15,332 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:06:15,333 - INFO - Starting up TCP server on localhost:55424
+2026-02-20 22:06:15,343 - INFO - Flet app has started...
+2026-02-20 22:06:15,347 - INFO - App URL: tcp://localhost:55424
+2026-02-20 22:06:15,347 - INFO - Starting Flet View app...
+2026-02-20 22:06:15,348 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:06:15,348 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:06:15,654 - INFO - App session started
+2026-02-20 22:06:15,753 - INFO - Balance updated
+2026-02-20 22:06:15,753 - INFO - Balance updated
+2026-02-20 22:07:32,803 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:07:32,805 - INFO - Session was garbage collected: DtwL4gFwjtICvD7o
+2026-02-20 22:08:50,083 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:08:50,084 - INFO - Starting up TCP server on localhost:58324
+2026-02-20 22:08:50,094 - INFO - Flet app has started...
+2026-02-20 22:08:50,097 - INFO - App URL: tcp://localhost:58324
+2026-02-20 22:08:50,097 - INFO - Starting Flet View app...
+2026-02-20 22:08:50,098 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:08:50,098 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:08:50,284 - INFO - App session started
+2026-02-20 22:08:50,332 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_discount_fields()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 311, in update_discount_fields
+    discount_container.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Container(49) Control must be added to the page first
+2026-02-20 22:08:50,344 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_discount_fields()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 311, in update_discount_fields
+    discount_container.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Container(265) Control must be added to the page first
+2026-02-20 22:08:50,370 - INFO - Balance updated
+2026-02-20 22:08:50,371 - INFO - Balance updated
+2026-02-20 22:08:50,373 - ERROR - Error rebuilding NewEntryTab
+Traceback (most recent call last):
+  File "c:\G\Extra Python\MorningMoney\ui\sections\desktop\new_entry_desktop.py", line 61, in _rebuild_content
+    new_entry_form(self._page, self.refresh_all),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 387, in new_entry_form
+    update_discount_fields()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 311, in update_discount_fields
+    discount_container.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Container(493) Control must be added to the page first
+2026-02-20 22:08:57,790 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:08:57,791 - INFO - Session was garbage collected: huwTHS0P4tKt6iOE
+2026-02-20 22:09:23,744 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:09:23,745 - INFO - Starting up TCP server on localhost:55441
+2026-02-20 22:09:23,754 - INFO - Flet app has started...
+2026-02-20 22:09:23,757 - INFO - App URL: tcp://localhost:55441
+2026-02-20 22:09:23,758 - INFO - Starting Flet View app...
+2026-02-20 22:09:23,759 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:09:23,759 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:09:23,981 - INFO - App session started
+2026-02-20 22:09:24,122 - INFO - Balance updated
+2026-02-20 22:09:24,123 - INFO - Balance updated
+2026-02-20 22:10:59,734 - ERROR - Unhandled error in 'on_click' handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\messaging\session.py", line 198, in dispatch_event
+    await control._trigger_event(event_name, event_data)
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 344, in _trigger_event
+    event_handler(e)
+    ~~~~~~~~~~~~~^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 30, in open_date_picker
+    page.open(date_picker)
+    ^^^^^^^^^
+AttributeError: 'Page' object has no attribute 'open'
+2026-02-20 22:11:04,720 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:11:04,721 - INFO - Session was garbage collected: AEAwE5GsKi1XAyAz
+2026-02-20 22:18:15,005 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:18:15,006 - INFO - Starting up TCP server on localhost:64943
+2026-02-20 22:18:15,016 - INFO - Flet app has started...
+2026-02-20 22:18:15,019 - INFO - App URL: tcp://localhost:64943
+2026-02-20 22:18:15,019 - INFO - Starting Flet View app...
+2026-02-20 22:18:15,020 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:18:15,020 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:18:15,216 - INFO - App session started
+2026-02-20 22:18:15,306 - INFO - Balance updated
+2026-02-20 22:18:15,307 - INFO - Balance updated
+2026-02-20 22:19:49,375 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:19:49,377 - INFO - Session was garbage collected: xDkxX7cJ7jUFYevC
+2026-02-20 22:24:40,368 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:24:40,369 - INFO - Starting up TCP server on localhost:54194
+2026-02-20 22:24:40,379 - INFO - Flet app has started...
+2026-02-20 22:24:40,383 - INFO - App URL: tcp://localhost:54194
+2026-02-20 22:24:40,383 - INFO - Starting Flet View app...
+2026-02-20 22:24:40,384 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:24:40,385 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:24:40,594 - INFO - App session started
+2026-02-20 22:24:40,769 - INFO - Balance updated
+2026-02-20 22:24:40,769 - INFO - Balance updated
+2026-02-20 22:24:49,319 - ERROR - Unhandled error in 'on_change' handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\messaging\session.py", line 198, in dispatch_event
+    await control._trigger_event(event_name, event_data)
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 344, in _trigger_event
+    event_handler(e)
+    ~~~~~~~~~~~~~^^^
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 39, in on_date_changed
+    page.run_task(
+    ~~~~~~~~~~~~~^
+        page.shared_preferences.set(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        )
+        ^
+    )
+    ^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 494, in run_task
+    raise TypeError("handler must be a coroutine function")
+TypeError: handler must be a coroutine function
+2026-02-20 22:24:54,997 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:24:54,998 - INFO - Session was garbage collected: 0TFQZGOEKozZNC0H
+2026-02-20 22:27:41,966 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:27:41,968 - INFO - Starting up TCP server on localhost:56627
+2026-02-20 22:27:41,978 - INFO - Flet app has started...
+2026-02-20 22:27:41,981 - INFO - App URL: tcp://localhost:56627
+2026-02-20 22:27:41,981 - INFO - Starting Flet View app...
+2026-02-20 22:27:41,982 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:27:41,982 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:27:42,199 - INFO - App session started
+2026-02-20 22:27:42,288 - INFO - Balance updated
+2026-02-20 22:27:42,289 - INFO - Balance updated
+2026-02-20 22:28:04,595 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:28:04,597 - INFO - Session was garbage collected: pFg5S6gyEkOvmnPd
+2026-02-20 22:36:44,398 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:36:44,399 - INFO - Starting up TCP server on localhost:63745
+2026-02-20 22:36:44,411 - INFO - Flet app has started...
+2026-02-20 22:36:44,417 - INFO - App URL: tcp://localhost:63745
+2026-02-20 22:36:44,417 - INFO - Starting Flet View app...
+2026-02-20 22:36:44,418 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:36:44,418 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:36:44,656 - INFO - App session started
+2026-02-20 22:36:44,754 - INFO - Balance updated
+2026-02-20 22:36:44,754 - INFO - Balance updated
+2026-02-20 22:37:25,720 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:37:25,728 - INFO - Session was garbage collected: 6PMrGOkFGXSCTuB1
+2026-02-20 22:44:47,029 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:44:47,030 - INFO - Starting up TCP server on localhost:65414
+2026-02-20 22:44:47,039 - INFO - Flet app has started...
+2026-02-20 22:44:47,043 - INFO - App URL: tcp://localhost:65414
+2026-02-20 22:44:47,043 - INFO - Starting Flet View app...
+2026-02-20 22:44:47,044 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:44:47,044 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:44:47,253 - INFO - App session started
+2026-02-20 22:44:47,347 - INFO - Balance updated
+2026-02-20 22:44:47,348 - INFO - Balance updated
+2026-02-20 22:45:02,861 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:45:02,863 - INFO - Session was garbage collected: Mi89arnEJtzhbvqP
+2026-02-20 22:48:07,833 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:48:07,834 - INFO - Starting up TCP server on localhost:63484
+2026-02-20 22:48:07,843 - INFO - Flet app has started...
+2026-02-20 22:48:07,847 - INFO - App URL: tcp://localhost:63484
+2026-02-20 22:48:07,847 - INFO - Starting Flet View app...
+2026-02-20 22:48:07,848 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:48:07,848 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:48:08,181 - INFO - App session started
+2026-02-20 22:48:08,274 - INFO - Balance updated
+2026-02-20 22:48:08,275 - INFO - Balance updated
+2026-02-20 22:48:17,913 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:48:17,914 - INFO - Session was garbage collected: 9nJ5mYAtZYah03rZ
+2026-02-20 22:53:09,342 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:53:09,343 - INFO - Starting up TCP server on localhost:51092
+2026-02-20 22:53:09,353 - INFO - Flet app has started...
+2026-02-20 22:53:09,357 - INFO - App URL: tcp://localhost:51092
+2026-02-20 22:53:09,357 - INFO - Starting Flet View app...
+2026-02-20 22:53:09,358 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:53:09,358 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:53:09,643 - INFO - App session started
+2026-02-20 22:53:09,738 - INFO - Balance updated
+2026-02-20 22:53:09,738 - INFO - Balance updated
+2026-02-20 22:53:10,984 - ERROR - exception calling callback for <Future at 0x29b484f8190 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 82, in load_last_date
+    date_display.update()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(17) Control must be added to the page first
+2026-02-20 22:53:10,989 - ERROR - exception calling callback for <Future at 0x29b484fd220 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 82, in load_last_date
+    date_display.update()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(252) Control must be added to the page first
+2026-02-20 22:53:21,939 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 22:53:21,941 - INFO - Session was garbage collected: jklYifKwU3SRmh2A
+2026-02-20 22:56:38,040 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 22:56:38,041 - INFO - Starting up TCP server on localhost:57963
+2026-02-20 22:56:38,050 - INFO - Flet app has started...
+2026-02-20 22:56:38,054 - INFO - App URL: tcp://localhost:57963
+2026-02-20 22:56:38,055 - INFO - Starting Flet View app...
+2026-02-20 22:56:38,056 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:56:38,056 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 22:56:38,281 - INFO - App session started
+2026-02-20 22:56:38,395 - INFO - Balance updated
+2026-02-20 22:56:38,396 - INFO - Balance updated
+2026-02-20 22:56:39,726 - ERROR - exception calling callback for <Future at 0x2b4ce8b8190 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 85, in load_last_date
+    date_display.update()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(17) Control must be added to the page first
+2026-02-20 22:56:39,728 - ERROR - exception calling callback for <Future at 0x2b4ce8bd220 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 85, in load_last_date
+    date_display.update()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(252) Control must be added to the page first
+2026-02-20 23:05:59,667 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 23:05:59,669 - INFO - Starting up TCP server on localhost:64761
+2026-02-20 23:05:59,680 - INFO - Flet app has started...
+2026-02-20 23:05:59,683 - INFO - App URL: tcp://localhost:64761
+2026-02-20 23:05:59,684 - INFO - Starting Flet View app...
+2026-02-20 23:05:59,685 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 23:05:59,685 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 23:05:59,916 - INFO - App session started
+2026-02-20 23:06:00,007 - INFO - Balance updated
+2026-02-20 23:06:00,008 - INFO - Balance updated
+2026-02-20 23:06:01,333 - ERROR - exception calling callback for <Future at 0x1bab9d5c190 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 97, in load_last_date
+    date_display.update()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(17) Control must be added to the page first
+2026-02-20 23:06:01,336 - ERROR - exception calling callback for <Future at 0x1bab9d61350 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 97, in load_last_date
+    date_display.update()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 253, in update
+    if not self.page:
+           ^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(252) Control must be added to the page first
+2026-02-20 23:06:19,966 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 23:06:19,968 - INFO - Session was garbage collected: btKcHjrxnsZC0e0E
+2026-02-20 23:13:13,638 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 23:13:13,639 - INFO - Starting up TCP server on localhost:55658
+2026-02-20 23:13:13,649 - INFO - Flet app has started...
+2026-02-20 23:13:13,653 - INFO - App URL: tcp://localhost:55658
+2026-02-20 23:13:13,653 - INFO - Starting Flet View app...
+2026-02-20 23:13:13,654 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 23:13:13,654 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 23:13:13,847 - INFO - App session started
+2026-02-20 23:13:13,936 - INFO - Balance updated
+2026-02-20 23:13:13,937 - INFO - Balance updated
+2026-02-20 23:13:15,267 - ERROR - exception calling callback for <Future at 0x220e8c08190 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 96, in load_last_date
+    if do_update and date_display.page is not None:
+                     ^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(17) Control must be added to the page first
+2026-02-20 23:13:15,270 - ERROR - exception calling callback for <Future at 0x220e8c0d350 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 96, in load_last_date
+    if do_update and date_display.page is not None:
+                     ^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(252) Control must be added to the page first
+2026-02-20 23:13:15,271 - ERROR - exception calling callback for <Future at 0x220e859bbf0 state=finished raised RuntimeError>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 340, in _invoke_callbacks
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\page.py", line 504, in _on_completion
+    raise exception
+  File "c:\G\Extra Python\MorningMoney\ui\components\new_entry_form.py", line 96, in load_last_date
+    if do_update and date_display.page is not None:
+                     ^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\controls\base_control.py", line 200, in page
+    raise RuntimeError(
+    ...<2 lines>...
+    )
+RuntimeError: Text(252) Control must be added to the page first
+2026-02-20 23:13:47,683 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 23:13:47,685 - INFO - Session was garbage collected: 3dbDnhlVslcNUWli
+2026-02-20 23:16:50,937 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 23:16:50,939 - INFO - Starting up TCP server on localhost:64567
+2026-02-20 23:16:50,950 - INFO - Flet app has started...
+2026-02-20 23:16:50,954 - INFO - App URL: tcp://localhost:64567
+2026-02-20 23:16:50,954 - INFO - Starting Flet View app...
+2026-02-20 23:16:50,955 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 23:16:50,955 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 23:16:51,173 - INFO - App session started
+2026-02-20 23:16:51,263 - INFO - Balance updated
+2026-02-20 23:16:51,264 - INFO - Balance updated
+2026-02-20 23:17:18,013 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 23:17:18,015 - INFO - Session was garbage collected: 9bevgJqZvw57tOGm

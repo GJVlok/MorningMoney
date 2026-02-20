@@ -1,7 +1,9 @@
 # ui/components/new_entry_form.py
 import flet as ft
 from datetime import date as dt_date
+from datetime import datetime, timezone, timedelta
 from decimal import Decimal, InvalidOperation
+import asyncio
 
 from src.services.core import svc_add_transaction
 from controls.common import money_text
@@ -22,21 +24,49 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         first_date=dt_date(today.year - 2, 1, 1),
         last_date=dt_date(today.year + 1, 12, 31),
         value=today,
+        confirm_text="Select",
+        cancel_text="Cancel",
     )
+    page.overlay.append(date_picker)
 
-    def open_date_picker(e):
-        page.open(date_picker)
+    def open_date_picker(e=None):
+        page.show_dialog(date_picker)
 
-    def on_date_changed(e):
+    async def on_date_changed(do_update=True):  # ← add async
         if date_picker.value:
-            date_display.value = date_picker.value.strftime("%d %b %Y")
-            page.shared_preferences.set(
+            # date_picker.value is datetime in UTC (midnight UTC of selected day)
+            utc_dt = date_picker.value
+            
+            # Get local timezone offset at that moment
+            # (datetime.now().astimezone().utcoffset() gives current offset, usually fine)
+            local_offset = datetime.now(timezone.utc).astimezone().utcoffset()
+            
+            # Shift the UTC datetime forward by the local offset → gets to local midnight
+            local_midnight_dt = utc_dt + local_offset
+            
+            # Extract the corrected date (should now match what user picked)
+            corrected_date = local_midnight_dt.date()
+            
+            print("Corrected date:", corrected_date)  # for debugging
+            
+            date_display.value = corrected_date.strftime("%d %b %Y")
+            
+            # Store the corrected local date as ISO string
+            await page.shared_preferences.set( # ← now safe to await
                 "last_used_date",
-                date_picker.value.isoformat(),
+                corrected_date.isoformat(),
             )
-            page.update()
+            if do_update:
+                date_display.update()
 
-    date_picker.on_change = on_date_changed
+    date_picker.on_change = lambda e: page.run_task(on_date_changed, do_update=True)
+
+    # def handle_dismiss(e):
+    #     # Optional: do something when picker is closed without picking (or after picking)
+    #     # For example, just update display if needed, or nothing
+    #     pass
+
+    # date_picker.on_dismiss = handle_dismiss
 
     date_row = ft.Row(
             [
@@ -55,17 +85,23 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             spacing=16,
         )
 
-        # Load last date ASYNC
-    async def load_last_date():
+    # Load last date ASYNC
+    async def load_last_date(do_update=True):
         last_date_str = await page.shared_preferences.get("last_used_date")
         if last_date_str:
             try:
                 last_date = dt_date.fromisoformat(last_date_str)
                 date_picker.value = last_date
                 date_display.value = last_date.strftime("%d %b %Y")
-                page.update()  # ensure UI refreshes
+                
+                if do_update:
+                    try:
+                        if date_display.page is not None:  # safe access now wrapped
+                            date_display.update()
+                    except RuntimeError:
+                        pass  # not mounted yet — skip, will render with new value anyway
             except ValueError:
-                pass  # invalid date string, ignore
+                pass
 
     # Fire the async load immediately (non-blocking)
     page.run_task(load_last_date)
@@ -102,7 +138,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
 
     category_dropdown = ft.Dropdown(expand=True)
 
-    def update_category_dropdown():
+    def update_category_dropdown(do_update=True):
         if get_is_expense():
             category_dropdown.options = [
                 ft.dropdown.Option(c)
@@ -118,7 +154,8 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             category_dropdown.value = INCOME_CATEGORIES[0]
             category_dropdown.border_color = ft.Colors.GREEN_400
 
-        # page.update()
+        if do_update and category_dropdown.page is not None:
+            category_dropdown.update()
 
     type_selector.on_change = lambda e: (
         update_category_dropdown(),
@@ -304,7 +341,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         update_saved_preview(do_update=(e is not None)) # pass False at init
 
         if e is not None:
-            page.update()
+            discount_container.update()
 
     discount_type.on_change = update_discount_fields
 
@@ -341,15 +378,24 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
 
             saved_amt = Decimal("0.00")
 
-            entry_date = date_picker.value or today
+            # entry_date = date_picker.value or today
+            entry_date_raw = date_picker.value
+            if entry_date_raw:
+                local_offset = datetime.now(timezone.utc).astimezone().utcoffset()
+                corrected_dt = entry_date_raw + local_offset
+                entry_date = corrected_dt.date()
+            else:
+                entry_date = today
 
-            svc_add_transaction(
-                date=entry_date,
-                category=category_dropdown.value,
-                amount=final_amt,
-                description=notes.value.strip(),
-                tags=tags.value.strip(),
-                saved_amount=saved_amt,
+            await asyncio.to_thread(
+                svc_add_transaction(
+                    date=entry_date,
+                    category=category_dropdown.value,
+                    amount=final_amt,
+                    description=notes.value.strip(),
+                    tags=tags.value.strip(),
+                    saved_amount=saved_amt,
+                )
             )
 
             await page.show_snack(
@@ -360,6 +406,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             amount.value = ""
             notes.value = ""
             tags.value = ""
+            saved_amt=""
 
             page.update()
 
@@ -376,10 +423,10 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             )
 
     # Initial state
-    update_category_dropdown()
-    update_discount_fields()
+    # update_category_dropdown(do_update=False)
+    # update_discount_fields()
 
-    return ft.Column(
+    col = ft.Column(
         [
             date_row,
             amount,
@@ -396,3 +443,17 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         ],
         spacing=12,
     )
+
+    # Ask Flet to run this once the whole control is mounted on the page
+    def on_mount():
+        # Now safe: all controls are mounted → .page is set
+        # Trigger the async load (it will run in background)
+        page.run_task(load_last_date, do_update=True)
+        
+        # Also apply initial visual updates for other parts if needed
+        update_category_dropdown(do_update=True)
+        update_discount_fields()  # e=None, so no forced container update, but visible props are set
+
+    col.did_mount = on_mount
+
+    return col
