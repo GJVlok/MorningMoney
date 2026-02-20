@@ -16,6 +16,21 @@ CARD_BG = "#1e1e2e"
 
 
 def _build_card_content(inv: Investment) -> ft.Column:
+
+    try:
+        print("\n--- Calculating FV for:", inv.name)
+        print("  current_value:", inv.current_value)
+        print("  monthly_contribution:", inv.monthly_contribution)
+        print("  expected_annual_return:", inv.expected_annual_return)
+        print("  target_year:", inv.target_year)
+        years = inv.target_year - dt_date.today().year
+        print("  years_to_target:", years)
+
+        fv = svc_calculate_future_value(inv)
+        print("  returned fv:", fv, type(fv))
+    except:
+        pass
+
     """Core content – reusable & testable"""
     try:
         fv = svc_calculate_future_value(inv)

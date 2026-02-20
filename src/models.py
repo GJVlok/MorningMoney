@@ -74,7 +74,7 @@ def calculate_future_value(inv: Investment, extra_monthly: Decimal = Decimal('0'
     # Financial constants as Decimals
     monthly_rate = Decimal(str(inv.expected_annual_return)) / Decimal('12') / Decimal('100') # e.g, 10% -> 0.008333
     total_months = Decimal(str(years * 12))
-    pmt = Decimal(str(inv.monthly_contribution)) * Decimal(str(extra_monthly))
+    pmt = Decimal(str(inv.monthly_contribution)) + Decimal(str(extra_monthly))
 
     # Future value of principal: FV = P (1 + r)^n
     fv_principal = Decimal(str(inv.current_value)) * (Decimal('1') + monthly_rate) ** int(total_months)
