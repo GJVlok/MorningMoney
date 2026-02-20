@@ -106,7 +106,7 @@ def build_desktop_ui(
 
     # Wrap in Tabs – this manages selection and syncing
     tabs_section = ft.Tabs(
-        length=8,  # must equal len(tab_bar.tabs) and len(tab_contents.controls)
+        length=len(tab_bar.tabs),
         selected_index=0,
         animation_duration=300,
         expand=True,
