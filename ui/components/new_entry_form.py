@@ -320,7 +320,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
 
     # ---------------- SUBMIT ---------------- #
 
-    async def submit(e):
+    async def submit(e=None):
         try:
             amt_clean = clean_decimal(amount.value)
 
@@ -391,7 +391,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
             discount_container,
             ft.ElevatedButton(
                 content=ft.Text("Save Transaction"),
-                on_click=lambda _: page.run_task(submit),
+                on_click=lambda e: page.run_task(submit),
             ),
         ],
         spacing=12,

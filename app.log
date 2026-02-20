@@ -336,3 +336,20 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
 ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
 2026-02-20 00:29:15,943 - INFO - Session was garbage collected: PGB4uv6ecFu2Qb2k
+2026-02-20 14:19:16,330 - INFO - Balance updated
+2026-02-20 14:19:16,331 - INFO - Balance updated
+2026-02-20 14:19:19,165 - INFO - Session was garbage collected: tdNxlq2ZOiJ5i0U1
+2026-02-20 14:26:06,625 - INFO - Balance updated
+2026-02-20 14:26:06,626 - INFO - Balance updated
+2026-02-20 14:26:56,182 - INFO - Balance updated
+2026-02-20 14:28:14,670 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 14:28:14,674 - INFO - Session was garbage collected: M5VffY2l20AENuix

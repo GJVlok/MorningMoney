@@ -49,10 +49,10 @@ async def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refre
     Basic date validation on save.
     """
 
-    def on_cancel(e):
+    def on_cancel(e=None):
         close_dialog(page)
 
-    async def save_changes(e):
+    async def save_changes(e=None):
         try:
             # ── Amount ───────────────────────────────────────
             raw_amount = clean_decimal_input(amount_field.value)
@@ -166,7 +166,7 @@ async def edit_transaction_dialog(page: ft.Page, transaction: Transaction, refre
 # TRANSACTION – Delete
 # ────────────────────────────────────────────────
 async def delete_transaction(page: ft.Page, transaction: Transaction, refresh_all):
-    async def confirm_delete(e):
+    async def confirm_delete(e=None):
         svc_delete_transaction(transaction.id)
         close_dialog(page)
         await page.show_snack("Transaction deleted", bgcolor="orange")
@@ -182,7 +182,7 @@ async def delete_transaction(page: ft.Page, transaction: Transaction, refresh_al
             ft.TextButton(
                 "Delete",
                 on_click=lambda e: page.run_task(confirm_delete, e),
-                style=ft.ButtonStyle(color=ft.colors.RED),
+                style=ft.ButtonStyle(color=ft.Colors.RED),
             ),
         ],
         actions_alignment=ft.MainAxisAlignment.END,
@@ -197,7 +197,7 @@ async def delete_transaction(page: ft.Page, transaction: Transaction, refresh_al
 # INVESTMENT – Edit
 # ────────────────────────────────────────────────
 async def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
-    async def save_changes(e):
+    async def save_changes(e=None):
         try:
             svc_add_or_update_investment(
                 name=name_field.value.strip() or "Unnamed Investment",
@@ -281,7 +281,7 @@ async def edit_investment_dialog(page: ft.Page, inv: Investment, refresh_all):
 # INVESTMENT – Delete
 # ────────────────────────────────────────────────
 async def delete_investment(page: ft.Page, inv: Investment, refresh_all):
-    async def confirm_delete(e):
+    async def confirm_delete(e=None):
         svc_delete_investment(inv.id)
         close_dialog(page)
         await page.show_snack("Investment deleted", bgcolor="orange")
@@ -297,7 +297,7 @@ async def delete_investment(page: ft.Page, inv: Investment, refresh_all):
             ft.TextButton(
                 "Delete",
                 on_click=lambda e: page.run_task(confirm_delete, e),
-                style=ft.ButtonStyle(color=ft.colors.RED),
+                style=ft.ButtonStyle(color=ft.Colors.RED),
             ),
         ],
         actions_alignment=ft.MainAxisAlignment.END,
