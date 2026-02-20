@@ -2,6 +2,7 @@
 import flet as ft
 import logging
 import matplotlib
+import inspect
 
 matplotlib.use("Agg")
 
@@ -39,18 +40,17 @@ def setup_logging():
 
 # ---------------- TABS ---------------- #
 
-def create_tabs(page: ft.Page):
+def create_tabs(page, refresh_all=None):
     return [
-        NewEntryTab(page, None),
-        DiaryTab(page, None),
-        MonthlyTab(page, None),
-        InvestmentsTab(page, None),
-        TagsInsightsTab(page, None),
-        SavingsBragTab(page, None),
-        GraphsTab(page, None),
-        SettingsTab(page, None),
+        NewEntryTab(page, refresh_all),
+        DiaryTab(page, refresh_all),
+        MonthlyTab(page, refresh_all),
+        InvestmentsTab(page, refresh_all),
+        TagsInsightsTab(page, refresh_all),
+        SavingsBragTab(page, refresh_all),
+        GraphsTab(page, refresh_all),
+        SettingsTab(page, refresh_all),
     ]
-
 
 # ---------------- WINDOW ---------------- #
 
@@ -82,12 +82,13 @@ async def build_main_ui(page: ft.Page):
     force_desktop = pref_get(page, "force_desktop", False)
     force_mobile = pref_get(page, "force_mobile", False)
 
+    width = page.window.width or page.width or 1200
+
     if force_desktop:
         layout_mode = "desktop"
     elif force_mobile:
         layout_mode = "mobile"
     else:
-        width = page.window.width or 0
         layout_mode = "desktop" if width > 900 else "mobile"
 
     await configure_window(page, layout_mode)
@@ -101,20 +102,21 @@ async def build_main_ui(page: ft.Page):
         if hasattr(page, "balance_updater"):
             try:
                 page.balance_updater()
-            except Exception as e:
-                logging.error(f"Balance update error: {e}")
+            except Exception as ex:
+                logging.error(f"Balance update error: {ex}")
 
         for tab in tabs_list:
             if hasattr(tab, "refresh"):
                 try:
-                    await tab.refresh()
+                    result = tab.refresh()
+                    if inspect.isawaitable(result):
+                        await result
                 except Exception as ex:
                     logging.error(f"Refresh error in {tab.__class__.__name__}: {ex}")
 
         await safe_update(page)
 
-    for tab in tabs_list:
-        tab.refresh_all = refresh_all
+    tabs_list = create_tabs(page, refresh_all)
 
     # Platform UI
     if layout_mode == "mobile":
@@ -144,14 +146,12 @@ async def build_main_ui(page: ft.Page):
 
 async def main(page: ft.Page):
 
-    setup_logging()
-
     init_page_extensions(page)
 
     await init_theme(page)
 
     await build_main_ui(page)
 
-
 if __name__ == "__main__":
+    setup_logging()
     ft.run(main)

@@ -8,7 +8,6 @@ from src.services.core import svc_add_or_update_investment
 
 
 def investment_form(page: ft.Page, refresh_all=None, existing_inv=None):
-
     is_edit = existing_inv is not None
 
     # ---------------- DECIMAL CLEAN ---------------- #

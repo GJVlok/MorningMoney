@@ -406,3 +406,161 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
 ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
 2026-02-20 15:06:39,858 - INFO - Session was garbage collected: 6Ne3RLoz00EkK4Ui
+2026-02-20 16:04:33,117 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 153, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 96, in build_main_ui
+    tabs_list = create_tabs(page, refresh_all)
+                                  ^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'refresh_all' where it is not associated with a value
+2026-02-20 16:04:40,522 - INFO - Session was garbage collected: sPoL4boNYmc56T6b
+2026-02-20 16:05:05,197 - INFO - Balance updated
+2026-02-20 16:05:05,198 - INFO - Balance updated
+2026-02-20 16:05:07,908 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 16:05:07,910 - INFO - Session was garbage collected: 3kxdabgSmUWv896S
+2026-02-20 16:08:25,819 - ERROR - Unhandled error in main() handler
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet\app.py", line 260, in on_session_created
+    await main(session.page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 154, in main
+    await build_main_ui(page)
+  File "c:\G\Extra Python\MorningMoney\main.py", line 94, in build_main_ui
+    await configure_window(page, layout_mode)
+                                 ^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'layout_mode' where it is not associated with a value
+2026-02-20 16:08:30,809 - INFO - Session was garbage collected: Qy3QLULjxkjMvHQT
+2026-02-20 16:08:45,849 - INFO - Balance updated
+2026-02-20 16:08:45,850 - INFO - Balance updated
+2026-02-20 16:08:47,920 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 16:08:47,922 - INFO - Session was garbage collected: cL05KgXKR9cgm6QQ
+2026-02-20 16:12:57,776 - INFO - Balance updated
+2026-02-20 16:12:57,777 - INFO - Balance updated
+2026-02-20 16:13:07,701 - INFO - Session was garbage collected: 0y3yB6gFSxNv32rL
+2026-02-20 16:17:54,247 - INFO - Balance updated
+2026-02-20 16:17:54,248 - INFO - Balance updated
+2026-02-20 16:17:57,666 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 16:17:57,667 - INFO - Session was garbage collected: EP7iiItHJog9lBms
+2026-02-20 16:18:45,347 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 16:18:45,348 - INFO - Starting up TCP server on localhost:50828
+2026-02-20 16:18:45,358 - INFO - Flet app has started...
+2026-02-20 16:18:45,361 - INFO - App URL: tcp://localhost:50828
+2026-02-20 16:18:45,362 - INFO - Starting Flet View app...
+2026-02-20 16:18:45,363 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:18:45,363 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:18:45,557 - INFO - App session started
+2026-02-20 16:18:45,647 - INFO - Balance updated
+2026-02-20 16:18:45,648 - INFO - Balance updated
+2026-02-20 16:23:17,491 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 16:23:17,492 - INFO - Starting up TCP server on localhost:64106
+2026-02-20 16:23:17,501 - INFO - Flet app has started...
+2026-02-20 16:23:17,504 - INFO - App URL: tcp://localhost:64106
+2026-02-20 16:23:17,504 - INFO - Starting Flet View app...
+2026-02-20 16:23:17,505 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:23:17,505 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:23:17,786 - INFO - App session started
+2026-02-20 16:23:17,874 - INFO - Balance updated
+2026-02-20 16:23:17,875 - INFO - Balance updated
+2026-02-20 16:23:36,529 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 16:23:36,531 - INFO - Session was garbage collected: RzAwnfLEtvREwN6L
+2026-02-20 16:25:38,215 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 16:25:38,216 - INFO - Starting up TCP server on localhost:64121
+2026-02-20 16:25:38,226 - INFO - Flet app has started...
+2026-02-20 16:25:38,230 - INFO - App URL: tcp://localhost:64121
+2026-02-20 16:25:38,230 - INFO - Starting Flet View app...
+2026-02-20 16:25:38,231 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:25:38,231 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:25:38,458 - INFO - App session started
+2026-02-20 16:25:38,554 - INFO - Balance updated
+2026-02-20 16:25:38,554 - INFO - Balance updated
+2026-02-20 16:25:43,684 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 16:25:43,686 - INFO - Session was garbage collected: n7635HoUeQbgJBgD
+2026-02-20 16:25:49,121 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 16:25:49,122 - INFO - Starting up TCP server on localhost:64127
+2026-02-20 16:25:49,133 - INFO - Flet app has started...
+2026-02-20 16:25:49,137 - INFO - App URL: tcp://localhost:64127
+2026-02-20 16:25:49,137 - INFO - Starting Flet View app...
+2026-02-20 16:25:49,138 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:25:49,138 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:25:49,342 - INFO - App session started
+2026-02-20 16:25:49,430 - INFO - Balance updated
+2026-02-20 16:25:49,431 - INFO - Balance updated
+2026-02-20 16:25:57,456 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 16:25:57,458 - INFO - Session was garbage collected: ZHO49PDNT0uSxevj
+2026-02-20 16:27:15,201 - INFO - Assets path configured: C:\G\Extra Python\MorningMoney\assets
+2026-02-20 16:27:15,202 - INFO - Starting up TCP server on localhost:64135
+2026-02-20 16:27:15,212 - INFO - Flet app has started...
+2026-02-20 16:27:15,216 - INFO - App URL: tcp://localhost:64135
+2026-02-20 16:27:15,216 - INFO - Starting Flet View app...
+2026-02-20 16:27:15,217 - INFO - Looking for Flet executable at: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:27:15,217 - INFO - Flet View found in: C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\site-packages\flet_desktop\app\flet\flet.exe
+2026-02-20 16:27:15,430 - INFO - App session started
+2026-02-20 16:27:15,518 - INFO - Balance updated
+2026-02-20 16:27:15,519 - INFO - Balance updated
+2026-02-20 16:27:22,273 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost()
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
+Traceback (most recent call last):
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gerha\AppData\Local\Programs\Python\Python313\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-02-20 16:27:22,275 - INFO - Session was garbage collected: ET0HAPPod5l1QUtw
