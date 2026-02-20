@@ -1,8 +1,8 @@
 # ui/sections/desktop/new_entry_desktop.py
 import flet as ft
+import logging
 from ui.components.new_entry_form import new_entry_form
 from ui.components.investment_form import investment_form
-
 
 class NewEntryTab(ft.Column):
     def __init__(self, page: ft.Page, refresh_all=None):
@@ -77,7 +77,7 @@ class NewEntryTab(ft.Column):
             )
 
         except Exception as ex:
-
+            logging.exception("Error rebuilding NewEntryTab")
             error_msg = f"Error loading forms: {str(ex)}"
 
             self.transaction_container.content = ft.Text(
@@ -93,8 +93,5 @@ class NewEntryTab(ft.Column):
     # ---------------- REFRESH ---------------- #
 
     async def refresh(self):
-        """
-        Called from global refresh_all.
-        """
-
         self._rebuild_content()
+        self.update()
