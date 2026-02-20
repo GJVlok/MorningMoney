@@ -5,14 +5,14 @@ from src.services.core import svc_get_balance
 
 def build_desktop_ui(
     page: ft.Page,
-    new_entry_tab: ft.Container,
-    diary_tab: ft.Container,
-    monthly_tab: ft.Container,
-    investments_tab: ft.Container,
-    tags_insights_tab: ft.Container,
-    savings_brag_tab: ft.Container,
-    graphs_tab: ft.Container,
-    settings_tab: ft.Container,
+    new_entry_tab: ft.Control,
+    diary_tab: ft.Control,
+    monthly_tab: ft.Control,
+    investments_tab: ft.Control,
+    tags_insights_tab: ft.Control,
+    savings_brag_tab: ft.Control,
+    graphs_tab: ft.Control,
+    settings_tab: ft.Control,
 ) -> None:
 
     # ---------------- BALANCE ---------------- #
@@ -119,14 +119,6 @@ def build_desktop_ui(
             spacing=0,
         ),
     )
-
-    # ---------------- TAB CHANGE EVENT ---------------- #
-
-    def on_tab_change(e: ft.ControlEvent):
-        tabs_section.selected_index = tabs_section.selected_index
-        tabs_section.update()
-
-    tabs_section.on_change = on_tab_change
 
     # ---------------- MAIN LAYOUT ---------------- #
 
