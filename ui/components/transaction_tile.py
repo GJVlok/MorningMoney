@@ -6,6 +6,7 @@ from controls.dialogs import edit_transaction_dialog, delete_transaction
 from controls.common import money_text
 
 
+
 def transaction_tile(
     transaction: Transaction,
     page: ft.Page,
@@ -129,7 +130,6 @@ def transaction_tile(
         ],
     )
 
-    # ── Main responsive layout ───────────────────────────────────
     tile = ft.Container(
         content=ft.ResponsiveRow(
             columns=12,
@@ -170,10 +170,6 @@ def transaction_tile(
         padding=ft.padding.symmetric(horizontal=16, vertical=12),
         border_radius=12,
         bgcolor=ft.Colors.with_opacity(0.06, ft.Colors.PRIMARY),
-        on_hover=lambda e: (
-            setattr(e.control, "bgcolor", ft.Colors.with_opacity(0.12, ft.Colors.PRIMARY)),
-            e.control.update()
-        ),
     )
 
     return tile
