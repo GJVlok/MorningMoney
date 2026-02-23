@@ -35,7 +35,7 @@ class DiaryTab(ft.Column):
                 padding=20
             )
         ]
-        await self._page.safe_update()
+        self.list.update()
 
         from_d, to_d = None, None # Default to all
         if self.from_date.value or self.to_date.value: # Only phare if fields have input
@@ -73,4 +73,4 @@ class DiaryTab(ft.Column):
             ]
         # 4 Update both the list and the summary table
         self.list.controls = new_controls
-        await self._page.safe_update()
+        self.list.update()
