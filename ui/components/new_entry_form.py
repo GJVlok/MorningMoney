@@ -1,7 +1,6 @@
 # ui/components/new_entry_form.py
 import flet as ft
-from datetime import date as dt_date
-from datetime import datetime, timezone, timedelta
+from datetime import date as dt_date, datetime, timezone
 from decimal import Decimal, InvalidOperation
 import asyncio
 
@@ -29,96 +28,89 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     )
     page.overlay.append(date_picker)
 
+    async def set_date_to(date_obj: dt_date, do_update=True):
+        utc_midnight = datetime(
+            date_obj.year,
+            date_obj.month,
+            date_obj.day,
+            tzinfo=timezone.utc,
+        )
+
+        date_picker.value = utc_midnight
+        date_display.value = date_obj.strftime("%d %b %Y")
+
+        await page.shared_preferences.set(
+            "last_used_date",
+            date_obj.isoformat(),
+        )
+
+        if do_update and date_display.page is not None:
+            date_display.update()
+
+    async def on_date_changed(do_update=True):
+        if not date_picker.value:
+            return
+        utc_dt = date_picker.value
+        local_offset = datetime.now(timezone.utc).astimezone().utcoffset()
+        corrected_date = (utc_dt + local_offset).date()
+        await set_date_to(corrected_date, do_update=do_update)
+
     def open_date_picker(e=None):
         page.show_dialog(date_picker)
 
-    async def on_date_changed(do_update=True):  # ← add async
-        if date_picker.value:
-            # date_picker.value is datetime in UTC (midnight UTC of selected day)
-            utc_dt = date_picker.value
-            
-            # Get local timezone offset at that moment
-            # (datetime.now().astimezone().utcoffset() gives current offset, usually fine)
-            local_offset = datetime.now(timezone.utc).astimezone().utcoffset()
-            
-            # Shift the UTC datetime forward by the local offset → gets to local midnight
-            local_midnight_dt = utc_dt + local_offset
-            
-            # Extract the corrected date (should now match what user picked)
-            corrected_date = local_midnight_dt.date()
-            
-            print("Corrected date:", corrected_date)  # for debugging
-            
-            date_display.value = corrected_date.strftime("%d %b %Y")
-            
-            # Store the corrected local date as ISO string
-            await page.shared_preferences.set( # ← now safe to await
-                "last_used_date",
-                corrected_date.isoformat(),
-            )
-            if do_update:
-                date_display.update()
-
     date_picker.on_change = lambda e: page.run_task(on_date_changed, do_update=True)
 
-    # def handle_dismiss(e):
-    #     # Optional: do something when picker is closed without picking (or after picking)
-    #     # For example, just update display if needed, or nothing
-    #     pass
-
-    # date_picker.on_dismiss = handle_dismiss
-
     date_row = ft.Row(
-            [
-                ft.ElevatedButton(
-                    content=ft.Row(
-                        [
-                            ft.Icon(ft.Icons.CALENDAR_MONTH),
-                            ft.Text("Choose Date"),
-                        ],
-                        spacing=8,
-                    ),
-                    on_click=open_date_picker,
+        [
+            ft.ElevatedButton(
+                content=ft.Row(
+                    [
+                        ft.Icon(ft.Icons.CALENDAR_MONTH),
+                        ft.Text("Choose Date"),
+                    ],
+                    spacing=8,
                 ),
-                date_display,
-            ],
-            spacing=16,
-        )
+                on_click=open_date_picker,
+            ),
+            date_display,
+        ],
+        spacing=16,
+    )
 
-    # Load last date ASYNC
-    async def load_last_date(do_update=True):
+    async def load_last_date():
         last_date_str = await page.shared_preferences.get("last_used_date")
         if last_date_str:
             try:
                 last_date = dt_date.fromisoformat(last_date_str)
-                date_picker.value = last_date
-                date_display.value = last_date.strftime("%d %b %Y")
-                
-                if do_update:
-                    try:
-                        if date_display.page is not None:  # safe access now wrapped
-                            date_display.update()
-                    except RuntimeError:
-                        pass  # not mounted yet — skip, will render with new value anyway
             except ValueError:
-                pass
+                last_date = today
+        else:
+            last_date = today
 
-    # Fire the async load immediately (non-blocking)
-    page.run_task(load_last_date)
+        # Only set value, do NOT call update here
+        date_picker.value = datetime(
+            last_date.year,
+            last_date.month,
+            last_date.day,
+            tzinfo=timezone.utc
+        )
+        date_display.value = last_date.strftime("%d %b %Y")
 
     # ---------------- TYPE ---------------- #
 
-    def get_is_expense():
-        return "expense" in type_selector.selected
-
     type_selector = ft.SegmentedButton(
-        selected=["expense"],
-        show_selected_icon=False,
         segments=[
             ft.Segment(value="income", label=ft.Text("Income")),
             ft.Segment(value="expense", label=ft.Text("Expense")),
         ],
+        selected=["expense"],
+        allow_multiple_selection=False,
+        allow_empty_selection=False,
+        show_selected_icon=False,
     )
+
+    def get_is_expense():
+        return "expense" in type_selector.selected
 
     # ---------------- CATEGORY ---------------- #
 
@@ -140,20 +132,13 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
 
     def update_category_dropdown(do_update=True):
         if get_is_expense():
-            category_dropdown.options = [
-                ft.dropdown.Option(c)
-                for c in EXPENSE_CATEGORIES
-            ]
+            category_dropdown.options = [ft.dropdown.Option(c) for c in EXPENSE_CATEGORIES]
             category_dropdown.value = EXPENSE_CATEGORIES[0]
             category_dropdown.border_color = ft.Colors.RED_400
         else:
-            category_dropdown.options = [
-                ft.dropdown.Option(c)
-                for c in INCOME_CATEGORIES
-            ]
+            category_dropdown.options = [ft.dropdown.Option(c) for c in INCOME_CATEGORIES]
             category_dropdown.value = INCOME_CATEGORIES[0]
             category_dropdown.border_color = ft.Colors.GREEN_400
-
         if do_update and category_dropdown.page is not None:
             category_dropdown.update()
 
@@ -165,17 +150,9 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     # ---------------- AMOUNT ---------------- #
 
     def clean_decimal(val: str | None) -> Decimal:
-
         if not val or not val.strip():
             return Decimal("0.00")
-
-        clean = (
-            val.replace("R", "")
-            .replace("$", "")
-            .replace(",", "")
-            .strip()
-        )
-
+        clean = val.replace("R", "").replace("$", "").replace(",", "").strip()
         try:
             return Decimal(clean)
         except InvalidOperation:
@@ -198,22 +175,15 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     def update_amount_preview(e=None):
         try:
             val = clean_decimal(amount.value)
-
             if val == 0:
                 amount_preview.value = ""
             elif val < 0:
-                amount_preview.value = (
-                    f"Expense of {money_text(-val).value}"
-                )
+                amount_preview.value = f"Expense of {money_text(-val).value}"
             else:
-                amount_preview.value = (
-                    f"Income of {money_text(val).value}"
-                )
-
+                amount_preview.value = f"Income of {money_text(val).value}"
         except Exception:
             amount_preview.value = "Invalid amount"
-
-        if e is not None:
+        if e is not None and amount_preview.page is not None:
             amount_preview.update()
 
     amount.on_change = update_amount_preview
@@ -254,7 +224,7 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     )
 
     discount_container = ft.Container(
-        visible=False,
+        # visible=False,
         content=ft.Column(
             [
                 ft.Text(
@@ -276,155 +246,133 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
     )
 
     def update_saved_preview(do_update=True):
-        saved = Decimal("0.00")
-        msg = ""
-        color = ft.Colors.GREEN_300
-
         try:
             if not get_is_expense() or discount_type.value == "none":
                 saved_preview.value = ""
-                if do_update:
+                saved_preview.color = ft.Colors.GREY_400
+                if do_update and saved_preview.page is not None:
                     saved_preview.update()
                 return
 
             if discount_type.value == "fixed":
-
-                orig = clean_decimal(
-                    fixed_row.controls[0].value
-                )
-                paid = clean_decimal(
-                    fixed_row.controls[1].value
-                )
-
+                orig = clean_decimal(fixed_row.controls[0].value)
+                paid = clean_decimal(fixed_row.controls[1].value)
                 if orig <= paid:
-                    msg = "Original must be > Paid"
-                    color = ft.Colors.RED_400
+                    saved_preview.value = "Original must be > Paid"
+                    saved_preview.color = ft.Colors.RED_400
                 else:
-                    saved = orig - paid
-                    msg = f"Saved R{saved:,.2f}"
+                    saved_amt = orig - paid
+                    saved_preview.value = f"Saved R{saved_amt:,.2f}"
+                    saved_preview.color = ft.Colors.GREEN_300
 
             elif discount_type.value == "percent":
-
-                orig = clean_decimal(
-                    percent_row.controls[0].value
-                )
-
-                perc = clean_decimal(
-                    percent_row.controls[1].value or "0"
-                )
-
+                orig = clean_decimal(percent_row.controls[0].value)
+                perc = clean_decimal(percent_row.controls[1].value or "0")
                 if perc < 0 or perc > 100:
-                    msg = "Discount % must be 0-100"
-                    color = ft.Colors.RED_400
+                    saved_preview.value = "Discount % must be 0-100"
+                    saved_preview.color = ft.Colors.RED_400
                 else:
-                    saved = orig * (perc / Decimal("100"))
-                    msg = f"Saved R{saved:,.2f} ({perc}%)"
+                    saved_amt = orig * (perc / Decimal("100"))
+                    saved_preview.value = f"Saved R{saved_amt:,.2f} ({perc}%)"
+                    saved_preview.color = ft.Colors.GREEN_300
+
+            if do_update and saved_preview.page is not None:
+                saved_preview.update()
 
         except Exception:
-            msg = "Check numbers"
-            color = ft.Colors.RED_400
-
-        saved_preview.value = msg
-        saved_preview.color = color
-        if do_update:
-            saved_preview.update()
+            saved_preview.value = "Check numbers"
+            saved_preview.color = ft.Colors.RED_400
+            if do_update and saved_preview.page is not None:
+                saved_preview.update()
 
     def update_discount_fields(e=None):
-        is_exp = get_is_expense()
+        # No more visibility changes here — always show the container
+        fixed_row.visible = discount_type.value == "fixed"
+        percent_row.visible = discount_type.value == "percent"
+        update_saved_preview(do_update=False)
 
-        discount_container.visible = is_exp
-        discount_type.visible = is_exp
+        # Still update children (safe even if redundant)
+        for ctrl in (fixed_row, percent_row):
+            if ctrl.page is not None:
+                ctrl.update()
+        # Optional: discount_container.update() if you ever hide it again
 
-        fixed_row.visible = is_exp and discount_type.value == "fixed"
-        percent_row.visible = is_exp and discount_type.value == "percent"
+        # ← THIS IS THE FIX: explicitly update every control whose visibility changed
+        for ctrl in (discount_container, discount_type, fixed_row, percent_row):
+            if ctrl.page is not None:
+                ctrl.update()
 
-        update_saved_preview(do_update=(e is not None)) # pass False at init
+    # Hook input changes
+    for tf in fixed_row.controls + percent_row.controls:
+        tf.on_change = lambda e: update_saved_preview()
 
-        if e is not None:
-            discount_container.update()
-
-    discount_type.on_change = update_discount_fields
+    discount_type.on_change = lambda e: update_discount_fields()
 
     # ---------------- OTHER FIELDS ---------------- #
 
     tags = ft.TextField(label="Tags", expand=True)
-    notes = ft.TextField(
-        label="Notes",
-        multiline=True,
-        max_length=256,
-        expand=True,
-    )
+    notes = ft.TextField(label="Notes", multiline=True, max_length=256, expand=True)
 
     # ---------------- SUBMIT ---------------- #
 
     async def submit(e=None):
         try:
             amt_clean = clean_decimal(amount.value)
-
             if amt_clean == 0:
-                await page.show_snack(
-                    "Enter amount > 0",
-                    bgcolor="orange",
-                )
+                await page.show_snack("Enter amount > 0", bgcolor="orange")
                 return
 
             is_expense = get_is_expense()
+            final_amt = abs(amt_clean) if not is_expense else -abs(amt_clean)
 
-            final_amt = (
-                abs(amt_clean)
-                if not is_expense
-                else -abs(amt_clean)
-            )
-
-            saved_amt = Decimal("0.00")
-
-            # entry_date = date_picker.value or today
-            entry_date_raw = date_picker.value
-            if entry_date_raw:
-                local_offset = datetime.now(timezone.utc).astimezone().utcoffset()
-                corrected_dt = entry_date_raw + local_offset
-                entry_date = corrected_dt.date()
+            entry_value = date_picker.value
+            if isinstance(entry_value, datetime):
+                entry_date = entry_value.date()
+            elif isinstance(entry_value, dt_date):
+                entry_date = entry_value
             else:
-                entry_date = today
+                entry_date = dt_date.today()
+
+            saved_amount = Decimal("0.00")
+            if is_expense and discount_type.value != "none":
+                try:
+                    if discount_type.value == "fixed":
+                        orig = clean_decimal(fixed_row.controls[0].value)
+                        paid = clean_decimal(fixed_row.controls[1].value)
+                        if orig > paid:
+                            saved_amount = orig - paid
+                    elif discount_type.value == "percent":
+                        orig = clean_decimal(percent_row.controls[0].value)
+                        perc = clean_decimal(percent_row.controls[1].value or "0")
+                        if 0 <= perc <= 100:
+                            saved_amount = orig * (perc / Decimal("100"))
+                except Exception:
+                    saved_amount = Decimal("0.00")
 
             await asyncio.to_thread(
-                svc_add_transaction(
-                    date=entry_date,
-                    category=category_dropdown.value,
-                    amount=final_amt,
-                    description=notes.value.strip(),
-                    tags=tags.value.strip(),
-                    saved_amount=saved_amt,
-                )
+                svc_add_transaction,
+                date=entry_date,
+                category=category_dropdown.value,
+                amount=final_amt,
+                description=notes.value.strip(),
+                tags=tags.value.strip(),
+                saved_amount=saved_amount,
             )
 
-            await page.show_snack(
-                "Transaction saved!",
-                bgcolor="#2e7d32",
-            )
-
+            await page.show_snack("Transaction saved!", bgcolor="#2e7d32")
             amount.value = ""
             notes.value = ""
             tags.value = ""
-            saved_amt=""
-
-            page.update()
-
+            await set_date_to(dt_date.today(), do_update=True)
             if refresh_all:
                 await refresh_all()
+            page.update()
 
         except Exception as ex:
-
             print("Submit error:", ex)
+            await page.show_snack("Something went wrong", bgcolor="red")
 
-            await page.show_snack(
-                "Something went wrong",
-                bgcolor="red",
-            )
-
-    # Initial state
-    # update_category_dropdown(do_update=False)
-    # update_discount_fields()
+    # ---------------- MAIN COLUMN ---------------- #
 
     col = ft.Column(
         [
@@ -444,15 +392,11 @@ def new_entry_form(page: ft.Page, refresh_all) -> ft.Control:
         spacing=12,
     )
 
-    # Ask Flet to run this once the whole control is mounted on the page
     def on_mount():
-        # Now safe: all controls are mounted → .page is set
-        # Trigger the async load (it will run in background)
-        page.run_task(load_last_date, do_update=True)
-        
-        # Also apply initial visual updates for other parts if needed
-        update_category_dropdown(do_update=True)
-        update_discount_fields()  # e=None, so no forced container update, but visible props are set
+        page.run_task(load_last_date)
+        update_category_dropdown()
+        update_discount_fields()
+        update_amount_preview()
 
     col.did_mount = on_mount
 

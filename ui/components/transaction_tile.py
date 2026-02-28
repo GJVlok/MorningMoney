@@ -27,7 +27,7 @@ def transaction_tile(
     tag_chips = ft.Row(
         controls=[
             ft.Chip(
-                label=ft.Text(tag, size=11, color=ft.Colors.WHITE70),
+                label=ft.Text(tag, size=11, color=ft.Colors.WHITE_70),
                 bgcolor=ft.Colors.BLUE_GREY_800,
                 padding=ft.padding.symmetric(horizontal=8, vertical=2),
             )

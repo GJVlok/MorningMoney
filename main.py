@@ -59,7 +59,7 @@ async def configure_window(page, layout_mode):
         if layout_mode == "desktop":
             page.window.width = 1280
             page.window.height = 900
-            await page.window.center()
+            await page.window.top()
 
         elif layout_mode == "mobile":
             page.window.width = 400
